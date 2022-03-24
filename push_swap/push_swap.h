@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:03:11 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/03/23 18:57:32 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:46:11 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include "headersupreme.h"
 
 typedef struct node
 {
@@ -27,6 +28,6 @@ void	newnode(t_node **head, int value);
 void	printer(t_node **head);
 void	sa(t_node **head);
 int		ft_lstsize(t_node **head);
-void	pa(t_node **head);
+void	pa(t_node **head, t_node **head2);
 
 #endif

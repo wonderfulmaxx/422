@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:39:13 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/03/24 15:16:34 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:46:26 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_node	*head;
+	t_node	*head2;
 	int		value;
 	int		counter;
 
@@ -23,14 +24,16 @@ int	main(int argc, char **argv)
 	head = NULL;
 	while (counter < argc)
 	{
-		newnode(&head, atoi(argv[counter])); // atoi
+		newnode(&head, ft_atoi(argv[counter]));
 		counter ++;
 	}
 	printer(&head);
 	sa(&head);
-//	pa(&head);
+	pa(&head,&head2);
 	printf("\n\n");
 	printer(&head);
+	printf("\n\n");
+	printer(&head2);
 	return (0);
 }
 
