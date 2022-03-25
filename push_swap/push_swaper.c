@@ -33,6 +33,32 @@ void	sa(t_node **head)
 
 void	pa(t_node **head, t_node **head2)
 {
+	t_node *temp;
+
+	temp = (*head) -> next;
 	newnode(head2, (*head) -> data);
-	*head = (*head)->next;
+	free(*head);
+	*head = temp;
+}
+
+void	ra(t_node **head)
+{
+	t_node *temp;
+
+	temp = (*head) -> next;
+	newnode (head,(*head) -> data);
+	free(*head);
+	*head = temp;
+}
+
+void	rra(t_node **head)
+{
+	t_node	*temp;
+	t_node	*search;
+
+	temp = (*head) -> next;
+	while(temp -> next -> next != NULL)
+	{
+		temp = temp -> next;
+	}
 }

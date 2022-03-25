@@ -29,5 +29,6 @@ void	printer(t_node **head);
 void	sa(t_node **head);
 int		ft_lstsize(t_node **head);
 void	pa(t_node **head, t_node **head2);
+void	ra(t_node **head);
 
 #endif

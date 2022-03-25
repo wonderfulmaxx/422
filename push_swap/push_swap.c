@@ -22,15 +22,17 @@ int	main(int argc, char **argv)
 	counter = 1;
 	value = 666;
 	head = NULL;
+	head2 = NULL;
 	while (counter < argc)
 	{
-		newnode(&head, ft_atoi(argv[counter]));
+		newnode(&head, atoi(argv[counter])); // atoi
 		counter ++;
 	}
 	printer(&head);
-	sa(&head);
-	pa(&head,&head2);
-	printf("\n\n");
+	//sa(&head);
+	printf("----------------------------------\n");
+	//pa(&head,&head2);
+	ra(&head);
 	printer(&head);
 	printf("\n\n");
 	printer(&head2);
@@ -51,7 +53,7 @@ void	newnode(t_node **head, int value)
 	{
 		lastnode = *head;
 		while (lastnode -> next != NULL)
-			lastnode = lastnode -> next;
+				lastnode = lastnode -> next;
 		lastnode -> next = newnode;
 	}
 }
