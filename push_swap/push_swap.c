@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:39:13 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/03/24 15:46:26 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:09:47 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	//sa(&head);
 	printf("----------------------------------\n");
 	//pa(&head,&head2);
-	ra(&head);
+	rra(&head);
 	printer(&head);
 	printf("\n\n");
 	printer(&head2);
