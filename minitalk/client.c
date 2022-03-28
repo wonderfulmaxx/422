@@ -6,7 +6,16 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:20:29 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/03/28 16:20:31 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:03:03 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include	<signal.h>
+#include <unistd.h>
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+	kill();
+	return(0);
+}
