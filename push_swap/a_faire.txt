@@ -1,0 +1,2 @@
+ft_atoi et la lib qui marche pas 
+makefile qui inclue pas la lib
