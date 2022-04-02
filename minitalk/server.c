@@ -6,18 +6,15 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:20:25 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/01 18:31:21 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/04/02 16:15:20 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "srcs/libft.h"
+#include "includes/minitalk.h"
 
 char g_converter[9];
 
-void	printer(void)
+void	printer(int pid)
 {
 	int	counter;
 	int	char_value;
@@ -30,12 +27,18 @@ void	printer(void)
 		counter ++;
 	}
 	write(1, &char_value, 1);
+	if (char_value == 10)
+	{
+		usleep(120);
+		kill (pid, SIGUSR1);
+	}
 }
 
 void	handler(int sig, siginfo_t *siginfo, void *context)
 {
 	static int	counter;
 
+	context = NULL;
 	if (counter == 8)
 		counter = 0;
 	if (sig == 30)
@@ -46,24 +49,9 @@ void	handler(int sig, siginfo_t *siginfo, void *context)
 	if (counter == 8)
 	{
 		g_converter[counter] = '\0';
-		printer();
+		printer(siginfo->si_pid);
 	}
 }
-
-// int	main(void)
-// {
-// 	struct sigaction	s_action;
-
-// 	s_action.sa_sigaction = handler;
-// 	ft_printf("Salut, PID => %d\n", getpid());
-// 	while (1)
-// 	{
-// 		sigaction(SIGUSR1, &s_action, NULL);
-// 		sigaction(SIGUSR2, &s_action, NULL);
-// 		pause();
-// 	}
-// 	return (0);
-// }
 
 int	main(void)
 {
@@ -79,5 +67,5 @@ int	main(void)
 	free(pid);
 	while (1)
 		pause();
-	return (1);
+	return (0);
 }

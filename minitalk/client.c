@@ -6,14 +6,18 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:20:29 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/01 18:31:17 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/04/02 16:15:38 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "srcs/libft.h"
+#include "includes/minitalk.h"
+
+void	success(int sig)
+{
+	(void)sig;
+	write(1, "Data has been received.\n", 25);
+	exit(0);
+}
 
 void	char_sender(int pid_server, char letter)
 {
@@ -41,9 +45,18 @@ int	main(int argc, char **argv)
 	int	counter;
 
 	counter = 0;
+	if (argc < 2)
+	{
+		ft_printf("Please, enter a PID");
+		return (0);
+	}
 	pid_server = ft_atoi(argv[1]);
 	while (argv[2][counter])
 		char_sender(pid_server, argv[2][counter++]);
 	char_sender(pid_server, '\n');
+	signal(SIGUSR1, success);
+	while (1)
+		pause();
 	return (0);
 }
+/////////ET SI MAIVAIS PID?? SI MESSAGE NULL?
