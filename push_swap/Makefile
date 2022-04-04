@@ -6,7 +6,7 @@
 #    By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/23 11:13:16 by mwinter-          #+#    #+#              #
-#    Updated: 2022/03/23 12:41:33 by mwinter-         ###   ########.fr        #
+#    Updated: 2022/04/04 16:04:27 by mwinter-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRCS =  push_swap.c push_swaper.c
 
 OBJS 		= ${SRCS:.c=.o}
 
-NAME 		= a.out
+NAME 		= push_swap
 
 CC 			= gcc
 RM 			= rm -f
@@ -27,7 +27,7 @@ CFLAGS 		= -Wall -Wextra -Werror
 				${CC} -c $< -o ${<:.c=.o}
 
 $(NAME): 	${OBJS}
-				${CC} -o ${NAME} ${OBJS}
+				${CC} -o ${NAME} ${OBJS} lib42/libft.a
 
 all:		$(NAME)
 
