@@ -5,42 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/23 11:13:16 by mwinter-          #+#    #+#              #
-#    Updated: 2022/04/06 16:51:25 by mwinter-         ###   ########.fr        #
+#    Created: 2022/04/04 18:01:43 by mwinter-          #+#    #+#              #
+#    Updated: 2022/04/04 18:18:31 by mwinter-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =  push_swap.c push_swaper.c push_swaper2.c
+NAME = so_long
 
-OBJS 		= ${SRCS:.c=.o}
+all:	$(NAME)
 
-NAME 		= push_swap
+%.o: %.c
+	@$gcc -Wall -Werror -Wextra -Imlx -c $< -o $@
 
-CC 			= gcc
-RM 			= rm -rf
-AR 			= ar rcs
-RN 			= ar rcs
-
-CFLAGS 		= -Wall -Wextra -Werror
-
-.c.o:
-				${CC} -c $< -o ${<:.c=.o}
-
-$(NAME): 	${OBJS}
-				${CC} -o ${NAME} ${OBJS} lib42/libft.a
-
-all:		$(NAME)
-
-debug:		
-				gcc -o push_swap.debug push_swap.c push_swaper.c lib42/libft.a -g
-
-clean:
-				${RM} ${OBJS}
-
-fclean:		clean
-				${RM} $(NAME)
-
-fcleandebug:  fclean
-				${RM} push_swap.debug .vscode push_swap.debug.dSYM
-
-re:			fclean all
+$(NAME): so_long.c
+		gcc so_long.c -Lmlx-lmlx -framework OpenGL -framework AppKit -o so_long ./srcs/libft.a
