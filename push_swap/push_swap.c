@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:39:13 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/06 16:52:34 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/04/09 23:08:01 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,99 @@ int	main(int argc, char **argv)
 {
 	t_node	*head;
 	t_node	*head2;
-	int		counter;
+	int		*int_input;
 
-	counter = 1;
 	head = NULL;
 	head2 = NULL;
-	while (counter < argc)
-	{
-		newnode(&head, ft_atoi(argv[counter]));
-		counter ++;
-	}
+	
+	int_input = easy_number(argc, argv);
+	parsing (argc, int_input, &head, &head2);
+	a_is_sorted(&head);
+	//if(ft_lstsize(&head) <= 5)
+//		sort_small_stack();
+//	else
+//		sort_big_stack();
+	
+	printer(&head, &head2);
 	return (0);
 }
 
+///////////////////////////////////////////////
+
+int	*easy_number(int argc, char **argv)
+{
+	int		*sorted;
+	int		counter;
+	int		argv_counter;
+	int		*new_argv_int;
+
+	counter = 0;
+	sorted = malloc(sizeof(int) * argc-1);
+	new_argv_int = malloc(sizeof(int) * argc-1);
+	while (counter < argc -1)     //new_arg = argv
+	{
+		new_argv_int[counter] = ft_atoi(argv[counter + 1]);
+		counter ++;
+	}
+	counter = 0;
+	while (counter < argc -1) // sorted = (new_argv et argv)
+	{
+		sorted[counter] = new_argv_int[counter];
+		counter ++;
+	}
+	ft_sort_int_tab(sorted, argc-1);  // sorted est trier
+	counter = 0;
+	argv_counter = 0;
+	while (counter < argc -1)
+	{
+		while (sorted[counter] != new_argv_int[argv_counter])
+			argv_counter ++;
+		new_argv_int[argv_counter] = counter;
+		argv_counter = 0;
+		counter ++;
+	}
+	free(sorted);
+	return (new_argv_int);
+}
+
+
+void	a_is_sorted(t_node **head)
+{
+	t_node	*search;
+	int		is_sorted;
+	int		checker;
+
+	is_sorted = 1;
+	if (*head)
+	{
+		checker	= (*head) ->data; 
+		search = *head;
+		while (search != NULL)
+		{
+			if (checker > search -> data)
+				is_sorted = 0;
+			checker = search -> data;
+			search = search ->next;
+		}
+	}
+	if (is_sorted)
+		exit(0);
+}
+
+void	parsing(int argc, int *argv, t_node **head, t_node **head2)
+{
+	int		counter;
+
+	counter = 0;
+
+	while (counter < argc-1)
+	{
+		newnode(head, (argv[counter]));
+		counter ++;
+	}
+}
+
+/////////////////////////////////////////////////////////
 void	newnode(t_node **head, int value)
 {
 	t_node	*newnode;

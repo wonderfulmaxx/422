@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 11:03:11 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/06 16:51:38 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/04/09 23:06:49 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ typedef struct node
 	int				data;
 }	t_node;
 
+int		*easy_number(int argc, char **argv);
+void	a_is_sorted(t_node **head);
+void	sort_big_stack(t_node **head, int argc);
+void	sort_small_stack(t_node **head, int argc);
+void	parsing(int argc, int *argv, t_node **head, t_node **head2);
 void	newnode(t_node **head, int value);
 void	printer(t_node **head, t_node **head2);
 void	sa(t_node **head, int natif);

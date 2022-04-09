@@ -6,7 +6,7 @@
 #    By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/23 11:13:16 by mwinter-          #+#    #+#              #
-#    Updated: 2022/04/06 16:51:25 by mwinter-         ###   ########.fr        #
+#    Updated: 2022/04/09 18:29:43 by mwinter-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ $(NAME): 	${OBJS}
 all:		$(NAME)
 
 debug:		
-				gcc -o push_swap.debug push_swap.c push_swaper.c lib42/libft.a -g
+				gcc -o push_swap.debug ${OBJS} lib42/libft.a -g
 
 clean:
 				${RM} ${OBJS}
