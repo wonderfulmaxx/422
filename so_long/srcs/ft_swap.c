@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 16:10:10 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/10 16:36:42 by mwinter-         ###   ########.fr       */
+/*   Created: 2022/04/09 20:04:00 by mwinter-          #+#    #+#             */
+/*   Updated: 2022/04/09 20:28:30 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header/so_long.h"
+#include "libft.h"
 
-int	theosucemonbeat(int keycode, t_vars *vars)
+void	ft_swap(int *a, int *b)
 {
-	ft_printf("keycode = %d\n",keycode);
-//	if (keycode == 53)
-//		mlx_destroy_window(vars->mlx, vars->win);
-	return (0);
-}
+	int	c;
 
-int	main(void)
-{
-	t_vars	vars;
-
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, theosucemonbeat, &vars);
-	mlx_loop(vars.mlx);
+	c = *a;
+	*a = *b;
+	*b = c;
 }

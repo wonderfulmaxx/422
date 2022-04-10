@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_sort_int_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 16:10:10 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/10 16:36:42 by mwinter-         ###   ########.fr       */
+/*   Created: 2022/04/09 20:05:13 by mwinter-          #+#    #+#             */
+/*   Updated: 2022/04/09 20:27:49 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header/so_long.h"
+#include "libft.h"
 
-int	theosucemonbeat(int keycode, t_vars *vars)
+void	ft_sort_int_tab(int *tab, int size)
 {
-	ft_printf("keycode = %d\n",keycode);
-//	if (keycode == 53)
-//		mlx_destroy_window(vars->mlx, vars->win);
-	return (0);
-}
+	int	pivot;
+	int	i;
+	int	j;
 
-int	main(void)
-{
-	t_vars	vars;
-
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, theosucemonbeat, &vars);
-	mlx_loop(vars.mlx);
+	if (size < 2)
+		return ;
+	pivot = tab[--size];
+	i = 0;
+	j = -1;
+	while (++j < size)
+		if (tab[j] < pivot)
+			ft_swap(&tab[i++], &tab[j]);
+	if (tab[i] > tab[size])
+		ft_swap(&tab[i], &tab[size]);
+	ft_sort_int_tab(tab, i);
+	ft_sort_int_tab(tab + i + 1, size - i);
 }

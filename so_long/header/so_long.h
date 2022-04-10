@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 16:10:10 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/10 16:36:42 by mwinter-         ###   ########.fr       */
+/*   Created: 2022/04/10 13:04:21 by mwinter-          #+#    #+#             */
+/*   Updated: 2022/04/10 16:35:21 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header/so_long.h"
+#ifndef SO_LONG_H
 
-int	theosucemonbeat(int keycode, t_vars *vars)
-{
-	ft_printf("keycode = %d\n",keycode);
-//	if (keycode == 53)
-//		mlx_destroy_window(vars->mlx, vars->win);
-	return (0);
-}
+#define SO_LONG_H
 
-int	main(void)
-{
-	t_vars	vars;
+#include <mlx.h>
+//#include <unistd.h>
+#include "../srcs/libft.h"
 
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, theosucemonbeat, &vars);
-	mlx_loop(vars.mlx);
-}
+typedef struct s_data {
+
+void	*img;
+char	*addr;
+int		bits_per_pixel;
+int		line_lenght;
+int		endian;
+}	t_data;
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+#endif

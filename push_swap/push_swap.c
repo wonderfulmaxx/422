@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:39:13 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/04/09 23:08:01 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/04/10 12:54:19 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	
 	int_input = easy_number(argc, argv);
 	parsing (argc, int_input, &head, &head2);
+	free(int_input);
 	a_is_sorted(&head);
 	//if(ft_lstsize(&head) <= 5)
 //		sort_small_stack();
