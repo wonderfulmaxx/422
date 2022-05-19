@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:57:28 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/18 23:55:07 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/19 11:24:21 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ typedef struct s_philo
 	pthread_mutex_t	*right_mutex;
 
 	pthread_t	fatboy;
-
-	struct timeval start;
-	int		starto;
 	struct timeval end;
+	
+	struct timeval *start_ptr;
+	struct timeval *end_ptr;
 } t_philosophe;
 
 typedef struct s_rules
@@ -60,8 +60,8 @@ void	*life_is_hard(void *data)
 		sleep(1);
 		pthread_mutex_unlock( barbu -> left_mutex);
 		pthread_mutex_unlock ( barbu -> right_mutex);
-		gettimeofday (&barbu->start, NULL);				//FO METR UN POINTER
-		 barbu->starto = barbu -> start.tv_usec;
+		gettimeofday (barbu->start_ptr, NULL);				//FO METR UN POINTER
+		 //barbu->starto = barbu -> start.tv_sec;
 	}
 	return (NULL);
 }
@@ -70,19 +70,19 @@ void	*last_meal(void *data)
 {
 	t_philosophe *barbu;
 	barbu = (t_philosophe *)data;
-	 while (1)
-	 {
-		 sleep(2);
+	while (1)
+	{
+		sleep(2);
 		gettimeofday(&barbu->end, NULL);
-		printf("tddr philo[%d] = %d\n", barbu->id, barbu->end.tv_usec - barbu->start.tv_usec);
-		if(barbu->end.tv_usec - barbu->starto > CHATTE)
+		printf("tddr philo[%d] = %ld\n", barbu->id, barbu->end.tv_sec - barbu->start_ptr->tv_sec);
+		if(barbu->end.tv_sec - barbu->start_ptr->tv_sec > CHATTE)
 	 		printf("BOOOOOOOOOOOM\nBOOOOOOOOOOOM\nBOOOOOOOOOOOM\nBOOOOOOOOOOOM\nBOOOOOOOOOOOM\n");
-	 }
-	//sleep(2);
+	}
+	sleep(2);
 	
-//	printf("end philo[%d] = %d\n", barbu->id, barbu->end.tv_usec); //- barbu->start.tv_usec);
-//	printf("start philo[%d] = %d\n", barbu->id, barbu->start.tv_usec );
-	printf("tddr philo[%d] = %d\n", barbu->id, barbu->end.tv_usec - barbu->start.tv_usec);
+//	printf("end philo[%d] = %d\n", barbu->id, barbu->end.tv_sec); //- barbu->start.tv_sec);
+//	printf("start philo[%d] = %d\n", barbu->id, barbu->start.tv_sec );
+	//printf("tddr philo[%d] = %ld\n", barbu->id, barbu->end.tv_sec - barbu->start.tv_sec);
 	return (NULL);
 }
 
@@ -99,21 +99,26 @@ int	main(int argc, char ** argv)
 	int attend_connard = 0;
 
 
-	//struct timeval start;
-	//struct timeval end;
+	struct timeval start[250];
+	//struct timeval end[250];
 	
-
+//	struct timeval start;
 
 	input = atoi(argv[1]) + 1;
 	printf("%d\n",input);
 	
 	pthread_mutex_t	fourchettes[250];
 
+	//gettimeofday (&start, NULL);
+
+
+
 	while (counter < input)
 	{
 		rules.phi[counter].id = counter;
 		pthread_mutex_init(&fourchettes[counter], NULL);
-		gettimeofday(&rules.phi[counter].start, NULL);		//activer apres initialisation
+		rules.phi[counter].start_ptr=&start[counter];
+		gettimeofday(rules.phi[counter].start_ptr, NULL);		//activer apres initialisation
 		//printf("----------------------%d",rules.phi[counter].start.tv_sec);
 		pthread_create(&rules.phi[counter].fatboy, NULL, last_meal, &rules.phi[counter]);
 		counter ++;
