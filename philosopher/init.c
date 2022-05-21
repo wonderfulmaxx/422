@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:27:13 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 06:58:23 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 20:40:13 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 //init mutex + fork id et associe un philo a ses fourchette
 t_rules	init_forks(t_rules rules, pthread_mutex_t *fourchettes, int input)
 {
-	int counter = 1;
+	int	counter;
+
+	counter = 1;
 	pthread_mutex_init(&fourchettes[counter], NULL);
 	while (counter < input)
 	{
@@ -51,7 +53,13 @@ t_rules	init_philo(t_rules rules, int input)
 		counter ++;
 	}
 	return (rules);
-}	
+}
 
-
-
+t_rules	init_input(char **argv, t_rules rules)
+{
+	rules.time_to_sleep = atoi(argv[4]);
+	rules.input = atoi(argv[1]) + 1;
+	rules.time_to_die = atoi(argv[2]);
+	rules.time_to_eat = atoi(argv[3]);
+	return (rules);
+}

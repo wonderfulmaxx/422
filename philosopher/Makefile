@@ -1,16 +1,34 @@
-SRCS = philosopher.c launcher.c init.c utils.c
-CFLAGS = -Werror -Wall -Wextra 
+SRCS	= philosopher.c utils.c launcher.c init.c
 
-all:
-	gcc $(SRCS) -o philosopher -g
+OBJS	= $(SRCS:.c=.o)
 
-extern:
-	gcc -pthread $(SRCS) -o philosopher
+NAME	= philosopher
+
+CLANG	= clang
+
+FLAGS	= -Wall -Wextra -Werror
+
+INCLUDE	= -lpthread
+
+HEADER	= philo.h
+
+
+
+
+all:	$(NAME)
+
+.PHONY:	clean fclean re bonus bench bclean
+
+$(NAME): $(OBJS)
+	$(CLANG) $(INCLUDE) $(FLAGS) -o $(NAME) $(OBJS)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS) $(B_OBJS)
 
-fclean : clean 
-	rm -f philosopher
+fclean: clean
+	rm -f $(NAME) $(BONUS)
 
 re: fclean all
+
+%.o: %.c $(HEADER)
+	$(CLANG) $(FLAGS) -c $<  -o $(<:.c=.o)
