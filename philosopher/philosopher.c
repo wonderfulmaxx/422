@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:57:28 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 08:14:40 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 17:31:22 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*life_is_hard(void *data)
 	
 	barbu->last_eat_ptr = timestamp();
 
-	while (1)
+	while (barbu->p_must_eat != 0)
 	{
 	//	printf ("%d-J'ai besoin de la fourchette %d et %d\n",barbu -> id, barbu -> left_fork ,barbu -> right_fork);
 		pthread_mutex_lock ( barbu->left_mutex);
@@ -31,27 +31,34 @@ void	*life_is_hard(void *data)
 		pthread_mutex_unlock( barbu -> left_mutex);
 		pthread_mutex_unlock ( barbu -> right_mutex);
 		smart_sleep(barbu->p_time_to_sleep);
-		usleep (200);
+		usleep (60);
+		if (barbu->p_must_eat > 0)
+			barbu->p_must_eat --;
 	}
 	return (NULL);
 }
 
 int	main(int argc, char ** argv)
 {
-	if (argc != 6)
+	if (argc != 6 && argc != 5)
 	{
 		printf ("error");
 		return (0);
 	} 
 	int input;
 	int counter = 1;
+	int kasseur_floter = 1;
 	t_rules		rules;
 	
 	rules.time_to_sleep = atoi(argv[4]);
 	input = atoi(argv[1]) + 1;
 	rules.time_to_die = atoi(argv[2]);
 	rules.time_to_eat = atoi(argv[3]);
-	rules.must_eat = atoi(argv[5]);
+
+	if (argc == 6)
+		rules.must_eat = atoi(argv[5]);
+	else 
+		rules.must_eat = -1;
 	//printf("%d\n",input);
 
 
@@ -66,24 +73,28 @@ int	main(int argc, char ** argv)
 		counter ++;
 	}
 	rules = init_forks(rules, fourchettes, input);
-	launcher(&rules, input);
+	launcher(&rules, input, &kasseur_floter);
 	
 
-	while(1)
+	while(kasseur_floter)
 	{
 		counter = 1;
-		while (counter < (input))
+		while (counter < input)
 		{
 			//sleep (1);
 			//printf("Barbu %d lasteat = %ld\n",counter,rules.phi[counter].last_eat_ptr);
-			if (timestamp() - rules.phi[counter].last_eat_ptr  > rules.time_to_die * 1000)
-				printf("Macron Exploooooosion\n");
-			//printf("%d- tddr = %ld, time_to_die = %d\n",rules.phi[counter].id,  timestamp() - rules.phi[counter].last_eat_ptr, rules.time_to_die);
+			if (timestamp() - rules.phi[counter].last_eat_ptr  > rules.time_to_die )
+				{
+					printf("Macron Exploooooosion\n");
+					breaker(fourchettes, input);
+				}
+			printf("%d- tddr = %lld, time_to_die = %d\n",rules.phi[counter].id,  timestamp() - rules.phi[counter].last_eat_ptr, rules.time_to_die);
 			counter ++;
 		}
 		//printf("\n----------------------------\n\n");
 	}
 
+	printf("Les philosophes se sont biens ralass\n");
 	return (0);
 }
 

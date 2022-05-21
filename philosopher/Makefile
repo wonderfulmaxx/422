@@ -1,8 +1,8 @@
 SRCS = philosopher.c launcher.c init.c utils.c
-FLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra 
 
 all:
-	gcc $(SRCS) -o philosopher
+	gcc $(SRCS) -o philosopher -g
 
 extern:
 	gcc -pthread $(SRCS) -o philosopher

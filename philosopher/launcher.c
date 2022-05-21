@@ -6,14 +6,14 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:03:35 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 07:37:57 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 16:45:11 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
 //lance les threads dans le bon ordre puis attend leur fin
-void	launcher(t_rules *rules, int input)
+void	launcher(t_rules *rules, int input, int *kasser)
 {
 	int counter = 1;
 	int attend_connard = 0;
@@ -43,9 +43,10 @@ void	launcher(t_rules *rules, int input)
 	counter = 1;
 
 	//return (rules);
-	//while (counter < input)
-	//{
-	//	pthread_join(rules.phi[counter].life, NULL);
-	//	counter ++;
-	//}
+	while (counter < input)
+	{
+		pthread_join(rules->phi[counter].life, NULL);
+		counter ++;
+	}
+	*kasser = 0;
 }
