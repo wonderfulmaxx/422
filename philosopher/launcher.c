@@ -6,12 +6,13 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:03:35 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/19 12:05:16 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 00:52:59 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
+//lance les threads dans le bon ordre puis attend leur fin
 void	launcher(t_rules rules, int input)
 {
 	int counter = 1;

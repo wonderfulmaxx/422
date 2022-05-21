@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:57:28 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/19 12:13:42 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 01:04:31 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ void	*life_is_hard(void *data)
 		pthread_mutex_lock ( barbu->left_mutex);
 		pthread_mutex_lock (barbu ->right_mutex);
 		printf("%d-Cool elles sont dispos!\n",barbu -> id);
-		sleep(2);
-		printf("%d-ma bien ralass\n",barbu -> id);
-		sleep(1);
+		smart_sleep(barbu->p_time_to_eat);
+		printf("%d- trop manger.. go dodo\n",barbu -> id);
 		pthread_mutex_unlock( barbu -> left_mutex);
 		pthread_mutex_unlock ( barbu -> right_mutex);
-		sleep (2);
+		smart_sleep(barbu->p_time_to_sleep);
+		usleep (200);
 	}
 	return (NULL);
 }
 
 int	main(int argc, char ** argv)
 {
-	if (argc != 2)
+	if (argc != 6)
 	{
 		printf ("error");
 		return (0);
@@ -46,6 +46,9 @@ int	main(int argc, char ** argv)
 	
 	rules.time_to_sleep = atoi(argv[4]);
 	input = atoi(argv[1]) + 1;
+	rules.time_to_die = atoi(argv[2]);
+	rules.time_to_eat = atoi(argv[3]);
+	rules.must_eat = atoi(argv[5]);
 	printf("%d\n",input);
 
 	pthread_mutex_t	fourchettes[250];
@@ -55,6 +58,10 @@ int	main(int argc, char ** argv)
 	launcher(rules, input);
 	counter = 1;
 
+	while (1)
+	{
+		printf("lol");
+	}
 
 	return (0);
 }
