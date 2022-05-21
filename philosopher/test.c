@@ -6,8 +6,8 @@
 
 
 
-int main() {
-
+int main() 
+{
 
     struct timeval start;
     struct timeval end;

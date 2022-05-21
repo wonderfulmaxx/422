@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:57:28 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 07:00:45 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 08:14:40 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char ** argv)
 		counter ++;
 	}
 	rules = init_forks(rules, fourchettes, input);
-	rules = launcher(rules, input);
+	launcher(&rules, input);
 	
 
 	while(1)
@@ -74,11 +74,14 @@ int	main(int argc, char ** argv)
 		counter = 1;
 		while (counter < (input))
 		{
-			sleep (1);
-			printf("Barbu %d lasteat = %ld\n",counter,rules.phi[counter].last_eat_ptr);
+			//sleep (1);
+			//printf("Barbu %d lasteat = %ld\n",counter,rules.phi[counter].last_eat_ptr);
+			if (timestamp() - rules.phi[counter].last_eat_ptr  > rules.time_to_die * 1000)
+				printf("Macron Exploooooosion\n");
+			//printf("%d- tddr = %ld, time_to_die = %d\n",rules.phi[counter].id,  timestamp() - rules.phi[counter].last_eat_ptr, rules.time_to_die);
 			counter ++;
 		}
-		printf("\n----------------------------\n\n");
+		//printf("\n----------------------------\n\n");
 	}
 
 	return (0);
