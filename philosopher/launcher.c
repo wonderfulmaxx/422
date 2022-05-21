@@ -6,14 +6,14 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:03:35 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 00:52:59 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 06:56:14 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
 //lance les threads dans le bon ordre puis attend leur fin
-void	launcher(t_rules rules, int input)
+t_rules	launcher(t_rules rules, int input)
 {
 	int counter = 1;
 	int attend_connard = 0;
@@ -30,17 +30,22 @@ void	launcher(t_rules rules, int input)
 			counter ++;
 			attend_connard =2;
 		}
+		rules.phi[counter].last_eat_ptr = timestamp();
 		pthread_create(&rules.phi[counter].life, NULL , life_is_hard, &rules.phi[counter]); 
 		counter ++;
 	}
 	usleep(120);
 	if (attend_connard == 2)
-		pthread_create(&rules.phi[1].life, NULL , life_is_hard, &rules.phi[1]);
-	
-	counter = 1;
-	while (counter < input)
 	{
-		pthread_join(rules.phi[counter].life, NULL);
-		counter ++;
+		rules.phi[1].last_eat_ptr = timestamp();
+		pthread_create(&rules.phi[1].life, NULL , life_is_hard, &rules.phi[1]);
 	}
+	counter = 1;
+
+	return (rules);
+	//while (counter < input)
+	//{
+	//	pthread_join(rules.phi[counter].life, NULL);
+	//	counter ++;
+	//}
 }

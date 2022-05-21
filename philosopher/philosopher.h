@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:25:34 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 00:56:57 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/21 06:49:30 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_philo
 	int p_time_to_eat;
 	int p_must_eat;
 
+	long long last_eat_ptr;
+
 	//pthread_t	fatboy;
 	//struct timeval end;
 	//struct timeval *start_ptr;
@@ -55,5 +57,6 @@ typedef struct s_rules
 void	*life_is_hard(void *data);
 t_rules	init_forks(t_rules rules, pthread_mutex_t *fourchettes, int input);
 t_rules	init_philo(t_rules rules, int input);
-void	launcher(t_rules rules, int input);
+t_rules	launcher(t_rules rules, int input);
 void    smart_sleep(int time);
+long long		timestamp(void);
