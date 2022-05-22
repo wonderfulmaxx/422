@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 11:27:13 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 20:40:13 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:00:06 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_rules	init_forks(t_rules rules, pthread_mutex_t *fourchettes, int input)
 	pthread_mutex_init(&fourchettes[counter], NULL);
 	while (counter < input)
 	{
-		pthread_mutex_init( &fourchettes[counter] , NULL);
+		pthread_mutex_init(&fourchettes[counter], NULL);
 		if (counter != 1)
 		{
 			rules.phi[counter].left_fork = counter - 1;
@@ -29,10 +29,10 @@ t_rules	init_forks(t_rules rules, pthread_mutex_t *fourchettes, int input)
 		}
 		else
 		{
-			rules.phi[counter].left_fork = input-1;
+			rules.phi[counter].left_fork = input - 1;
 			rules.phi[counter].left_mutex = &fourchettes[input - 1];
 		}
-		rules.phi[counter].right_fork =counter;
+		rules.phi[counter].right_fork = counter;
 		rules.phi[counter].right_mutex = &fourchettes[counter];
 		counter ++;
 	}
@@ -42,7 +42,9 @@ t_rules	init_forks(t_rules rules, pthread_mutex_t *fourchettes, int input)
 //donne un id a chaque philo et ses p_times
 t_rules	init_philo(t_rules rules, int input)
 {
-	int counter = 1;
+	int	counter;
+
+	counter = 1;
 	while (counter < input)
 	{
 		rules.phi[counter].id = counter;

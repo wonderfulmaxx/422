@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:57:28 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/05/21 20:55:50 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:11:00 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	*life_is_hard(void *data)
 	{
 		pthread_mutex_lock (b->left_mutex);
 		pthread_mutex_lock (b ->right_mutex);
-		printf ("%d has taken a fork\n%d has taken a fork\n%d is eating\n",
-			b -> id, b -> id, b -> id);
+		printf ("%lld %d taken a fork\n%lld %d taken a fork\n%lld %d eating\n",
+			timestamp(), b -> id, timestamp(), b -> id, timestamp(), b -> id);
 		smart_sleep(b->p_time_to_eat);
 		b->last_eat_ptr = timestamp();
 		pthread_mutex_unlock (b -> left_mutex);
 		pthread_mutex_unlock (b -> right_mutex);
-		printf("%d is sleeping\n", b -> id);
+		printf("%lld %d is sleeping\n", timestamp(), b -> id);
 		smart_sleep(b->p_time_to_sleep);
 		usleep (600);
 		if (b->p_must_eat > 0)
@@ -46,10 +46,7 @@ int	main(int argc, char **argv)
 
 	counter = 1;
 	if (argc != 6 && argc != 5)
-	{
-		printf ("Bad number of args");
-		return (0);
-	}
+		error_msg ("Bad number of args");
 	rules = init_input(argv, rules);
 	if (argc == 6)
 		rules.must_eat = atoi(argv[5]);
