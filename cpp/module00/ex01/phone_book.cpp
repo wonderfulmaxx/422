@@ -6,7 +6,7 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:26:58 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/08/16 12:57:32 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:09:35 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ PhoneBook::~PhoneBook(void)
 void	PhoneBook::add_contact(void)
 {
 	nb_contacts ++;
+
+	if (nb_contacts % 9 == 0)
+		nb_contacts ++;
 }
 
 int	PhoneBook::get_n_contact(void)
@@ -47,5 +50,6 @@ int	PhoneBook::input_number(void)
 		std::cin >> number; 
 		counter ++;
 	}
-	return(number);
+	std::cout << std::endl;
+	return(number - 1);
 }

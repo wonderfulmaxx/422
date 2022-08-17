@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phone_book.hpp                                     :+:      :+:    :+:   */
+/*   contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/07 17:26:56 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/08/17 16:11:43 by mwinter-         ###   ########.fr       */
+/*   Created: 2022/08/17 16:10:45 by mwinter-          #+#    #+#             */
+/*   Updated: 2022/08/17 16:11:38 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "contact.hpp"
+#include <iostream>
+#include <iomanip>
+#include <string.h>
 
-int white(std::string input);
-
-class PhoneBook
+class Contact
 {
 public:
 
-	PhoneBook();
-	~PhoneBook();
+	Contact();
+	~Contact();
 	
-	int		input_number();
-	int	get_n_contact();
-	void	add_contact();
-	void	afficher();
-	Contact tab_contact[8];
-	
+	void	add();
+	void	search();
+	void	full_print();
+
 private:
 
-	static int nb_contacts;
-	
+	std::string	info[5];
 };
