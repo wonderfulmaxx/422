@@ -7,7 +7,7 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := megaphone
+NAME        := sed
 CC         := c++
 FLAGS    := -Wall -Wextra -Werror -std=c++98
  
@@ -15,7 +15,7 @@ FLAGS    := -Wall -Wextra -Werror -std=c++98
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      megaphone.cpp \
+SRCS        :=      main.cpp \
                           
 OBJS        := ${SRCS:.cpp=.o}
 

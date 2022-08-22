@@ -6,54 +6,61 @@
 /*   By: mwinter- <mwinter-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 14:16:14 by mwinter-          #+#    #+#             */
-/*   Updated: 2022/08/21 16:25:30 by mwinter-         ###   ########.fr       */
+/*   Updated: 2022/08/22 11:59:13 by mwinter-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <fstream>
 
-int	main(int argc, char **argv)
+int	is_empty(std::string s)
+{
+	if(s.empty())
+		return (1);
+	return (0);
+}
+
+std::string	ft_replace(std::string s, std::string target, std::string	replace)
+{
+	int start;
+
+	start = s.find(target);
+	if (start != -1)
+	{
+		s.erase(start, (target.size()));
+		s.insert(start,replace);
+	}
+	return (s);
+}
+
+int	main(int argc, char *argv[])
 {
 	std::string	file_name;
 	std::string	file_replace;
-	std::string	s1;
-	std::string	buff;
-	std::string	s2;
+	std::string buff;
 
-	std::string mot;
-	//std::string iss;
+	if (argc != 4 || is_empty(argv[1]) || is_empty(argv[2]) || is_empty(argv[3]))
+	{
+		std::cout	<< "Invalid parameters" << std::endl;
+		return (0);
+	}
 
-	//input
-	std::cout << "Enter the source file : " ;
-	std::cin >> file_name;
+	file_name = argv[1];
 	file_replace = file_name + ".replace";
-	std::cout << "You whant to replace :" ;
-	std::cin >> s1;
-	std::cout << "By :";
-	std::cin >> s2;
-
-	//lecture
-	std::ifstream	ifs(file_name.c_str());
-
-
-	while (getline(ifs, buff))
-	{
-		std::istringstream iss(buff);
-		while(iss >> mot)
-		{
-			std::cout << iss << std::endl;
-		}
-	}
 	
-	//ecriture
+
+	std::ifstream	ifs(file_name.c_str());
 	std::ofstream  monFlux(file_replace.c_str());
-	if (monFlux)
-	{
-		monFlux << buff << std::endl;
-	}
-	else
-	{
+	
+	if (!ifs || !monFlux)
+	{		
 		std::cout	<< "Impossible douvrir le fichier" << std::endl;
+		return (0);
+	}
+	while(getline(ifs,buff))
+	{
+		buff = ft_replace(buff,argv[2],argv[3]);
+		monFlux << buff;
+		monFlux << "\n";
 	}
 }
