@@ -27,8 +27,8 @@ int main(int argc, char **argv, char **env)
 	int pfd[2];
 	int pid;
 	int pip = 0;
-	int lastfd = -1;
-	int nbarg = 0;
+	int last_fd = -1;
+	int nb_arg = 0;
 
 	if (argc == 1)
 		return 1;
@@ -36,20 +36,20 @@ int main(int argc, char **argv, char **env)
 	for (int word_counter = 1; word_counter <= argc; word_counter++, pip = 0)
 	{
 		if (argv[word_counter] && strcmp(argv[word_counter], "|") && strcmp(argv[word_counter], ";"))
-			nbarg++;
-		else if (nbarg)
+			nb_arg++;
+		else if (nb_arg)
 		{
 			if (argv[word_counter])
 				pip = (strcmp(argv[word_counter], "|") == 0 ? 1 : 0);
 			argv[word_counter] = NULL;
-			if (!strcmp(argv[word_counter - nbarg], "cd"))
+			if (!strcmp(argv[word_counter - nb_arg], "cd"))
 			{
-				if (nbarg == 2)
+				if (nb_arg == 2)
 				{
-					if ((chdir(argv[word_counter - nbarg + 1]) == -1))
+					if ((chdir(argv[word_counter - nb_arg + 1]) == -1))
 					{
 						afficher("error: cd: cannot change directory to ");
-						afficher(argv[word_counter - nbarg + 1]);
+						afficher(argv[word_counter - nb_arg + 1]);
 						afficher("\n");
 					}
 				}
@@ -62,12 +62,12 @@ int main(int argc, char **argv, char **env)
 					exit_afficher("error: fatal\n");
 				if (!pid)
 				{
-					if ((lastfd != -1 && (dup2(lastfd, 0) == -1)) || (pip && (dup2(pfd[1], 1) == -1)))
+					if ((last_fd != -1 && (dup2(last_fd, 0) == -1)) || (pip && (dup2(pfd[1], 1) == -1)))
 						exit_afficher("error: fatal\n");
-					if (execve(argv[word_counter - nbarg], &argv[word_counter - nbarg], env) == -1)
+					if (execve(argv[word_counter - nb_arg], &argv[word_counter - nb_arg], env) == -1)
 					{
 						afficher("error: cannot execute ");
-						afficher(argv[word_counter - nbarg]);
+						afficher(argv[word_counter - nb_arg]);
 						exit_afficher("\n");
 					}
 				}
@@ -75,12 +75,12 @@ int main(int argc, char **argv, char **env)
 				{
 					waitpid(-1, 0, 0);
 					close(pfd[1]);
-					if (lastfd != -1)
-						close(lastfd);
-					lastfd = (pip != 0) ? pfd[0] : -1;
+					if (last_fd != -1)
+						close(last_fd);
+					last_fd = (pip != 0) ? pfd[0] : -1;
 				}
 			}
-			nbarg = 0;
+			nb_arg = 0;
 		}
 	}
 }
