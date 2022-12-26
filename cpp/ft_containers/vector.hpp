@@ -167,14 +167,35 @@ namespace ft
 			void resize (size_type n, value_type val = value_type())
 			{
 				int counter = 0;
-				while (n + counter > this->size())
+
+				if (n > this->max_size())
+					throw(std::length_error("New reserved capacity is too big"));
+
+				while (n - counter > this->size())
 				{
-					
+					push_back(val);
+					counter ++;
+				}
+				counter = 0;
+				while (n + counter < this->size())
+				{
+					pop_back();
+					counter ++;
 				}
 
 			}
 
 			typedef typename ft::vectorIterator<T> iterator; 
+
+			iterator begin()
+			{
+				return(_start));
+			}
+
+			iterator end()
+			{
+				return(this->_end);
+			}
 
 			private:
 
