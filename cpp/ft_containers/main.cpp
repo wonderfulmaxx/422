@@ -1,4 +1,5 @@
 #include "vector.hpp"
+#include "vector_iterator.hpp"
 
 int main()
 {
@@ -11,25 +12,34 @@ int main()
 	vector_int.push_back(666); 
 
 
-	std::cout << vector_int[0] << std::endl;
-	std::cout << vector_int[1] << std::endl;
-
-	vector_int.pop_back();
-
+	// std::cout << vector_int[0] << std::endl;
 	// std::cout << vector_int[1] << std::endl;
 
-	// vector_int.push_back(777);
+	// vector_int.pop_back();
 
-	// std::cout << vector_int[1] << std::endl;
+	// // std::cout << vector_int[1] << std::endl;
 
-	vector_int.resize(1);
+	// // vector_int.push_back(777);
 
-	vector_int.push_back(42);
+	// // std::cout << vector_int[1] << std::endl;
+
+	// vector_int.resize(1);
+
+	// vector_int.push_back(42);
 
 	ft::vector<int>::iterator target;
 
-	for (target = vector_int.begin();target != vector_int.end(); target ++)
-		std::cout << *target << std::endl;
+	target = vector_int.begin();
+
+	//for (target = vector_int.begin();target != vector_int.end(); target ++)
+	//	std::cout << *target << std::endl;
+
+//	std::cout << "begin : " << *target << std::endl;
+
+	// if (target != vector_int.begin())
+	// 	std::cout << "diff" << std::endl;
+	// else 
+	// 	std::cout << "same" << std::endl;
 
 
 	//std::cout << "capacity = " << vector_long.capacity() << std::endl;

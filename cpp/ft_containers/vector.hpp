@@ -89,13 +89,6 @@ namespace ft
 				return((*this)[0]);
 			}
 
-			// void push_back (const value_type& val)
-			// {
-			// 	_alloc.allocate(1,_end);
-			// 	_end++;
-			// 	_end_capacity ++;
-			// 	_alloc.construct(_end,val);
-			// }
 
 			size_type capacity() const
 			{
@@ -185,17 +178,18 @@ namespace ft
 
 			}
 
-			typedef typename ft::vectorIterator<T> iterator; 
+			typedef random_access_iterator<T>               iterator;
 
 			iterator begin()
 			{
-				return(_start));
+				return(_start);
 			}
 
 			iterator end()
 			{
 				return(this->_end);
 			}
+
 
 			private:
 
