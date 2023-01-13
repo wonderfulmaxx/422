@@ -9,7 +9,7 @@ int main()
 	//ft::vector<int> vector_long(4,2);
 
 	// vector_int.push_back(8);
-	 vector_int.push_back(666); 
+	vector_int.push_back(666); 
 
 
 	
@@ -20,16 +20,18 @@ int main()
 
 	vector_int.push_back(888);
 
+	ft::vector<int> vector_cpy(vector_int);
 
-	ft::vector<int>::iterator target = vector_int.begin();
+	//ft::vector<int>::iterator target = vector_int.begin();
 
 	//vector_int.resize(7);
 
-	ft::vector<int>::iterator index = vector_int.begin();
-	 index ++ ;
-	index ++ ;
+	ft::vector<int>::reverse_iterator index = vector_int.rbegin();
+	// index ++ ;
 
 	//ft::vector<int>::iterator zizi =  vector_int.insert(index,0,42);
+
+	//vector_int.erase(index, vector_int.rend());
 
 	// std::cout << *zizi << std::endl;
 	// zizi ++;
@@ -38,10 +40,10 @@ int main()
 	
 	//std::cout << "size = " << vector_int.size() << std::endl;
 
-	for (target = vector_int.begin();target != vector_int.end(); target ++)
-		std::cout << '-' << *target << std::endl;
+	for (index = vector_cpy.rbegin();index != vector_cpy.rend(); index ++)
+		std::cout << '-' << *index << std::endl;
 
-	std::cout << "size = " << vector_int.size() << std::endl;
+	std::cout << "size = " << vector_cpy.size() << std::endl;
 
 	// vector_int.push_back(42);
 
@@ -75,6 +77,6 @@ int main()
 
 //	ft::vector<int>::iterator lol;
 
-	std::cout << std::endl << "attention: pakompri vector_iterator.hpp x2" << std::endl;
+	std::cout << std::endl << "attention: ptetre bug vector.hpp" << std::endl;
 
 }

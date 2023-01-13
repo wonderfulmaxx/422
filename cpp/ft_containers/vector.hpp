@@ -4,6 +4,7 @@
 #include <iostream>
 #include <memory>
 #include "vector_iterator.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft
 {
@@ -47,8 +48,40 @@ namespace ft
 				}
 			}
 
-		//	template <class InputIterator>         vector (InputIterator first, InputIterator last,                 const allocator_type& alloc = allocator_type());
-		//  vector (const vector& x);
+			template <class InputIterator>
+			vector (InputIterator first, InputIterator last,
+			                 const allocator_type& alloc = allocator_type())
+			:
+				_alloc(alloc),
+				_start(nullptr),
+				_end(nullptr),
+				_end_capacity(nullptr)
+			{
+				for (; first != last; first ++)
+				{
+					this->push_back (*first);
+				}
+			}
+
+		 	vector (const vector& x): //ptetre bug
+			_start(nullptr),
+			_end(nullptr)
+			{
+				size_t diff = x.size();
+
+				this->_start = this->_alloc.allocate(diff);
+				this->_end = _start + diff;
+				this->_end_capacity = this->_end;
+
+				pointer head   = this -> _start;
+				pointer x_head = x._start;
+
+				for (; head != (this ->_end_capacity + 1); head ++)
+				{
+					this ->_alloc.construct(head,*x_head);
+					x_head ++;
+				}
+			}
 		//  ~vector();
 		//  vector& operator=( const vector& other );
 		//  void assign( size_type count, const T& value );
@@ -114,8 +147,11 @@ namespace ft
 /////////////////////////////////////////////Iterators////////////////////////////////////
 
 
-			typedef vector_iterator<T>               iterator;
-			typedef vector_iterator<const T>		const_iterator;
+			typedef ft::vector_iterator<T>               iterator;
+			typedef ft::vector_iterator<const T>		const_iterator;
+
+			typedef ft::reverse_iterator<T>				reverse_iterator;
+			typedef ft::reverse_iterator<const T>		const_reverse_iterator;
 
 			iterator begin()
 			{
@@ -142,10 +178,29 @@ namespace ft
 				else 
 					return(this->_start);
 			}
-			// reverse_iterator rbegin();
-			// const_reverse_iterator rbegin() const;
-			// reverse_iterator rend();
-			// const_reverse_iterator rend() const;
+			reverse_iterator rbegin()
+			{
+				if (this -> size() > 1)
+					return(this->_end - 1);
+				else 
+					return(this->_start);
+			}
+
+			const_reverse_iterator rbegin() const
+			{
+				if (this -> size() > 1)
+					return(this->_end - 1);
+				else 
+					return(this->_start);
+			}
+			reverse_iterator rend()
+			{
+				return(reverse_iterator(this->_start - 1));
+			}
+			const_reverse_iterator rend() const
+			{
+				return(const_reverse_iterator(this->_start - 1));
+			}
 
 /////////////////////////////////////////////Capacity////////////////////////////////////
 			bool empty() const
@@ -260,8 +315,43 @@ namespace ft
 				}
 			}
 
-			// iterator erase( iterator pos );
-			// iterator erase( iterator first, iterator last );
+			iterator erase( iterator pos )
+			{
+				if (this -> empty())
+					return (this -> begin());
+
+				value_type index = (pos - this->_start);
+
+				pointer position = (this->_start + index);
+
+				iterator ret = position;
+
+				_alloc.destroy(position);
+				_alloc.construct(position,*(position+1));
+
+				for (; position != (this->_end - 1); position ++)
+					*position = *(position + 1);
+				
+				pop_back();
+
+				return(ret);
+
+
+			}
+
+			iterator erase( iterator first, iterator last )
+			{
+				iterator old = first;
+
+				while (first != last)
+				{
+					old = this -> erase(old);
+					first ++;
+				}
+
+				return(old);
+			}
+
 			void push_back( const T& value )
 			{
 				if (this->_end == _end_capacity)
@@ -293,10 +383,13 @@ namespace ft
 
 			}
 
-			// void swap( vector& other )
-			// {
+			void swap( vector& other )
+			{
+				vector	copy_this(*this);
 
-			// }
+				(*this)	=	other;
+				other = copy_this;
+			}
 
 /////////////////////////////////////////////Non-member functions////////////////////////////////////	
 	// https://en.cppreference.com/w/cpp/container/vector/operator_cmp
