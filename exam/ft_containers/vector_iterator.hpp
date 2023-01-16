@@ -19,7 +19,7 @@ namespace ft
 
 			vector_iterator(void) : _ptr(nullptr) {}
 			vector_iterator(pointer ptr) : _ptr(ptr) {}
-			vector_iterator(const vector_iterator &other) : _ptr(other._ptr) {}
+			vector_iterator(const vector_iterator &other) : ptr(other._ptr) {}
 
 			virtual ~vector_iterator() {}
 

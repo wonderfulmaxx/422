@@ -1,33 +1,57 @@
 #include "vector.hpp"
 #include "vector_iterator.hpp"
+#include "type_traits.hpp"
+
+#include <vector>
 
 int main()
 {
-
 	ft::vector<int> vector_int;
+
+	std::vector<int> std_vector;
 
 	//ft::vector<int> vector_long(4,2);
 
-	// vector_int.push_back(8);
+	vector_int.push_back(8);
 	vector_int.push_back(666); 
+
+	std_vector.push_back(8);
+	std_vector.push_back(666); 
+
+	
 
 
 	
 	//vector_int.pop_back();
 
 
-	vector_int.push_back(777);
+	// vector_int.push_back(777);
 
-	vector_int.push_back(888);
+	// vector_int.push_back(888);
 
-	ft::vector<int> vector_cpy(vector_int);
+	// std::cout << vector_int.at(2);
+
+	// ft::vector<int> vector_cpy(vector_int);
 
 	//ft::vector<int>::iterator target = vector_int.begin();
 
 	//vector_int.resize(7);
 
 	ft::vector<int>::reverse_iterator index = vector_int.rbegin();
-	// index ++ ;
+	//index ++ ;
+
+	std::vector<int>::iterator std_index  = std_vector.begin();
+	std_index ++;
+
+	std::cout << "-"<<*index <<"-"<< std::endl;
+	//std::cout << *(42 + std_index  ) << std::endl;
+
+	// ft::vector<int>::iterator index2 = vector_int.end();
+
+
+	// ft::vector<int> vector_cpy(index,index2);
+
+	// vector_cpy.assign(1,2);
 
 	//ft::vector<int>::iterator zizi =  vector_int.insert(index,0,42);
 
@@ -40,10 +64,10 @@ int main()
 	
 	//std::cout << "size = " << vector_int.size() << std::endl;
 
-	for (index = vector_cpy.rbegin();index != vector_cpy.rend(); index ++)
-		std::cout << '-' << *index << std::endl;
+	// for (index = vector_int.begin();index != vector_int.end(); index ++)
+	// 	std::cout << '-' << *index << std::endl;
 
-	std::cout << "size = " << vector_cpy.size() << std::endl;
+	// std::cout << "size = " << vector_int.size() << std::endl;
 
 	// vector_int.push_back(42);
 
@@ -77,6 +101,6 @@ int main()
 
 //	ft::vector<int>::iterator lol;
 
-	std::cout << std::endl << "attention: ptetre bug vector.hpp" << std::endl;
+	std::cout << std::endl << "attention: here std * 2" << std::endl;
 
 }
