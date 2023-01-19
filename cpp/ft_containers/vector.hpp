@@ -16,6 +16,7 @@ namespace ft
 
 			typedef Allocator allocator_type;
 			typedef typename allocator_type::pointer pointer;
+			typedef typename allocator_type::const_pointer			const_pointer;
 			typedef T value_type;
 			typedef size_t size_type;
 			typedef typename allocator_type::reference reference;
@@ -77,7 +78,7 @@ namespace ft
 				pointer	head		=	this->_start;
 				while (head && head != (this->_end + 1) && first_x && first_x != end_x)
 				{
-					this->_allocator.construct(head, *first_x);
+					this->_alloc.construct(head, *first_x);
 					first_x++;
 					head++;
 				}
@@ -238,17 +239,17 @@ namespace ft
 			reverse_iterator rbegin()
 			{
 				if (this -> size() > 1)
-					return(this->_end - 1);
+					return(reverse_iterator(this->_end));
 				else 
-					return(this->_start);
+					return(reverse_iterator(this->_start));
 			}
 
 			const_reverse_iterator rbegin() const
 			{
 				if (this -> size() > 1)
-					return(this->_end - 1);
+					return(const_reverse_iterator(this->_end));
 				else 
-					return(this->_start);
+					return(const_reverse_iterator(this->_start));
 			}
 			reverse_iterator rend()
 			{
@@ -281,27 +282,33 @@ namespace ft
 			void reserve( size_type new_cap )
 			{
 				if (new_cap > this->max_size())
-					throw(std::length_error("New reserved capacity is too big"));
-				if (new_cap > this->capacity())
-				{
-						pointer prev_start = this->_start;
-						pointer prev_start_const = this->_start;
-						pointer prev_end = this->_end;
-						
-						size_type prev_capacity = this->capacity();
+					throw std::length_error("The new size is greater than the max_size.");
 
-						this->_start =_alloc.allocate(new_cap);
-						this->_end = this->_start;
-						this->_end_capacity = new_cap + this->_start;
-							
-						while (prev_start != prev_end)
-						{
-							_alloc.construct(this->_end,*prev_start);
-							prev_start ++;
-							this->_end ++;
-						}
-						_alloc.deallocate(prev_start_const, prev_capacity);
-					}
+				if (new_cap <= this->capacity() || new_cap == 0)
+					return ;
+
+				difference_type	count	=	0;
+
+				pointer	head			=	this->_start;
+
+				pointer	new_start		=	this->_alloc.allocate(new_cap);
+				pointer	ns_ptr			=	new_start;
+
+				for (size_t i = 0; i < this->size(); i++)
+				{
+					this->_alloc.construct(ns_ptr, (*head));
+					this->_alloc.destroy(head);
+					ns_ptr++;
+					count++;
+					head++;
+				}
+
+				if (this->capacity() > 0)
+					this->_alloc.deallocate(this->_start, this->capacity());
+
+				this->_start			=	new_start;
+				this->_end				=	new_start +	count;
+				this->_end_capacity		=	new_start + new_cap;
 			}
 
 			size_type capacity() const
@@ -321,7 +328,7 @@ namespace ft
 				if (size() == 0 && pos == begin())
 				{
 					push_back(value);
-					return(this->_start + 1);
+					return(this->_start );
 				}
 
 				int index = pos - this -> begin();
@@ -341,76 +348,47 @@ namespace ft
 
 			}
 
-			void insert (const_iterator pos, size_type n, const value_type& value)
+			template <class InputIt>
+			void insert (iterator position, InputIt first, InputIt last,
+			typename std::enable_if<!std::is_integral<InputIt>::value, InputIt>::type* = nullptr) // here
 			{
-				const vector::const_iterator begin = this ->begin();
-
-				int index = pos - begin;
-				size_type counter = 0;
-				int r_counter = this -> size();
-
-				while (counter < n)
+				while (first != last)
 				{
-					push_back(*(this->_end - n));
-					counter ++;
-				}
-
-				while (r_counter > index)
-				{
-					*(this->_start+r_counter + n) = *(this->_start + r_counter - 1);
-					r_counter --;
-				}
-				counter = 0;
-
-				while (counter < n)
-				{
-					*(this->_start + index ) = value;
-					index ++;
-					counter ++;
+					position = this->insert(position, *first) + 1;
+					first++;
 				}
 			}
 
-			iterator erase( iterator position )
+			void insert (iterator pos, size_type n, const value_type& value)
 			{
-				if (this->empty())
-					return (this->begin());
+				if ((this->size() + n) > this->max_size())
+					throw std::length_error("Trying to add more values than the max capacity.");
 
-				difference_type index = (position - this->_start);
+				for (size_t i = 0; i < n; i++)
+					pos = this->insert(pos, value);
+			}
 
-				pointer pos = (this->_start + index);
+			iterator erase( iterator pos )
+			{
 
-				iterator ret(pos);
+				if (this -> empty())
+					return (this -> begin());
 
-				this->_alloc.destroy(pos);
-				this->_alloc.construct(pos, *(pos + 1));
+				difference_type index = (pos - this->_start);
 
-				for (; pos != (this->_end - 1); pos++)
-					*pos = *(pos + 1);
-				this->_alloc.destroy(pos);
+				pointer position = (this->_start + index);
 
-				this->_end = this->_end - 1;
-				return (ret);
+				iterator ret = position;
+
+				_alloc.destroy(position);
+				_alloc.construct(position,*(position+1));
+
+				for (; position != (this->_end - 1); position ++)
+					*position = *(position + 1);
 				
-				// if (this -> empty())
-				// 	return (this -> begin());
+				pop_back();
 
-				// value_type index = (pos - this->_start);
-
-				// pointer position = (this->_start + index);
-
-				// iterator ret = position;
-
-				// _alloc.destroy(position);
-				// _alloc.construct(position,*(position+1));
-
-				// for (; position != (this->_end - 1); position ++)
-				// 	*position = *(position + 1);
-				
-				// pop_back();
-
-				// return(ret);
-
-
+				return(ret);
 			}
 
 			iterator erase( iterator first, iterator last )
@@ -426,16 +404,13 @@ namespace ft
 				return(old);
 			}
 
-			void push_back( const T& value )
+			void push_back (const value_type& val)
 			{
-				if (this->_end == _end_capacity)
-				{
-					if (this ->size() == 0)
-						reserve (1);
-					else
-						reserve (this->capacity() * 2);
-				}
-				_alloc.construct(this->_end,value);
+				if ((this->size() + 1) > this->capacity())
+					this->reserve(this->size() + 1);
+
+				this->_alloc.construct(this->_end, val);
+
 				this->_end++;
 			}
 
@@ -447,13 +422,24 @@ namespace ft
 
 			void resize (size_type n, value_type val = value_type())
 			{
-				if (n > this->max_size())
-					throw(std::length_error("New reserved capacity is too big"));
 
-				while (this->size()  < n)
-					push_back(val);
-				while (this->size() > n)
-					pop_back();
+				this->reserve(n);
+
+				if (n <= this->size())
+				{
+					pointer	ptr_save	=	this->_start + n;
+					while (ptr_save != this->_end)
+						this->_alloc.destroy(ptr_save++);
+					this->_end = this->_start + n;
+					return ;
+				}
+
+				difference_type	diff	=	( n - this->size() );
+
+				pointer	ptr_start	=	this->_start + this->size();
+				while (ptr_start != (this->_end + diff ))
+					this->_alloc.construct((ptr_start++), val);
+				this->_end = this->_end + diff;
 
 			}
 
@@ -466,12 +452,6 @@ namespace ft
 			}
 
 /////////////////////////////////////////////Non-member functions////////////////////////////////////	
-	// template< class T, class Alloc >
-	// bool operator==( const std::vector<T,Alloc>& lhs,
-    //              const std::vector<T,Alloc>& rhs )
-	// 		{
-
-	// 		}
 
 
 			private:
@@ -538,6 +518,12 @@ namespace ft
 	bool operator>=(const ft::vector<T, Alloc> &lhs, const ft::vector<T, Alloc> &rhs)
 	{
 		return (!(lhs < rhs));
+	}
+
+	template <class T, class Alloc>
+	void swap (ft::vector<T,Alloc> &lhs, ft::vector<T,Alloc> &rhs)
+	{
+		lhs.swap(rhs);
 	}
 };
 

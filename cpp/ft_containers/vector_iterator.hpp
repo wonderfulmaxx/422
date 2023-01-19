@@ -100,6 +100,7 @@ namespace ft
 		return (lhs.base() < rhs.base());
 	}
 
+
 	template <typename T>
 	typename ft::vector_iterator<T>::difference_type
 	operator<=(const ft::vector_iterator<T> lhs,
@@ -147,6 +148,7 @@ namespace ft
 	{
 		return (lhs.base() >= rhs.base());
 	}
+
 
 }
 

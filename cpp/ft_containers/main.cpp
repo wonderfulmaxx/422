@@ -4,8 +4,74 @@
 
 #include <vector>
 
+template <typename T>
+void PRINT_LINE (std::string txt, T var)
+{
+	std::cout << txt << var << std::endl;
+}
+
 int main()
 {
+
+	std::string b_string[] = {"Jadore" , "Dior", "et ta soeur"};
+	//int	s_int[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+	//size_t s_size = sizeof(s_int) / sizeof(s_int[0]);
+
+	std::vector<int> std_v;
+	ft::vector<int> v;
+
+	int counter = 0;
+	while (counter < 10)
+	{
+		std_v.push_back(666);
+		v.push_back(666);
+		counter ++;
+	}
+
+
+		// std::vector<std::string>::iterator std_it = std_v.insert(std_v.end(),b_string[1]);
+        // ft::vector<std::string>::iterator it = v.insert(v.end(), b_string[1]);
+
+        // PRINT_LINE("It:", *it);
+		// PRINT_LINE("std_it:",*std_it);
+        // //PRINT_LINE(v, 0);
+
+		std::vector<int>::iterator std_it = std_v.begin();
+		ft::vector<int>::iterator it = v.begin();
+
+        //v.insert(v.begin() + 5, 9, -1);
+
+		std_v.insert(std_v.begin() + 5, 9, -1);
+		v.insert(v.begin() + 5,9,-1);
+
+		for (std_it = std_v.begin();std_it != std_v.end();std_it++)
+			std::cout << *std_it << " ";
+		std::cout<<std::endl;
+		for (it = v.begin();it != v.end();it++)
+			std::cout << *it << " ";
+		std::cout<<std::endl;
+		
+
+       // CHECK_AND_PRINT_ALL(v);
+
+        // v.insert(v.begin() + 5, 9, -1);
+
+        // //CHECK_AND_PRINT_ALL(v);
+
+        // ft::vector<int>::iterator it2 = v.insert(v.begin(), 64);
+
+        // PRINT_LINE("It:", *it2);
+        // // CHECK_AND_PRINT_ALL(v);
+
+        // for (int i = 0; i < 23; ++i) {
+        //     it2 = v.insert(v.begin() + i + 2, i);
+        //     PRINT_LINE("It:", *it2);
+        //     // CHECK_AND_PRINT_ALL(v);
+        // }
+
+
+
+
 	ft::vector<int> vector_int;
 
 	std::vector<int> std_vector;
@@ -18,7 +84,7 @@ int main()
 	std_vector.push_back(8);
 	std_vector.push_back(666); 
 
-	
+
 
 
 	
@@ -40,11 +106,12 @@ int main()
 	ft::vector<int>::reverse_iterator index = vector_int.rbegin();
 	//index ++ ;
 
-	std::vector<int>::iterator std_index  = std_vector.begin();
-	std_index ++;
+	std::vector<int>::reverse_iterator std_index  = std_vector.rbegin();
+	//std_index ++;
 
 	std::cout << "-"<<*index <<"-"<< std::endl;
 	//std::cout << *(42 + std_index  ) << std::endl;
+	std::cout << "-"<<*std_index<<"-" <<std::endl;
 
 	// ft::vector<int>::iterator index2 = vector_int.end();
 
@@ -101,6 +168,6 @@ int main()
 
 //	ft::vector<int>::iterator lol;
 
-	std::cout << std::endl << "attention: here std * 2" << std::endl;
+	std::cout << std::endl << "attention: here std * 3" << std::endl;
 
 }
