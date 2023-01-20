@@ -13,44 +13,56 @@ void PRINT_LINE (std::string txt, T var)
 int main()
 {
 
-	std::string b_string[] = {"Jadore" , "Dior", "et ta soeur"};
-	//int	s_int[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-	//size_t s_size = sizeof(s_int) / sizeof(s_int[0]);
+	//std::string b_string[] = {"Jadore" , "Dior", "et ta soeur"};
+	int	b_int[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+	size_t b_size = sizeof(b_int) / sizeof(b_int[0]);
 
-	std::vector<int> std_v;
-	ft::vector<int> v;
+	// std::vector<int> std_v;
+	// ft::vector<int> v;
 
-	int counter = 0;
-	while (counter < 10)
-	{
-		std_v.push_back(666);
-		v.push_back(666);
-		counter ++;
-	}
+	// int counter = 0;
+	// while (counter < 10)
+	// {
+	// 	std_v.push_back(666);
+	// 	v.push_back(666);
+	// 	counter ++;
+	// }
 
 
-		// std::vector<std::string>::iterator std_it = std_v.insert(std_v.end(),b_string[1]);
-        // ft::vector<std::string>::iterator it = v.insert(v.end(), b_string[1]);
+	// 	// std::vector<std::string>::iterator std_it = std_v.insert(std_v.end(),b_string[1]);
+    //     // ft::vector<std::string>::iterator it = v.insert(v.end(), b_string[1]);
 
-        // PRINT_LINE("It:", *it);
-		// PRINT_LINE("std_it:",*std_it);
-        // //PRINT_LINE(v, 0);
+    //     // PRINT_LINE("It:", *it);
+	// 	// PRINT_LINE("std_it:",*std_it);
+    //     // //PRINT_LINE(v, 0);
 
-		std::vector<int>::iterator std_it = std_v.begin();
-		ft::vector<int>::iterator it = v.begin();
+	// 	std::vector<int>::iterator std_it = std_v.begin();
+	// 	ft::vector<int>::iterator it = v.begin();
 
-        //v.insert(v.begin() + 5, 9, -1);
+        // //v.insert(v.begin() + 5, 9, -1);
 
-		std_v.insert(std_v.begin() + 5, 9, -1);
-		v.insert(v.begin() + 5,9,-1);
+		// std_v.insert(std_v.begin() + 5, 9, -1);
+		// v.insert(v.begin() + 5,9,-1);
 
-		for (std_it = std_v.begin();std_it != std_v.end();std_it++)
-			std::cout << *std_it << " ";
-		std::cout<<std::endl;
-		for (it = v.begin();it != v.end();it++)
-			std::cout << *it << " ";
-		std::cout<<std::endl;
+		// for (std_it = std_v.begin();std_it != std_v.end();std_it++)
+		// 	std::cout << *std_it << " ";
+		// std::cout<<std::endl;
+		// for (it = v.begin();it != v.end();it++)
+		// 	std::cout << *it << " ";
+		// std::cout<<std::endl;
 		
+		ft::vector<int> v(b_int, b_int + b_size);
+		std::vector<int> vs(b_int, b_int + b_size);
+
+        ft::vector<int>::reverse_iterator it1 = v.rbegin();
+        ft::vector<int>::reverse_iterator it2 = it1;
+		std::vector<int>::reverse_iterator it1s = vs.rbegin();
+        std::vector<int>::reverse_iterator it2s = it1s;
+
+        PRINT_LINE("It1:", *it1);
+        PRINT_LINE("It2:", *it2);
+		PRINT_LINE("It1s:", *it1s);
+        PRINT_LINE("It2s:", *it2s);
 
        // CHECK_AND_PRINT_ALL(v);
 
