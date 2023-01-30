@@ -1,0 +1,227 @@
+#ifndef TREE_HPP
+#define TREE_HPP
+ 
+#include <iostream>
+#include "map_utils.hpp"
+#include "map.hpp"
+ 
+namespace ft
+{
+// Définition du noeud en tant que struct
+template <typename T>
+struct Noeud
+{
+//	Noeud () : donnees(NULL),gauche(),droit() {}
+	Noeud(const T& val) : donnees(val), gauche(NULL), droit(NULL){}
+
+    T donnees;
+    Noeud <T>* gauche;
+    Noeud <T>* droit;
+};
+ 
+// Définition de la classe Liste
+ template<class T, class Compare = std::less<T>,
+        class Node = Noeud<T>, class node_alloc = std::allocator<Node> >
+class Tree
+{	
+	public:
+	 typedef        Node*                             node_pointer;
+
+    private:
+		node_alloc      _node_alloc;
+
+        Noeud <T>* racine;
+
+        Noeud <T>* CreerNoeud (const T& valeur)
+		{
+			Noeud<T> *temp = _node_alloc.allocate(1);
+			_node_alloc.construct(temp, Node(valeur));
+			return temp;
+		}
+		void detruire (Noeud <T>* ptr)
+		{
+			 if (!ptr){return;}
+     
+    		detruire (ptr -> gauche); // détruire le sous-arbre gauche
+   			detruire (ptr -> droit); // détruire le sous-arbre droit
+   		 	delete ptr; // détruire la racine
+		}
+
+        bool inserer (const T& value, Noeud <T>*& ptr)
+		{
+			// si l'arbre vide, inserer comme racine
+			if (!ptr)
+			{
+				ptr = CreerNoeud(value);
+				return (true);
+			}
+			// si la value est inférieure à la value de racine,
+			// insérer le noeud dans le sous-arber gauche
+			else if (value.first < ptr->donnees.first)
+			{
+				return (inserer(value, ptr->gauche));
+			}
+			// Sinon, insérer le noeud dans le sous-arber droit
+			else if (value.first > ptr->donnees.first)
+			{
+				return(inserer(value, ptr->droit));
+			}
+			else return (false);
+		}
+
+		void infixe (Noeud <T>* ptr) const
+		{
+			if (!ptr)
+				return;
+			infixe (ptr -> gauche);
+			std::cout << ptr->donnees.second;
+   			infixe (ptr -> droit);
+		}
+		
+        void prefixe (Noeud <T>* ptr) const; // Fonction d'aide
+        void postfixe (Noeud <T>* ptr) const; // Fonction d'aide
+		
+        Noeud <T>* successeur (Noeud <T>* ptr, Noeud <T>*& parent) const
+		{
+			if (!ptr)
+				return(NULL);
+			
+			Noeud<T> *temp = ptr;
+
+			while (temp->gauche != NULL)
+			{
+				temp = temp->gauche;
+			}
+
+			return (temp);
+
+		}
+
+		Noeud <T>* predecesseur (Noeud <T>* ptr, Noeud <T>*& parent) const; // Fonction d'aide
+
+        void supprimer (Noeud <T>* ptr, Noeud <T>* parent)
+		{
+			if (ptr->gauche == 0 && ptr->droit == 0)
+			{
+				//cout << ptr->donnees << parent->donnees << endl;
+				if (ptr != racine)
+				{
+					if (parent->gauche == ptr)
+						parent->gauche = NULL;
+					else
+						parent->droit = NULL;
+				}
+				else
+					racine = NULL; // on pourrais essayer avec detruire?  //////////////// a faire cerveau repausé
+
+				delete ptr;
+			}
+			else if (ptr->gauche && ptr->droit)
+			{
+				Noeud<T> *pere = ptr;
+				// ici vous pouvez utiliser le prédécesseur aussi
+				Noeud<T> *succ = successeur(ptr->droit, pere);
+				int val = succ->donnees;
+				supprimer(succ, pere);
+				ptr->donnees = val;
+			}
+			else
+			{
+				Noeud<T> *enfant = (ptr->gauche) ? ptr->gauche : ptr->droit;
+				if (ptr != racine)
+				{
+					if (ptr == parent->gauche)
+						parent->gauche = enfant;
+					else
+						parent->droit = enfant;
+				}
+
+				else
+					racine = enfant;
+
+				delete ptr;
+			}
+
+		}
+
+		template <typename I>
+		node_pointer recherche(const I &value, node_pointer ptr, Noeud<T> *&parent) const
+		{
+			if (!ptr)
+			{
+				// Arbre est vide
+				return NULL;
+			}
+			else if ((ptr->donnees.first) == value)
+			{
+				// la value recherchée est stockée dans la racine
+				return ptr;
+			}
+			else if (value < (ptr->donnees.first))
+			{
+				parent = ptr;
+				// la value recherchée est dans le sous-arbre gauche
+				return recherche(value, ptr->gauche, parent);
+			}
+			else
+			{
+				parent = ptr;
+				// sinon, la value recherchée est dans le sous-arbre droit
+				return recherche(value, ptr->droit, parent);
+			}
+		}
+
+	public:
+        Tree ():racine(NULL){}//,compteur(0){}
+
+		//explicit map( const Compare& comp, const Allocator& alloc = Allocator() ) {}
+
+        ~Tree () {detruire(racine);}
+
+        bool inserer (const T& value)
+		{
+			return(inserer(value,racine));
+		}
+        void detruire ()
+		{
+			detruire(racine);
+		}
+		void supprimer(const T &value)
+		{
+
+			Noeud <T>* parent = 0;
+			supprimer(recherche(value,racine,parent), parent);
+
+
+			// Noeud<T> *parent = 0;
+			// Noeud<T> *del = recherche(value, racine, parent);
+			// if (del == 0)
+			// {
+			// 	std::cout << "Le noeud n'appartient pas a l'arbre" << std::endl;
+			// }
+			// else
+			// {
+			// 	supprimer(del, parent);
+			// }
+		}
+
+		template <typename I>
+		Noeud <T>* recherche (const I& value) const
+		{
+			Noeud <T>* parent = NULL;
+			return(recherche(value,racine,parent));
+		}
+        void infixe () const
+		{
+			infixe(racine);
+		}
+        void prefixe () const;
+        void postfixe () const;
+        int taille () const;
+        bool estVide () const;
+};
+}
+
+
+
+#endif

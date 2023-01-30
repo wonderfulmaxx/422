@@ -5,7 +5,7 @@
 #include <memory>
 #include "vector_iterator.hpp"
 #include "reverse_iterator.hpp"
-#include "type_traits.hpp"
+#include "utils.hpp"
 
 namespace ft
 {
@@ -53,7 +53,7 @@ namespace ft
 
 			template<class InputIt>
 			vector(InputIt first, InputIt last, const Allocator& alloc = Allocator(),
-			typename std::enable_if<!std::is_integral<InputIt>::value, InputIt>::type* = nullptr)  // here std a laplace de ft
+			typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = nullptr)  
 			:
 			_alloc(alloc),
 			_start(nullptr),
@@ -123,7 +123,7 @@ namespace ft
 
 		template< class InputIt >
 		void assign( InputIt first, InputIt last,
-		typename std::enable_if<!std::is_integral<InputIt>::value, InputIt>::type* = nullptr) // here std
+		typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = nullptr) 
 		{
 			this->clear();
 			while (first != last)
@@ -350,7 +350,7 @@ namespace ft
 
 			template <class InputIt>
 			void insert (iterator position, InputIt first, InputIt last,
-			typename std::enable_if<!std::is_integral<InputIt>::value, InputIt>::type* = nullptr) // here
+			typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type* = nullptr) 
 			{
 				while (first != last)
 				{
