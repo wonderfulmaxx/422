@@ -24,20 +24,31 @@ namespace ft
 		operator                    iterator<const Key, const T> () const     {return (iterator<const Key, const T>(this->_node)); }
 		virtual ~iterator() {}
 
-		pair& operator*() { return (_node->value); }
-		pair* operator->(){ return &(_node->value); }
+		pair& operator*() { return (_node->donnees); }
+		pair* operator->(){ return &(_node->donnees); }
 		bool operator !=(const iterator &other) const {return(_node =! other.node);}
 		bool operator ==(const iterator &other) const {return(_node == other.node);}
 
-		// iterator & operator ++()
-		// {
-		// 	if (_node->droit)
-		// 	{
-		// 		_node = node->droit
-		// 		while (node->gauche)
-		// 		_node = node->gauche
-		// 	}
-				
+		iterator &operator++()
+		{
+			if (_node->next)
+			{
+				_node = _node->next;
+				return (*this);
+			}
+			if (_node->droit)
+			{
+				_node = _node->droit;
+				while (_node->droit)
+					_node = _node->gauche;
+			}
+			else
+			{
+				std::cout << "impossible lol";
+			}
+			return (*this);
+		}
+
 		// }
 
 	};

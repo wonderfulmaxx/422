@@ -16,6 +16,7 @@ template<
     class Alloc = std::allocator<ft::pair<const Key, T> >
 > class map
 {
+    public:
 		 	typedef             Key                                                     key_type;
             typedef             T                                                       mapped_type;
             typedef             ft::pair<const key_type, mapped_type>                   value_type;
@@ -52,7 +53,6 @@ template<
                 return node_ptr->donnees.second;
             else
                 throw std::out_of_range(" map::at:  key not found");
-            // return(nullptr);
         }
 
         ft::pair<iterator, bool> insert(const value_type_2 &value)
@@ -61,9 +61,22 @@ template<
             node_pointer testptr = this->_tree.recherche(value.first);
 
             ft::pair<iterator, bool> result(testptr, ret);
-            // return (ft::make_pair(pair, ret));
             return result;
         }
+
+        iterator begin()
+        {
+           return (_tree.infixe(0));
+        }
+
+        iterator end()
+        {
+            return (_tree.biggest()->next);
+        }
+
+        
+
+
 };
 }
 

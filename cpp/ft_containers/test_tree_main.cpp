@@ -1,5 +1,6 @@
 #include "map.hpp"
 #include "tree.hpp"
+#include "map_iterator.hpp"
 
 int main()
 {
@@ -24,16 +25,30 @@ int main()
 		// lol.insert(ft::make_pair<int,int>(9,999));
 
 		lol.insert(ft::make_pair<int,std::string>(40,"racine(40)"));
-		// lol.insert(ft::make_pair<int,std::string>(14,"(14)"));
-		// lol.insert(ft::make_pair<int,std::string>(5,"(5)"));
-		// lol.insert(ft::make_pair<int,std::string>(16,"(16)"));
-		// lol.insert(ft::make_pair<int,std::string>(3,"Smallest(3)"));
-		// lol.insert(ft::make_pair<int,std::string>(7,"(7)"));
-		// lol.insert(ft::make_pair<int,std::string>(50,"(50)"));
-		// lol.insert(ft::make_pair<int,std::string>(45,"(45)"));
-		// lol.insert(ft::make_pair<int,std::string>(55,"Biggest(55)"));
+		lol.insert(ft::make_pair<int,std::string>(14,"(14)"));
+		lol.insert(ft::make_pair<int,std::string>(5,"(5)"));
+		lol.insert(ft::make_pair<int,std::string>(16,"(16)"));
+		lol.insert(ft::make_pair<int,std::string>(3,"Smallest(3)"));
+		lol.insert(ft::make_pair<int,std::string>(7,"(7)"));
+		lol.insert(ft::make_pair<int,std::string>(50,"(50)"));
+		lol.insert(ft::make_pair<int,std::string>(45,"(45)"));
+		lol.insert(ft::make_pair<int,std::string>(55,"Biggest(55)"));
+		std::cout << lol.insert(ft::make_pair<int,std::string>(8,"(8)")).second << std::endl;
+			//std::cout << "caca\n";
 
-		//std::cout << (lol.at(6))<< std::endl;
+		ft::map<int,std::string>::iterator pouet= lol.begin();
+
+		std::cout << (*pouet).second << std::endl;
+		++pouet;
+		std::cout << (*pouet).second << std::endl;
+
+		// pouet = lol.end();
+
+		// std::cout << (*pouet).second << std::endl;
+
+		//lol.test();
+
+		std::cout << (lol.at(7))<< std::endl;
 		//std::cout << lol
 	}
 	catch(const std::exception& e)

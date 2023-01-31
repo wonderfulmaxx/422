@@ -7,16 +7,22 @@
  
 namespace ft
 {
+
+	static int global_counter ;
+
 // Définition du noeud en tant que struct
 template <typename T>
 struct Noeud
 {
 //	Noeud () : donnees(NULL),gauche(),droit() {}
-	Noeud(const T& val) : donnees(val), gauche(NULL), droit(NULL){}
+	Noeud(const T& val) : donnees(val), gauche(NULL), droit(NULL), previous(NULL), next(NULL){}
+	Noeud ():donnees(0), gauche(NULL), droit(NULL), previous(NULL), next(NULL){}
 
     T donnees;
     Noeud <T>* gauche;
     Noeud <T>* droit;
+	Noeud <T>* previous;
+	Noeud <T>* next;
 };
  
 // Définition de la classe Liste
@@ -38,13 +44,24 @@ class Tree
 			_node_alloc.construct(temp, Node(valeur));
 			return temp;
 		}
+
+		 Noeud <T>* CreerNoeud ()
+		{
+			Noeud<T> *temp = _node_alloc.allocate(1);
+			_node_alloc.construct(temp, Node());
+			return temp;
+		}
+
 		void detruire (Noeud <T>* ptr)
 		{
-			 if (!ptr){return;}
-     
+			if (!ptr)
+				{return;}
+	
     		detruire (ptr -> gauche); // détruire le sous-arbre gauche
    			detruire (ptr -> droit); // détruire le sous-arbre droit
-   		 	delete ptr; // détruire la racine
+   		 	//std::cout << "destruction\n";
+			_node_alloc.destroy(ptr);
+			_node_alloc.deallocate(ptr,1); // détruire la racine
 		}
 
         bool inserer (const T& value, Noeud <T>*& ptr)
@@ -52,7 +69,31 @@ class Tree
 			// si l'arbre vide, inserer comme racine
 			if (!ptr)
 			{
-				ptr = CreerNoeud(value);
+				if (smallest() && value.first < smallest()->donnees.first)
+				{
+					_node_alloc.destroy(smallest()->previous);
+					_node_alloc.deallocate(smallest()->previous,1);
+					ptr = CreerNoeud(value);
+					ptr->previous = CreerNoeud();
+				}
+				else if (biggest() && value.first > biggest()->donnees.first)
+				{
+					_node_alloc.destroy(biggest()->next);
+					_node_alloc.deallocate(biggest()->next,1);
+					ptr = CreerNoeud(value);
+					ptr->next = CreerNoeud();
+				}
+				else if (!biggest() && !smallest())
+				{
+					ptr = CreerNoeud(value);
+					ptr->previous = CreerNoeud();
+					ptr->next = CreerNoeud();
+				}
+				else
+				{
+					ptr = CreerNoeud(value);
+				}
+
 				return (true);
 			}
 			// si la value est inférieure à la value de racine,
@@ -69,15 +110,32 @@ class Tree
 			else return (false);
 		}
 
-		void infixe (Noeud <T>* ptr) const
+		Noeud <T>* infixe (Noeud <T>* ptr, int target) const
 		{
+			Noeud<T>* test = NULL;
+
 			if (!ptr)
-				return;
-			infixe (ptr -> gauche);
-			std::cout << ptr->donnees.second;
-   			infixe (ptr -> droit);
+				return(NULL);
+			test = infixe (ptr -> gauche, target);
+			if (test)
+				return (test);
+			
+			if (global_counter == target)
+				return (ptr);
+
+			std::cout << ptr->donnees.second << " \n";
+
+			global_counter ++;
+   			test = infixe (ptr -> droit, target);
+			if (test)
+				return (test);
+
+			if (global_counter == target)
+				return (ptr);
+			else 
+				return (NULL);
 		}
-		
+
         void prefixe (Noeud <T>* ptr) const; // Fonction d'aide
         void postfixe (Noeud <T>* ptr) const; // Fonction d'aide
 		
@@ -114,7 +172,8 @@ class Tree
 				else
 					racine = NULL; // on pourrais essayer avec detruire?  //////////////// a faire cerveau repausé
 
-				delete ptr;
+				_node_alloc.destroy(ptr);
+				_node_alloc.deallocate(ptr,1);
 			}
 			else if (ptr->gauche && ptr->droit)
 			{
@@ -139,7 +198,8 @@ class Tree
 				else
 					racine = enfant;
 
-				delete ptr;
+				_node_alloc.destroy(ptr);
+				_node_alloc.deallocate(ptr,1);
 			}
 
 		}
@@ -176,7 +236,11 @@ class Tree
 
 		//explicit map( const Compare& comp, const Allocator& alloc = Allocator() ) {}
 
-        ~Tree () {detruire(racine);}
+        ~Tree () 
+		{
+			if (racine)
+				detruire();
+		}
 
         bool inserer (const T& value)
 		{
@@ -185,6 +249,7 @@ class Tree
         void detruire ()
 		{
 			detruire(racine);
+			racine = NULL;
 		}
 		void supprimer(const T &value)
 		{
@@ -211,10 +276,34 @@ class Tree
 			Noeud <T>* parent = NULL;
 			return(recherche(value,racine,parent));
 		}
-        void infixe () const
+
+		
+        Noeud<T>* infixe (int target) const
 		{
-			infixe(racine);
+			
+			return(infixe(racine, target));
 		}
+
+		Noeud<T>* smallest()
+		{
+			if (!racine)
+				return(NULL);
+			Noeud <T>* target = racine;
+			while (target -> gauche)
+				target = target -> gauche;
+			return target;
+		}
+
+		Noeud<T>* biggest()
+		{
+			if (!racine)
+				return(NULL);
+			Noeud <T>* target = racine;
+			while (target -> droit)
+				target = target -> droit;
+			return target; 
+		}
+
         void prefixe () const;
         void postfixe () const;
         int taille () const;
