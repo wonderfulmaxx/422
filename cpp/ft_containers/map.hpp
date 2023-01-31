@@ -74,6 +74,10 @@ template<
             return (_tree.biggest()->next);
         }
 
+        void test(const key_type &lol)
+        {
+            this->_tree.supprimer(lol);
+        }
         
 
 

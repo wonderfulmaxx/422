@@ -44,7 +44,7 @@ namespace ft
 			}
 			else
 			{
-				std::cout << "impossible lol";
+				std::cout << "impossible lol(++)\n";
 			}
 			return (*this);
 		}

@@ -4,6 +4,9 @@
 
 int main()
 {
+
+	Note : il faut tester les supprimer en debut et fin d'arbre, tester si ils prennenent bien en compte previous et next, puis faire les iterateurs
+
 	// ft::Tree<int,int> lol;
 	// lol.inserer(42);
 	// lol.inserer(20);
@@ -23,6 +26,8 @@ int main()
 	{
 		// lol.insert(ft::make_pair<int,int>(6,666));
 		// lol.insert(ft::make_pair<int,int>(9,999));
+
+		
 
 		lol.insert(ft::make_pair<int,std::string>(40,"racine(40)"));
 		lol.insert(ft::make_pair<int,std::string>(14,"(14)"));
@@ -48,6 +53,7 @@ int main()
 
 		//lol.test();
 
+		 (lol.test(7));
 		std::cout << (lol.at(7))<< std::endl;
 		//std::cout << lol
 	}

@@ -165,12 +165,27 @@ class Tree
 				if (ptr != racine)
 				{
 					if (parent->gauche == ptr)
+					{
+						if (smallest() && ptr == smallest())
+						{
+							parent->previous = ptr->previous;
+						}
 						parent->gauche = NULL;
+					}
 					else
+					{
+						if (biggest() && ptr == biggest())
+						{
+							parent->next = ptr->next;
+						}
 						parent->droit = NULL;
+					}
 				}
 				else
-					racine = NULL; // on pourrais essayer avec detruire?  //////////////// a faire cerveau repausé
+				{
+					racine = NULL; 
+					//here ptetre besoin de destroy next et previous
+				}
 
 				_node_alloc.destroy(ptr);
 				_node_alloc.deallocate(ptr,1);
@@ -180,7 +195,7 @@ class Tree
 				Noeud<T> *pere = ptr;
 				// ici vous pouvez utiliser le prédécesseur aussi
 				Noeud<T> *succ = successeur(ptr->droit, pere);
-				int val = succ->donnees;
+				T val = succ->donnees;
 				supprimer(succ, pere);
 				ptr->donnees = val;
 			}
@@ -251,10 +266,11 @@ class Tree
 			detruire(racine);
 			racine = NULL;
 		}
-		void supprimer(const T &value)
+		template <typename I>
+		void supprimer(const I &value)
 		{
 
-			Noeud <T>* parent = 0;
+			Noeud <T>* parent = NULL;
 			supprimer(recherche(value,racine,parent), parent);
 
 
