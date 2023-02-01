@@ -2,6 +2,7 @@
 #define MAP_ITERATOR_HPP
 
 #include "tree.hpp"
+//#include "map.hpp"
 
 namespace ft
 {
@@ -33,20 +34,62 @@ namespace ft
 		{
 			if (_node->next)
 			{
+				//std::cout << "bizarre sthistoire\n";
 				_node = _node->next;
 				return (*this);
 			}
 			if (_node->droit)
 			{
+				//std::cout << "pas besoin de parents" << std::endl;
 				_node = _node->droit;
-				while (_node->droit)
+				while (_node->gauche)
 					_node = _node->gauche;
 			}
 			else
 			{
-				std::cout << "impossible lol(++)\n";
+				node_pointer ptr = _node->root;
+				_node = recherche(_node, ptr);
+				//std::cout << "here : " << _node->donnees.second << std::endl;
 			}
 			return (*this);
+		}
+
+		node_pointer recherche(node_pointer target, node_pointer inspector, node_pointer theo
+		,node_pointer superior)
+		{
+			if (inspector->donnees.first > target->donnees.first)
+			{
+				node_pointer theo = inspector;
+				superior = theo;
+				inspector = inspector->gauche;
+				return (recherche (target,inspector,theo,superior));
+			}
+			else if (inspector->donnees.first < target->donnees.first)
+			{
+				node_pointer theo = inspector;
+				inspector = inspector->droit;
+				return(recherche (target,inspector,theo,superior));
+			}
+			return (superior);
+		}
+
+		node_pointer recherche(node_pointer target, node_pointer inspector)
+		{
+			
+
+			if (inspector->donnees.first > target->donnees.first)
+			{
+				node_pointer theo = inspector;
+				node_pointer superior = inspector;
+				inspector = inspector->gauche;
+				return (recherche (target,inspector,theo,superior));
+			}
+			else //if (inspector->donnees.first < target->donnees.first)
+			{
+				node_pointer theo = inspector;
+				inspector = inspector->droit;
+				return(recherche (target,inspector,theo,NULL));
+			}
 		}
 
 		// }

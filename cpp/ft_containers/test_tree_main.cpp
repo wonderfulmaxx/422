@@ -5,7 +5,7 @@
 int main()
 {
 
-	Note : il faut tester les supprimer en debut et fin d'arbre, tester si ils prennenent bien en compte previous et next, puis faire les iterateurs
+//	Note : il faut tester les supprimer en debut et fin d'arbre, tester si ils prennenent bien en compte previous et next, puis faire les iterateurs
 
 	// ft::Tree<int,int> lol;
 	// lol.inserer(42);
@@ -30,7 +30,10 @@ int main()
 		
 
 		lol.insert(ft::make_pair<int,std::string>(40,"racine(40)"));
-		lol.insert(ft::make_pair<int,std::string>(14,"(14)"));
+
+		//lol.test(40);
+		
+		 lol.insert(ft::make_pair<int,std::string>(14,"(14)"));
 		lol.insert(ft::make_pair<int,std::string>(5,"(5)"));
 		lol.insert(ft::make_pair<int,std::string>(16,"(16)"));
 		lol.insert(ft::make_pair<int,std::string>(3,"Smallest(3)"));
@@ -43,9 +46,29 @@ int main()
 
 		ft::map<int,std::string>::iterator pouet= lol.begin();
 
-		std::cout << (*pouet).second << std::endl;
+		std::cout <<"ite on " << (*pouet).second << std::endl;
 		++pouet;
-		std::cout << (*pouet).second << std::endl;
+		std::cout <<"ite on " << (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on " << (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on " << (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
+	//	++pouet;
+	//	std::cout <<"ite on "<< (*pouet).second << std::endl;
 
 		// pouet = lol.end();
 
@@ -53,8 +76,10 @@ int main()
 
 		//lol.test();
 
-		 (lol.test(7));
-		std::cout << (lol.at(7))<< std::endl;
+		
+
+
+	//	std::cout << (lol.at(45))<< std::endl;
 		//std::cout << lol
 	}
 	catch(const std::exception& e)

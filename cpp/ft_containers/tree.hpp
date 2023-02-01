@@ -23,6 +23,7 @@ struct Noeud
     Noeud <T>* droit;
 	Noeud <T>* previous;
 	Noeud <T>* next;
+	Noeud <T>* root;
 };
  
 // Définition de la classe Liste
@@ -42,6 +43,7 @@ class Tree
 		{
 			Noeud<T> *temp = _node_alloc.allocate(1);
 			_node_alloc.construct(temp, Node(valeur));
+			temp->root = racine;
 			return temp;
 		}
 
@@ -73,6 +75,7 @@ class Tree
 				{
 					_node_alloc.destroy(smallest()->previous);
 					_node_alloc.deallocate(smallest()->previous,1);
+					smallest()->previous = NULL;
 					ptr = CreerNoeud(value);
 					ptr->previous = CreerNoeud();
 				}
@@ -80,6 +83,7 @@ class Tree
 				{
 					_node_alloc.destroy(biggest()->next);
 					_node_alloc.deallocate(biggest()->next,1);
+					biggest()->next = NULL;
 					ptr = CreerNoeud(value);
 					ptr->next = CreerNoeud();
 				}
@@ -184,7 +188,12 @@ class Tree
 				else
 				{
 					racine = NULL; 
+
 					//here ptetre besoin de destroy next et previous
+					_node_alloc.destroy(ptr->previous);
+					_node_alloc.deallocate(ptr->previous,1);
+					_node_alloc.destroy(ptr->next);
+					_node_alloc.deallocate(ptr->next,1);
 				}
 
 				_node_alloc.destroy(ptr);
@@ -319,6 +328,14 @@ class Tree
 				target = target -> droit;
 			return target; 
 		}
+
+		// int search_pos(Noeud <T>* k)
+        // {
+        //     int counter;
+        //     while (_tree.infixe(counter) != k)
+        //         counter ++;
+        //     return (counter);
+        // }
 
         void prefixe () const;
         void postfixe () const;
