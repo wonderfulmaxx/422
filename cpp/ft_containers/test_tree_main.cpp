@@ -44,29 +44,10 @@ int main()
 		std::cout << lol.insert(ft::make_pair<int,std::string>(8,"(8)")).second << std::endl;
 			//std::cout << "caca\n";
 
-		ft::map<int,std::string>::iterator pouet= lol.begin();
+		ft::map<int,std::string>::iterator pouet= lol.end();
 
-		std::cout <<"ite on " << (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on " << (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on " << (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on " << (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		for (;pouet != lol.begin(); --pouet)
+			std::cout << (*pouet).second << std::endl;
 	//	++pouet;
 	//	std::cout <<"ite on "<< (*pouet).second << std::endl;
 
