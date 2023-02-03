@@ -76,8 +76,9 @@ namespace ft
 				}
 				else
 				{
-					std::cout << "on va chercher le lapin blanc, actuel = "<< _node->donnees.first <<"\n";
+					//std::cout << "on va chercher le lapin blanc, actuel = "<< _node->donnees.first <<"\n";
 					node_pointer ptr = _node->root;
+					//std::cout << ptr->donnees.first << std::endl;
 					_node = _recherche(_node, ptr);
 				}
 			}
@@ -124,25 +125,31 @@ namespace ft
 
 				node_pointer _recherche(node_pointer target, node_pointer inspector, node_pointer theo, node_pointer inferior)
 				{
-					std::cout << "nous voici dans la boucle Neo\n";
+					//std::cout << "nous voici dans la boucle Neo\n";
+					//std::cout << "inferior = " << inferior->donnees.first << ", inspector = " << inspector->donnees.first << std::endl;
 					if ((!target->donnees.first && inspector->donnees.first) || inspector->donnees.first < target->donnees.first)
 					{
-						
+					//	std::cout << "allo?\n";
 						node_pointer theo = inspector;
 						inferior = theo;
-						std::cout << "check 0\n";
-						std::cout << "check1: inspector.donnee.first = " << inspector->donnees.first << std::endl;
-						inspector = inspector->droit;
+						//std::cout << "check 0\n";
+						//std::cout << "check1: inspector.donnee.first = " << inspector->donnees.first << std::endl;
+						
+						if (inspector -> next)
+							inspector = inspector->next;
+						else
+							inspector = inspector->droit;
 						
 						return (_recherche(target, inspector, theo, inferior));
 					}
-					else if (inspector->donnees.first > target->donnees.first)
+					else if ( inspector->donnees.first > target->donnees.first)
 					{
-						std::cout << "check2\n";
+					//	std::cout << "check2\n";
 						node_pointer theo = inspector;
 						inspector = inspector->gauche;
 						return (_recherche(target, inspector, theo, inferior));
 					}
+					//std::cout << "on s'arrache\n";
 					return (inferior);
 				}
 
@@ -152,7 +159,7 @@ namespace ft
 
 					if ((!target->donnees.first) || inspector->donnees.first < target->donnees.first)
 					{
-						std::cout << "on va descendre encore un peu\n";
+						//std::cout << "on va descendre encore un peu\n";
 						node_pointer theo = inspector;
 						node_pointer inferior = inspector;
 						
@@ -162,7 +169,7 @@ namespace ft
 					}
 					else // if (inspector->donnees.first < target->donnees.first)
 					{
-						std::cout << "on est passer dans le else\n";
+					//	std::cout << "on est passer dans le else\n";
 						node_pointer theo = inspector;
 						inspector = inspector->gauche;
 						return (_recherche(target, inspector, theo, NULL));

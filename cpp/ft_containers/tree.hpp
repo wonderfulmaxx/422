@@ -51,6 +51,7 @@ class Tree
 		{
 			Noeud<T> *temp = _node_alloc.allocate(1);
 			_node_alloc.construct(temp, Node());
+			temp->root = racine;
 			return temp;
 		}
 
