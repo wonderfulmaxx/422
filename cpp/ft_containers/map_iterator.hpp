@@ -45,7 +45,7 @@ namespace ft
 			}
 			else
 			{
-				std::cout << "attention: si index sur previous bug car !previous.first\n";
+			//	std::cout << "attention: si index sur previous bug car !previous.first\n";
 				node_pointer ptr = _node->root;
 				_node = recherche(_node, ptr);
 			}
@@ -85,97 +85,106 @@ namespace ft
 			return(*this);
 		}
 
-			private:
-				node_pointer recherche(node_pointer target, node_pointer inspector, node_pointer theo, node_pointer superior)
+		iterator operator--(int)
+		{
+			iterator tmp(*this);
+			--(*this);
+			return (tmp);
+		}
+
+		private:
+			node_pointer recherche(node_pointer target, node_pointer inspector,/* node_pointer theo,*/ node_pointer superior)
+			{
+				if ((!inspector->donnees.first && target->donnees.first) || inspector->donnees.first > target->donnees.first)
 				{
-					if (inspector->donnees.first > target->donnees.first)
-					{
-						node_pointer theo = inspector;
-						superior = theo;
+					//node_pointer theo = inspector;
+					superior = inspector; //theo;
+					if (inspector->previous)
+						inspector = inspector->previous;
+					else
 						inspector = inspector->gauche;
-						return (recherche(target, inspector, theo, superior));
-					}
-					else if (inspector->donnees.first < target->donnees.first)
-					{
-						node_pointer theo = inspector;
-						inspector = inspector->droit;
-						return (recherche(target, inspector, theo, superior));
-					}
-					return (superior);
+					return (recherche(target, inspector/*, theo*/, superior));
 				}
-
-
-				node_pointer recherche(node_pointer target, node_pointer inspector)
+				else if (inspector->donnees.first < target->donnees.first)
 				{
-
-					if (inspector->donnees.first > target->donnees.first)
-					{
-						node_pointer theo = inspector;
-						node_pointer superior = inspector;
-						inspector = inspector->gauche;
-						return (recherche(target, inspector, theo, superior));
-					}
-					else // if (inspector->donnees.first < target->donnees.first)
-					{
-						node_pointer theo = inspector;
-						inspector = inspector->droit;
-						return (recherche(target, inspector, theo, NULL));
-					}
+					//node_pointer theo = inspector;
+					inspector = inspector->droit;
+					return (recherche(target, inspector/*, theo*/, superior));
 				}
+				return (superior);
+			}
 
-				node_pointer _recherche(node_pointer target, node_pointer inspector, node_pointer theo, node_pointer inferior)
+
+			node_pointer recherche(node_pointer target, node_pointer inspector)
+			{
+				if ((!inspector->donnees.first) ||inspector->donnees.first > target->donnees.first)
 				{
+					//node_pointer theo = inspector;
+					node_pointer superior = inspector;
+					inspector = inspector->gauche;
+					return (recherche(target, inspector/*, theo*/, superior));
+				}
+				else // if (inspector->donnees.first < target->donnees.first)
+				{
+					//node_pointer theo = inspector;
+					inspector = inspector->droit;
+					return (recherche(target, inspector/*, theo*/, NULL));
+				}
+			}
+
+			node_pointer _recherche(node_pointer target, node_pointer inspector/*, node_pointer theo*/, node_pointer inferior)
+			{
 					//std::cout << "nous voici dans la boucle Neo\n";
 					//std::cout << "inferior = " << inferior->donnees.first << ", inspector = " << inspector->donnees.first << std::endl;
-					if ((!target->donnees.first && inspector->donnees.first) || inspector->donnees.first < target->donnees.first)
-					{
+				if ((!target->donnees.first && inspector->donnees.first) || inspector->donnees.first < target->donnees.first)
+				{
 					//	std::cout << "allo?\n";
-						node_pointer theo = inspector;
-						inferior = theo;
+					//node_pointer theo = inspector;
+					inferior = inspector;
 						//std::cout << "check 0\n";
 						//std::cout << "check1: inspector.donnee.first = " << inspector->donnees.first << std::endl;
 						
-						if (inspector -> next)
-							inspector = inspector->next;
-						else
-							inspector = inspector->droit;
-						
-						return (_recherche(target, inspector, theo, inferior));
-					}
-					else if ( inspector->donnees.first > target->donnees.first)
-					{
-					//	std::cout << "check2\n";
-						node_pointer theo = inspector;
-						inspector = inspector->gauche;
-						return (_recherche(target, inspector, theo, inferior));
-					}
-					//std::cout << "on s'arrache\n";
-					return (inferior);
-				}
-
-
-				node_pointer _recherche(node_pointer target, node_pointer inspector)
-				{
-
-					if ((!target->donnees.first) || inspector->donnees.first < target->donnees.first)
-					{
-						//std::cout << "on va descendre encore un peu\n";
-						node_pointer theo = inspector;
-						node_pointer inferior = inspector;
-						
+					if (inspector -> next)
+						inspector = inspector->next;
+					else
 						inspector = inspector->droit;
 						
-						return (_recherche(target, inspector, theo, inferior));
-					}
-					else // if (inspector->donnees.first < target->donnees.first)
-					{
-					//	std::cout << "on est passer dans le else\n";
-						node_pointer theo = inspector;
-						inspector = inspector->gauche;
-						return (_recherche(target, inspector, theo, NULL));
-					}
+					return (_recherche(target, inspector/*, theo*/, inferior));
 				}
-			};
+				else if ( inspector->donnees.first > target->donnees.first)
+				{
+					//	std::cout << "check2\n";
+					//node_pointer theo = inspector;
+					inspector = inspector->gauche;
+					return (_recherche(target, inspector/*, theo*/, inferior));
+				}
+					//std::cout << "on s'arrache\n";
+				return (inferior);
+			}
+
+
+			node_pointer _recherche(node_pointer target, node_pointer inspector)
+			{
+
+				if ((!target->donnees.first) || inspector->donnees.first < target->donnees.first)
+				{
+						//std::cout << "on va descendre encore un peu\n";
+					node_pointer theo = inspector;
+					node_pointer inferior = inspector;
+						
+					inspector = inspector->droit;
+						
+					return (_recherche(target, inspector/*, theo*/, inferior));
+				}
+				else // if (inspector->donnees.first < target->donnees.first)
+				{
+					//	std::cout << "on est passer dans le else\n";
+					node_pointer theo = inspector;
+					inspector = inspector->gauche;
+					return (_recherche(target, inspector/*, theo*/, NULL));
+				}
+			}
+		};
 }
 
 #endif

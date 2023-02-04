@@ -34,15 +34,15 @@ namespace ft
 
             reference                           operator*()                                                     { return (*ptr); }
             bool                                operator!=(const reverse_iterator &other) const   { return (ptr != other.ptr); }
-            reverse_iterator      operator+(difference_type a) const                              { return (ptr - a); }
-            reverse_iterator&     operator++()                                                    { ptr--; return (*this); }
-            reverse_iterator      operator++(int)                                                 { ptr--; return (reverse_iterator(ptr + 1)); }
-            reverse_iterator&     operator+=(difference_type a)                                   { ptr = ptr - a; return (*this); }
-            reverse_iterator      operator-(difference_type a) const                              { return (ptr + a); }
+            reverse_iterator                    operator+(difference_type a) const                              { return (ptr - a); }
+            reverse_iterator&                   operator++()                                                    { ptr--; return (*this); }
+            reverse_iterator                    operator++(int)                                                 { ptr--; return (reverse_iterator(ptr + 1)); }
+            reverse_iterator&                   operator+=(difference_type a)                                   { ptr = ptr - a; return (*this); }
+            reverse_iterator                    operator-(difference_type a) const                              { return (ptr + a); }
             int                                 operator-(reverse_iterator other) const           { return ((ptr - (other.ptr)) * -1); }
-            reverse_iterator&     operator--()                                                    { ptr++; return (*this); }
-            reverse_iterator      operator--(int)                                                 { ptr++; return (reverse_iterator(ptr - 1)); }
-            reverse_iterator&     operator-=(difference_type a)                                   { ptr = ptr + a; return (*this); }
+            reverse_iterator&                   operator--()                                                    { ptr++; return (*this); }
+            reverse_iterator                    operator--(int)                                                 { ptr++; return (reverse_iterator(ptr - 1)); }
+            reverse_iterator&                   operator-=(difference_type a)                                   { ptr = ptr + a; return (*this); }
             bool                                operator<(const const_iterator& other) const                    { return (ptr > other.base()); }
             bool                                operator<=(const const_iterator& other) const                   { return (ptr >= other.base()); }
             bool                                operator==(const reverse_iterator& other) const   { return (ptr == other.ptr); }

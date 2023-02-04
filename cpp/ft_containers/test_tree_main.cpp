@@ -1,7 +1,6 @@
 #include "map.hpp"
 #include "tree.hpp"
 #include "map_iterator.hpp"
-#include <map>
 
 int main()
 {
@@ -19,7 +18,6 @@ int main()
 
 	// std::cout << lol.recherche(10)->donnees;
 	ft::map<int,std::string> lol;
-	std::map<int,std::string> std_lol;
 	//ft::map<int,int> lol;
 
 	//lol.insert(ft::make_pair<int, std::string>(5, "Hello"));
@@ -48,10 +46,14 @@ int main()
 
 		ft::map<int,std::string>::iterator pouet= lol.end();
 
-		for (;pouet != lol.begin(); --pouet)
+		for (;pouet != lol.begin(); pouet--)
 			std::cout << (*pouet).second << std::endl;
-	//	++pouet;
-	//	std::cout <<"ite on "<< (*pouet).second << std::endl;
+		std::cout << (*pouet).second << std::endl;
+		-- pouet;
+		std::cout <<"ite on -"<< (*pouet).second << "-" <<std::endl;
+
+		++pouet;
+		std::cout <<"ite on "<< (*pouet).second << std::endl;
 
 		// pouet = lol.end();
 

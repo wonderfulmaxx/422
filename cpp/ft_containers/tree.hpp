@@ -141,24 +141,24 @@ class Tree
 				return (NULL);
 		}
 
-        void prefixe (Noeud <T>* ptr) const; // Fonction d'aide
-        void postfixe (Noeud <T>* ptr) const; // Fonction d'aide
+        // void prefixe (Noeud <T>* ptr) const; // Fonction d'aide
+        // void postfixe (Noeud <T>* ptr) const; // Fonction d'aide
 		
-        Noeud <T>* successeur (Noeud <T>* ptr, Noeud <T>*& parent) const
-		{
-			if (!ptr)
-				return(NULL);
+        // Noeud <T>* successeur (Noeud <T>* ptr, Noeud <T>*& parent) const
+		// {
+		// 	if (!ptr)
+		// 		return(NULL);
 			
-			Noeud<T> *temp = ptr;
+		// 	Noeud<T> *temp = ptr;
 
-			while (temp->gauche != NULL)
-			{
-				temp = temp->gauche;
-			}
+		// 	while (temp->gauche != NULL)
+		// 	{
+		// 		temp = temp->gauche;
+		// 	}
 
-			return (temp);
+		// 	return (temp);
 
-		}
+		// }
 
 		Noeud <T>* predecesseur (Noeud <T>* ptr, Noeud <T>*& parent) const; // Fonction d'aide
 
