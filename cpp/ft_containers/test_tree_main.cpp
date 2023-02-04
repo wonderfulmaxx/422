@@ -47,18 +47,32 @@ int main()
 
 		ft::map<int,std::string>::iterator ite_end= lol.end();
 		ft::map<int,std::string>::iterator ite_start= lol.begin();
+		//ite_start ++;
+
+		std::cout <<"itestart" << (*ite_start).first << std::endl;
+
 
 		ft::map<int,std::string> loli(ite_start,ite_end);
 
 		ft::map<int,std::string>::iterator pouet = loli.end();
 
-		for (; pouet != loli.begin(); pouet--)
-			std::cout << (*pouet).second << std::endl;
+
+		//std::cout << "here" << loli.at(-3) << std::endl;
+		loli.test(-3);
+
+		ft::map<int,std::string>::iterator swag = loli.begin();
+
+		for (; pouet != swag; -- pouet)
+			std::cout <<"-" <<(*pouet).second << std::endl;
+
 
 
 		std::cout << (*pouet).second << std::endl;
 		-- pouet;
 		std::cout <<"ite on -"<< (*pouet).first << "-" <<std::endl;
+
+
+		std::cout << "size =" << lol.size() << ", loli size = " << loli.size() << std::endl;
 
 		// ++pouet;
 		// std::cout <<"ite on "<< (*pouet).second << std::endl;

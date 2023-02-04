@@ -81,6 +81,7 @@ class Tree
 					_node_alloc.deallocate(smallest()->previous,1);
 					smallest()->previous = NULL;
 					ptr = CreerNoeud(value);
+					std:: cout << "apres creation de "<< ptr->donnees.first << " gauche = " << ptr->gauche  << ", droit = " << ptr->droit<< std::endl; 
 					ptr->previous = CreerNoeud();
 				}
 				else if (biggest() && value.first > biggest()->donnees.first)
@@ -167,16 +168,22 @@ class Tree
 
         void supprimer (Noeud <T>* ptr, Noeud <T>* parent)
 		{
+			std::cout << "booba"<< std::endl;
+			std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
 			if (ptr->gauche == 0 && ptr->droit == 0)
 			{
-				//cout << ptr->donnees << parent->donnees << endl;
+				std::cout << "mager du caca" << std::endl;
 				if (ptr != racine)
 				{
+					
 					if (parent->gauche == ptr)
 					{
+						
 						if (smallest() && ptr == smallest())
 						{
+							
 							parent->previous = ptr->previous;
+							
 						}
 						parent->gauche = NULL;
 					}
@@ -280,11 +287,21 @@ class Tree
 			racine = NULL;
 		}
 		template <typename I>
-		void supprimer(const I &value)
+		bool supprimer(const I &value)
 		{
 
 			Noeud <T>* parent = NULL;
-			supprimer(recherche(value,racine,parent), parent);
+			//std::cout << "avant =" << buff->droit << std::endl;
+			node_pointer buff = recherche(value,racine,parent);
+			std::cout << "bro look: "<< buff->donnees.first << "droit =" << buff->droit << std::endl;
+			if (buff == NULL)
+			{
+				std::cout << "buff = null, on annule\n";
+			 return false;
+			}
+			std::cout << "buff =" << buff->donnees.first<< std::endl;// << buff->gauche->donnees.first << " " << buff->droit->donnees.first << std::endl;
+			supprimer(buff, parent);
+			return true;
 
 
 			// Noeud<T> *parent = 0;
