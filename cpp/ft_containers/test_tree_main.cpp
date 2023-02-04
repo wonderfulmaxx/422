@@ -7,6 +7,8 @@ int main()
 
 //	Note : il faut tester les supprimer en debut et fin d'arbre, tester si ils prennenent bien en compte previous et next, puis faire les iterateurs
 //  Note : il faut changer les verif de node invisible et le rendre plus stable en l'inscrivant dans une variable pointeur par exemple.
+// faire fonctionner le code avec pair <string, string>
+// pouvoir supprimer le plus petit node sans faire tout peter
 
 	// ft::Tree<int,int> lol;
 	// lol.inserer(42);
