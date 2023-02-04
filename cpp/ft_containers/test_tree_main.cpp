@@ -6,6 +6,7 @@ int main()
 {
 
 //	Note : il faut tester les supprimer en debut et fin d'arbre, tester si ils prennenent bien en compte previous et next, puis faire les iterateurs
+//  Note : il faut changer les verif de node invisible et le rendre plus stable en l'inscrivant dans une variable pointeur par exemple.
 
 	// ft::Tree<int,int> lol;
 	// lol.inserer(42);
@@ -33,10 +34,10 @@ int main()
 
 		//lol.test(40);
 		
-		 lol.insert(ft::make_pair<int,std::string>(14,"(14)"));
+		lol.insert(ft::make_pair<int,std::string>(-1,"(-1)"));
 		lol.insert(ft::make_pair<int,std::string>(5,"(5)"));
 		lol.insert(ft::make_pair<int,std::string>(16,"(16)"));
-		lol.insert(ft::make_pair<int,std::string>(3,"Smallest(3)"));
+		lol.insert(ft::make_pair<int,std::string>(-3,"Smallest(-3)"));
 		lol.insert(ft::make_pair<int,std::string>(7,"(7)"));
 		lol.insert(ft::make_pair<int,std::string>(50,"(50)"));
 		lol.insert(ft::make_pair<int,std::string>(45,"(45)"));
@@ -44,17 +45,26 @@ int main()
 		std::cout << lol.insert(ft::make_pair<int,std::string>(8,"(8)")).second << std::endl;
 			//std::cout << "caca\n";
 
-		ft::map<int,std::string>::iterator pouet= lol.end();
+		ft::map<int,std::string>::iterator ite_end= lol.end();
+		ft::map<int,std::string>::iterator ite_start= lol.begin();
 
-		for (;pouet != lol.begin(); pouet--)
+		ft::map<int,std::string> loli(ite_start,ite_end);
+
+		ft::map<int,std::string>::iterator pouet = loli.end();
+
+		for (; pouet != loli.begin(); pouet--)
 			std::cout << (*pouet).second << std::endl;
+
+
 		std::cout << (*pouet).second << std::endl;
 		-- pouet;
-		std::cout <<"ite on -"<< (*pouet).second << "-" <<std::endl;
+		std::cout <<"ite on -"<< (*pouet).first << "-" <<std::endl;
 
-		++pouet;
-		std::cout <<"ite on "<< (*pouet).second << std::endl;
+		// ++pouet;
+		// std::cout <<"ite on "<< (*pouet).second << std::endl;
 
+
+		// std::cout << "size = " << lol.size() << std::endl;
 		// pouet = lol.end();
 
 		// std::cout << (*pouet).second << std::endl;

@@ -25,7 +25,7 @@ struct Noeud
 	Noeud <T>* next;
 	Noeud <T>* root;
 };
- 
+
 // Définition de la classe Liste
  template<class T, class Compare = std::less<T>,
         class Node = Noeud<T>, class node_alloc = std::allocator<Node> >
@@ -35,15 +35,18 @@ class Tree
 	 typedef        Node*                             node_pointer;
 
     private:
-		node_alloc      _node_alloc;
 
+		size_t       _size;
+		node_alloc      _node_alloc;
         Noeud <T>* racine;
+		//key_compare     _comp;
 
         Noeud <T>* CreerNoeud (const T& valeur)
 		{
 			Noeud<T> *temp = _node_alloc.allocate(1);
 			_node_alloc.construct(temp, Node(valeur));
 			temp->root = racine;
+			_size ++;
 			return temp;
 		}
 
@@ -144,21 +147,21 @@ class Tree
         // void prefixe (Noeud <T>* ptr) const; // Fonction d'aide
         // void postfixe (Noeud <T>* ptr) const; // Fonction d'aide
 		
-        // Noeud <T>* successeur (Noeud <T>* ptr, Noeud <T>*& parent) const
-		// {
-		// 	if (!ptr)
-		// 		return(NULL);
+        Noeud <T>* successeur (Noeud <T>* ptr) const
+		{
+			if (!ptr)
+				return(NULL);
 			
-		// 	Noeud<T> *temp = ptr;
+			Noeud<T> *temp = ptr;
 
-		// 	while (temp->gauche != NULL)
-		// 	{
-		// 		temp = temp->gauche;
-		// 	}
+			while (temp->gauche != NULL)
+			{
+				temp = temp->gauche;
+			}
 
-		// 	return (temp);
+			return (temp);
 
-		// }
+		}
 
 		Noeud <T>* predecesseur (Noeud <T>* ptr, Noeud <T>*& parent) const; // Fonction d'aide
 
@@ -204,7 +207,7 @@ class Tree
 			{
 				Noeud<T> *pere = ptr;
 				// ici vous pouvez utiliser le prédécesseur aussi
-				Noeud<T> *succ = successeur(ptr->droit, pere);
+				Noeud<T> *succ = successeur(ptr->droit);
 				T val = succ->donnees;
 				supprimer(succ, pere);
 				ptr->donnees = val;
@@ -226,7 +229,7 @@ class Tree
 				_node_alloc.destroy(ptr);
 				_node_alloc.deallocate(ptr,1);
 			}
-
+			_size --;
 		}
 
 		template <typename I>
@@ -257,7 +260,7 @@ class Tree
 		}
 
 	public:
-        Tree ():racine(NULL){}//,compteur(0){}
+        Tree (): _size(0), racine(NULL){}
 
 		//explicit map( const Compare& comp, const Allocator& alloc = Allocator() ) {}
 
@@ -330,6 +333,11 @@ class Tree
 			return target; 
 		}
 
+		size_t get_size()
+		{
+			return (_size);
+		}
+
 		// int search_pos(Noeud <T>* k)
         // {
         //     int counter;
@@ -338,10 +346,10 @@ class Tree
         //     return (counter);
         // }
 
-        void prefixe () const;
-        void postfixe () const;
-        int taille () const;
-        bool estVide () const;
+        // void prefixe () const;
+        // void postfixe () const;
+        // int taille () const;
+        // bool estVide () const;
 };
 }
 

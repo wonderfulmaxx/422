@@ -169,7 +169,7 @@ namespace ft
 				if ((!target->donnees.first) || inspector->donnees.first < target->donnees.first)
 				{
 						//std::cout << "on va descendre encore un peu\n";
-					node_pointer theo = inspector;
+				//	node_pointer theo = inspector;
 					node_pointer inferior = inspector;
 						
 					inspector = inspector->droit;
@@ -179,12 +179,17 @@ namespace ft
 				else // if (inspector->donnees.first < target->donnees.first)
 				{
 					//	std::cout << "on est passer dans le else\n";
-					node_pointer theo = inspector;
+				//	node_pointer theo = inspector;
 					inspector = inspector->gauche;
 					return (_recherche(target, inspector/*, theo*/, NULL));
 				}
 			}
-		};
+			// template <typename Z>
+			// bool is_default_value(const Z &value)
+			// {
+			// 	return value == ();
+			// }
+	};
 }
 
 #endif

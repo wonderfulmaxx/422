@@ -44,6 +44,13 @@ template<
         public:
 
         map() {}
+
+        explicit map(const key_compare& comp, const allocator_type& alloc = allocator_type()) : _allocator(alloc), _comp(comp) {}
+        template<class InputIt>
+        map(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type alloc = allocator_type()) : _allocator(alloc), _comp(comp)
+        {
+            this->insert(first, last);
+        }
         ~map() {}
 
         mapped_type &at(const key_type &k)
@@ -64,6 +71,15 @@ template<
             return result;
         }
 
+        template <class InputIterator>
+        void insert (InputIterator first, InputIterator last)
+        {
+            for (; first != last; first++){
+                value_type_2 tmp((*first).first, (*first).second);
+                this->insert(tmp);
+            }
+        }
+
         iterator begin()
         {
            return (_tree.infixe(0));
@@ -79,7 +95,10 @@ template<
             this->_tree.supprimer(lol);
         }
 
-        
+        size_t size()
+        {
+            return(_tree.get_size());
+        }
         
 
 
