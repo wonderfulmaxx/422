@@ -15,15 +15,17 @@ template <typename T>
 struct Noeud
 {
 //	Noeud () : donnees(NULL),gauche(),droit() {}
-	Noeud(const T& val) : donnees(val), gauche(NULL), droit(NULL), previous(NULL), next(NULL){}
-	Noeud ():donnees(0), gauche(NULL), droit(NULL), previous(NULL), next(NULL){}
+	Noeud(const T& val) : donnees(val), gauche(NULL), droit(NULL), previous(NULL), next(NULL),is_invisible(false){}
+	Noeud ():donnees(0), gauche(NULL), droit(NULL), previous(NULL), next(NULL), is_invisible(true){}
 
+	bool is_invisible;
     T donnees;
     Noeud <T>* gauche;
     Noeud <T>* droit;
 	Noeud <T>* previous;
 	Noeud <T>* next;
 	Noeud <T>* root;
+	
 };
 
 // Définition de la classe Liste
@@ -229,9 +231,14 @@ class Tree
 					else
 						parent->droit = enfant;
 				}
-
 				else
+				{
+					if (racine->previous)
+						enfant->previous = racine->previous;
+					if (racine->next)
+						enfant ->previous = racine ->previous;
 					racine = enfant;
+				}
 
 				_node_alloc.destroy(ptr);
 				_node_alloc.deallocate(ptr,1);
@@ -293,13 +300,13 @@ class Tree
 			Noeud <T>* parent = NULL;
 			//std::cout << "avant =" << buff->droit << std::endl;
 			node_pointer buff = recherche(value,racine,parent);
-			std::cout << "bro look: "<< buff->donnees.first << "droit =" << buff->droit << std::endl;
+			///std::cout << "bro look: "<< buff->donnees.first << "droit =" << buff->droit << std::endl;
 			if (buff == NULL)
 			{
-				std::cout << "buff = null, on annule\n";
+				//std::cout << "buff = null, on annule\n";
 			 return false;
 			}
-			std::cout << "buff =" << buff->donnees.first<< std::endl;// << buff->gauche->donnees.first << " " << buff->droit->donnees.first << std::endl;
+			//std::cout << "buff =" << buff->donnees.first<< std::endl;// << buff->gauche->donnees.first << " " << buff->droit->donnees.first << std::endl;
 			supprimer(buff, parent);
 			return true;
 
@@ -353,6 +360,11 @@ class Tree
 		size_t get_size()
 		{
 			return (_size);
+		}
+
+		void affichage_racine()
+		{
+			std::cout << "racine = " << (*racine).donnees.second << std::endl;
 		}
 
 		// int search_pos(Noeud <T>* k)

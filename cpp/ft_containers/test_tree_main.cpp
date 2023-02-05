@@ -40,6 +40,7 @@ int main()
 		lol.insert(ft::make_pair<int,std::string>(5,"(5)"));
 		lol.insert(ft::make_pair<int,std::string>(16,"(16)"));
 		lol.insert(ft::make_pair<int,std::string>(-3,"Smallest(-3)"));
+		//lol.test (-3);
 		lol.insert(ft::make_pair<int,std::string>(7,"(7)"));
 		lol.insert(ft::make_pair<int,std::string>(50,"(50)"));
 		lol.insert(ft::make_pair<int,std::string>(45,"(45)"));
@@ -56,23 +57,41 @@ int main()
 
 		ft::map<int,std::string> loli(ite_start,ite_end);
 
-		ft::map<int,std::string>::iterator pouet = loli.end();
+		ft::map<int,std::string>::iterator loli_start = loli.begin();
+		ft::map<int,std::string>::iterator loli_end = loli.end();
+
+		for (; loli_start != loli_end ; loli_start ++)
+		{
+			std::cout << "affichage loli: " << (*loli_start).first << std::endl;
+		}
+
+		loli.affichage_racine();
+
+
+
+
+		//ft::map<int,std::string>::iterator pouet = loli.end();
 
 
 		//std::cout << "here" << loli.at(-3) << std::endl;
 		loli.test(-3);
 
 		ft::map<int,std::string>::iterator swag = loli.begin();
+		ft::map<int,std::string>::iterator pouet = loli.end();
 
-		for (; pouet != swag; -- pouet)
-			std::cout <<"-" <<(*pouet).second << std::endl;
+		for (; swag != pouet ;  swag ++)
+			std::cout <<"-" <<(*swag).second << std::endl;
+		std::cout << "fertig\n";
+		//for (; pouet != swag; -- pouet)
+		//	std::cout <<"-" <<(*pouet).second << std::endl;
 
 
 
-		std::cout << (*pouet).second << std::endl;
-		-- pouet;
+		//std::cout << (*pouet).second << std::endl;
+		//-- pouet;
 		std::cout <<"ite on -"<< (*pouet).first << "-" <<std::endl;
 
+		-- pouet;
 
 		std::cout << "size =" << lol.size() << ", loli size = " << loli.size() << std::endl;
 

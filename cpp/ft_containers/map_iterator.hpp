@@ -61,8 +61,10 @@ namespace ft
 
 		iterator& operator --()
 		{
+			std::cout << "Hello there\n";
 			if (_node->gauche)
 			{
+				std::cout << "A" << std::endl;
 				_node = _node->gauche;
 				while (_node->droit)
 					_node = _node->droit;
@@ -71,11 +73,13 @@ namespace ft
 			{
 				if (_node->previous)
 				{
+					std::cout << "B" << std::endl;
 					//std::cout << "theo bg\n";
 					_node = _node->previous;
 				}
 				else
 				{
+					std::cout << "C" << std::endl;
 					//std::cout << "on va chercher le lapin blanc, actuel = "<< _node->donnees.first <<"\n";
 					node_pointer ptr = _node->root;
 					//std::cout << ptr->donnees.first << std::endl;
@@ -134,14 +138,17 @@ namespace ft
 
 			node_pointer _recherche(node_pointer target, node_pointer inspector/*, node_pointer theo*/, node_pointer inferior)
 			{
-					//std::cout << "nous voici dans la boucle Neo\n";
+					std::cout << "nous voici dans la boucle Neo\n";
+					std::cout << "inspector = " << inspector->donnees.first<< std::endl;
+					if (target -> is_invisible && (!inspector->is_invisible))
+						std::cout << "yeahaaaa\n";
 					//std::cout << "inferior = " << inferior->donnees.first << ", inspector = " << inspector->donnees.first << std::endl;
-				if ((!target->donnees.first && inspector->donnees.first) || inspector->donnees.first < target->donnees.first)
+				if ((target->is_invisible && (!inspector->is_invisible)) || inspector->donnees.first < target->donnees.first)
 				{
-					//	std::cout << "allo?\n";
+						std::cout << "allo?\n";
 					//node_pointer theo = inspector;
 					inferior = inspector;
-						//std::cout << "check 0\n";
+						std::cout << "check 0\n";
 						//std::cout << "check1: inspector.donnee.first = " << inspector->donnees.first << std::endl;
 						
 					if (inspector -> next)
@@ -153,12 +160,12 @@ namespace ft
 				}
 				else if ( inspector->donnees.first > target->donnees.first)
 				{
-					//	std::cout << "check2\n";
+						std::cout << "check2\n";
 					//node_pointer theo = inspector;
 					inspector = inspector->gauche;
 					return (_recherche(target, inspector/*, theo*/, inferior));
 				}
-					//std::cout << "on s'arrache\n";
+					std::cout << "on s'arrache\n";
 				return (inferior);
 			}
 
@@ -170,6 +177,8 @@ namespace ft
 				{
 						//std::cout << "on va descendre encore un peu\n";
 				//	node_pointer theo = inspector;
+
+					std::cout << "inspector = " << inspector->donnees.first<< std::endl;
 					node_pointer inferior = inspector;
 						
 					inspector = inspector->droit;

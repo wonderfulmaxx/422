@@ -46,6 +46,7 @@ template<
         map() {}
 
         explicit map(const key_compare& comp, const allocator_type& alloc = allocator_type()) : _allocator(alloc), _comp(comp) {}
+        
         template<class InputIt>
         map(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type alloc = allocator_type()) : _allocator(alloc), _comp(comp)
         {
@@ -76,6 +77,7 @@ template<
         {
             for (; first != last; first++){
                 value_type_2 tmp((*first).first, (*first).second);
+                //std::cout << "-insert: " << tmp.first << ", droit = " << tmp.droit<< std::endl;
                 this->insert(tmp);
             }
         }
@@ -93,6 +95,11 @@ template<
         void test(const key_type &lol)
         {
             this->_tree.supprimer(lol);
+        }
+
+        void affichage_racine()
+        {
+            _tree.affichage_racine();
         }
 
         size_t size()
