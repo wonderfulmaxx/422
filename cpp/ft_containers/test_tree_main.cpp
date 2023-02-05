@@ -79,13 +79,13 @@ int main()
 		ft::map<int,std::string>::iterator swag = loli.begin();
 		ft::map<int,std::string>::iterator pouet = loli.end();
 
-		for (; swag != pouet ;  swag ++)
-			std::cout <<"-" <<(*swag).second << std::endl;
-		std::cout << "fertig\n";
-		//for (; pouet != swag; -- pouet)
-		//	std::cout <<"-" <<(*pouet).second << std::endl;
+		// for (; swag != pouet ;  swag ++)
+		// 	std::cout <<"-" <<(*swag).second << std::endl;
+		
+		for (; pouet != swag; -- pouet)
+			std::cout <<"-" <<(*pouet).second << std::endl;
 
-
+std::cout << "fertig\n";
 
 		//std::cout << (*pouet).second << std::endl;
 		//-- pouet;

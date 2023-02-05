@@ -25,7 +25,6 @@ struct Noeud
 	Noeud <T>* previous;
 	Noeud <T>* next;
 	Noeud <T>* root;
-	
 };
 
 // Définition de la classe Liste
@@ -83,7 +82,7 @@ class Tree
 					_node_alloc.deallocate(smallest()->previous,1);
 					smallest()->previous = NULL;
 					ptr = CreerNoeud(value);
-					std:: cout << "apres creation de "<< ptr->donnees.first << " gauche = " << ptr->gauche  << ", droit = " << ptr->droit<< std::endl; 
+					//std:: cout << "apres creation de "<< ptr->donnees.first << " gauche = " << ptr->gauche  << ", droit = " << ptr->droit<< std::endl; 
 					ptr->previous = CreerNoeud();
 				}
 				else if (biggest() && value.first > biggest()->donnees.first)
@@ -134,7 +133,7 @@ class Tree
 			if (global_counter == target)
 				return (ptr);
 
-			std::cout << ptr->donnees.second << " \n";
+			//std::cout << ptr->donnees.second << " \n";
 
 			global_counter ++;
    			test = infixe (ptr -> droit, target);
@@ -170,11 +169,11 @@ class Tree
 
         void supprimer (Noeud <T>* ptr, Noeud <T>* parent)
 		{
-			std::cout << "booba"<< std::endl;
-			std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
+			//std::cout << "booba"<< std::endl;
+			//std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
 			if (ptr->gauche == 0 && ptr->droit == 0)
 			{
-				std::cout << "mager du caca" << std::endl;
+			//	std::cout << "mager du caca" << std::endl;
 				if (ptr != racine)
 				{
 					
@@ -238,12 +237,28 @@ class Tree
 					if (racine->next)
 						enfant ->previous = racine ->previous;
 					racine = enfant;
+					racine_maj(racine,racine);
 				}
 
 				_node_alloc.destroy(ptr);
 				_node_alloc.deallocate(ptr,1);
 			}
 			_size --;
+		}
+
+		void racine_maj(Noeud<T>* target, Noeud<T>*racine)
+		{
+			target -> root = racine;
+
+			if (target->gauche)
+				racine_maj(target->gauche, racine);
+			if (target->droit)
+				racine_maj(target->droit, racine);
+			if (target -> next)
+				target ->next -> root = racine;
+			if (target -> previous)
+				target ->previous -> root = racine;
+
 		}
 
 		template <typename I>
