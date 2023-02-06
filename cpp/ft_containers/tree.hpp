@@ -15,8 +15,8 @@ template <typename T>
 struct Noeud
 {
 //	Noeud () : donnees(NULL),gauche(),droit() {}
-	Noeud(const T& val) : donnees(val), gauche(NULL), droit(NULL), previous(NULL), next(NULL),is_invisible(false){}
-	Noeud ():donnees(0), gauche(NULL), droit(NULL), previous(NULL), next(NULL), is_invisible(true){}
+	Noeud(const T& val) : is_invisible(false), donnees(val), gauche(NULL), droit(NULL), previous(NULL), next(NULL){}
+	Noeud (): is_invisible(true), gauche(NULL), droit(NULL), previous(NULL), next(NULL){}
 
 	bool is_invisible;
     T donnees;
@@ -40,6 +40,7 @@ class Tree
 		size_t       _size;
 		node_alloc      _node_alloc;
         Noeud <T>* racine;
+		 node_pointer    invisible_node;
 		//key_compare     _comp;
 
         Noeud <T>* CreerNoeud (const T& valeur)
@@ -76,24 +77,23 @@ class Tree
 			// si l'arbre vide, inserer comme racine
 			if (!ptr)
 			{
-				if (smallest() && value.first < smallest()->donnees.first)
+				if (smallest(this->racine) && value.first < smallest(this->racine)->donnees.first)
 				{
-					_node_alloc.destroy(smallest()->previous);
-					_node_alloc.deallocate(smallest()->previous,1);
-					smallest()->previous = NULL;
-					ptr = CreerNoeud(value);
-					//std:: cout << "apres creation de "<< ptr->donnees.first << " gauche = " << ptr->gauche  << ", droit = " << ptr->droit<< std::endl; 
+					_node_alloc.destroy(smallest(this->racine)->previous);
+					_node_alloc.deallocate(smallest(this->racine)->previous,1);
+					smallest(this->racine)->previous = NULL;
+					ptr = CreerNoeud(value); 
 					ptr->previous = CreerNoeud();
 				}
-				else if (biggest() && value.first > biggest()->donnees.first)
+				else if (biggest(this->racine) && value.first > biggest(this->racine)->donnees.first)
 				{
-					_node_alloc.destroy(biggest()->next);
-					_node_alloc.deallocate(biggest()->next,1);
-					biggest()->next = NULL;
+					_node_alloc.destroy(biggest(this->racine)->next);
+					_node_alloc.deallocate(biggest(this->racine)->next,1);
+					biggest(this->racine)->next = NULL;
 					ptr = CreerNoeud(value);
 					ptr->next = CreerNoeud();
 				}
-				else if (!biggest() && !smallest())
+				else if (!biggest(this->racine) && !smallest(this->racine))
 				{
 					ptr = CreerNoeud(value);
 					ptr->previous = CreerNoeud();
@@ -103,7 +103,6 @@ class Tree
 				{
 					ptr = CreerNoeud(value);
 				}
-
 				return (true);
 			}
 			// si la value est inférieure à la value de racine,
@@ -180,7 +179,7 @@ class Tree
 					if (parent->gauche == ptr)
 					{
 						
-						if (smallest() && ptr == smallest())
+						if (smallest(this->racine) && ptr == smallest(this->racine))
 						{
 							
 							parent->previous = ptr->previous;
@@ -190,7 +189,7 @@ class Tree
 					}
 					else
 					{
-						if (biggest() && ptr == biggest())
+						if (biggest(this->racine) && ptr == biggest(this->racine))
 						{
 							parent->next = ptr->next;
 						}
@@ -289,7 +288,7 @@ class Tree
 		}
 
 	public:
-        Tree (): _size(0), racine(NULL){}
+        Tree ():  _size(0),racine(NULL), invisible_node(NULL) {}
 
 		//explicit map( const Compare& comp, const Allocator& alloc = Allocator() ) {}
 
@@ -352,25 +351,30 @@ class Tree
 			return(infixe(racine, target));
 		}
 
-		Noeud<T>* smallest()
+		Noeud<T>* smallest(Noeud<T>* root)
 		{
-			if (!racine)
-				return(NULL);
+			if (!root)
+				return(this->invisible_node);
 			Noeud <T>* target = racine;
 			while (target -> gauche)
 				target = target -> gauche;
 			return target;
 		}
 
-		Noeud<T>* biggest()
+		Noeud<T>* biggest(Noeud<T>* root)
 		{
-			if (!racine)
-				return(NULL);
+			if (!root)
+				return(this->invisible_node);
 			Noeud <T>* target = racine;
 			while (target -> droit)
 				target = target -> droit;
 			return target; 
 		}
+
+		Noeud<T>* get_root() const
+        {
+            return (this->racine);
+        }
 
 		size_t get_size()
 		{

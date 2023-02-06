@@ -1,137 +1,102 @@
 #include "map.hpp"
 #include "tree.hpp"
 #include "map_iterator.hpp"
+#include <map>
 
-int main()
+
+void print_map(ft::map<int,int>::iterator first, ft::map<int,int>::iterator last)
 {
+    for (; first != last; ++first) {
+        std::cout << "K: " << first->first << " V: " << first->second << " ";
+    }
+    std::cout << std::endl;
+}
 
-//	Note : il faut tester les supprimer en debut et fin d'arbre, tester si ils prennenent bien en compte previous et next, puis faire les iterateurs
-//  Note : il faut changer les verif de node invisible et le rendre plus stable en l'inscrivant dans une variable pointeur par exemple.
-// faire fonctionner le code avec pair <string, string>
-// pouvoir supprimer le plus petit node sans faire tout peter
-
-	// ft::Tree<int,int> lol;
-	// lol.inserer(42);
-	// lol.inserer(20);
-	// lol.inserer(10);
-	// lol.inserer(3);
-	// lol.inserer(12);
-
-	// lol.supprimer(20);
-
-	// std::cout << lol.recherche(10)->donnees;
-	ft::map<int,std::string> lol;
-	//ft::map<int,int> lol;
-
-	//lol.insert(ft::make_pair<int, std::string>(5, "Hello"));
-
-	try
-	{
-		// lol.insert(ft::make_pair<int,int>(6,666));
-		// lol.insert(ft::make_pair<int,int>(9,999));
-
-		
-
-		lol.insert(ft::make_pair<int,std::string>(40,"racine(40)"));
-
-		//lol.test(40);
-		
-		lol.insert(ft::make_pair<int,std::string>(-1,"(-1)"));
-		lol.insert(ft::make_pair<int,std::string>(5,"(5)"));
-		lol.insert(ft::make_pair<int,std::string>(16,"(16)"));
-		lol.insert(ft::make_pair<int,std::string>(-3,"Smallest(-3)"));
-		//lol.test (-3);
-		lol.insert(ft::make_pair<int,std::string>(7,"(7)"));
-		lol.insert(ft::make_pair<int,std::string>(50,"(50)"));
-		lol.insert(ft::make_pair<int,std::string>(45,"(45)"));
-		lol.insert(ft::make_pair<int,std::string>(55,"Biggest(55)"));
-		std::cout << lol.insert(ft::make_pair<int,std::string>(8,"(8)")).second << std::endl;
-			//std::cout << "caca\n";
-
-		ft::map<int,std::string>::iterator ite_end= lol.end();
-		ft::map<int,std::string>::iterator ite_start= lol.begin();
-		//ite_start ++;
-
-		std::cout <<"itestart" << (*ite_start).first << std::endl;
-
-
-		ft::map<int,std::string> loli(ite_start,ite_end);
-
-		ft::map<int,std::string>::iterator loli_start = loli.begin();
-		ft::map<int,std::string>::iterator loli_end = loli.end();
-
-		for (; loli_start != loli_end ; loli_start ++)
-		{
-			std::cout << "affichage loli: " << (*loli_start).first << std::endl;
-		}
-
-		loli.affichage_racine();
-
-
-
-
-		//ft::map<int,std::string>::iterator pouet = loli.end();
-
-
-		//std::cout << "here" << loli.at(-3) << std::endl;
-		loli.test(-3);
-
-		ft::map<int,std::string>::iterator swag = loli.begin();
-		ft::map<int,std::string>::iterator pouet = loli.end();
-
-		// for (; swag != pouet ;  swag ++)
-		// 	std::cout <<"-" <<(*swag).second << std::endl;
-		
-		for (; pouet != swag; -- pouet)
-			std::cout <<"-" <<(*pouet).second << std::endl;
-
-std::cout << "fertig\n";
-
-		//std::cout << (*pouet).second << std::endl;
-		//-- pouet;
-		std::cout <<"ite on -"<< (*pouet).first << "-" <<std::endl;
-
-		-- pouet;
-
-		std::cout << "size =" << lol.size() << ", loli size = " << loli.size() << std::endl;
-
-		// ++pouet;
-		// std::cout <<"ite on "<< (*pouet).second << std::endl;
-
-
-		// std::cout << "size = " << lol.size() << std::endl;
-		// pouet = lol.end();
-
-		// std::cout << (*pouet).second << std::endl;
-
-		//lol.test();
-
-		
-
-
-	//	std::cout << (lol.at(45))<< std::endl;
-		//std::cout << lol
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	
-	
-
+void print_map(std::map<int,int>::iterator first, std::map<int,int>::iterator last)
+{
+    for (; first != last; ++first) {
+        std::cout << "K: " << first->first << " V: " << first->second << " ";
+    }
+    std::cout << std::endl;
 }
 
 
-// #include <iostream>
-// #include <map>
-// #include "map_utils.hpp"
-// int main()
-// {
-//     // Create a map of three (string, int) pairs
-//     std::map<int, std::string> m;
- 
-// 	m.insert(ft::make_pair<int, std::string>(666,"Maxime"));
+int main()
+{
+	{
+		ft::map<int, int> lol;
 
+		//lol.insert(ft::make_pair<int, int>(40, 40));
 
-// 	std::cout << m.find("maxime")->second << std::endl;
-// }
+		//lol.insert(ft::make_pair<int, int>(-1, -1));
+		//lol.insert(ft::make_pair<int, int>(0, 0));
+		//lol.insert(ft::make_pair<int, int>(5, 5));
+
+		// lol.insert(ft::make_pair<int, int>("16", "(16)"));
+		// lol.insert(ft::make_pair<int, int>("-3", "Smallest(-3)"));
+		// lol.insert(ft::make_pair<int, int>("7", "(7)"));
+		// lol.insert(ft::make_pair<int, int>("50", "(50)"));
+		// lol.insert(ft::make_pair<int, int>("45", "(45)"));
+		// lol.insert(ft::make_pair<int, int>("55", "Biggest(55)"));
+		// lol.insert(ft::make_pair<int, int>("8", "(8)"));
+
+		std::cout << "size =" << lol.size() << std::endl;
+
+		ft::map<int,int>::iterator iterator;
+		ft::map<int,int>::iterator finish;
+
+		iterator = lol.begin();
+
+		//std::cout << "check\n";
+
+		finish = lol.end();
+
+		//std::cout << "check\n";
+
+		for(; iterator != lol.end(); iterator ++ )
+			std::cout << "iterator on " << (*iterator).second << std::endl;
+		
+		
+
+		std::cout << std::endl;
+
+		for(iterator = lol.end() ; iterator != lol.begin(); iterator -- )
+		 	std::cout << "iterator on " << (*iterator).second << std::endl;
+
+		print_map(lol.begin(), lol.end());		
+
+	}
+	std::cout<< std::endl << "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"<< std::endl << std::endl;
+	{
+		std::map<int, int> lol;
+
+		//lol.insert(std::make_pair<int, int>(40, 40));
+
+		//lol.insert(std::make_pair<int, int>(-1, -1));
+		//lol.insert(std::make_pair<int, int>(0, 0));
+		//lol.insert(std::make_pair<int, int>(5, 5));
+
+		// lol.insert(ft::make_pair<int, int>("16", "(16)"));
+		// lol.insert(ft::make_pair<int, int>("-3", "Smallest(-3)"));
+		// lol.insert(ft::make_pair<int, int>("7", "(7)"));
+		// lol.insert(ft::make_pair<int, int>("50", "(50)"));
+		// lol.insert(ft::make_pair<int, int>("45", "(45)"));
+		// lol.insert(ft::make_pair<int, int>("55", "Biggest(55)"));
+		// lol.insert(ft::make_pair<int, int>("8", "(8)"));
+
+		std::cout << "size =" << lol.size() << std::endl;
+
+		std::map<int,int>::iterator iterator;
+
+		for(iterator = lol.begin(); iterator != lol.end(); iterator ++ )
+			std::cout << "iterator on " << (*iterator).second << std::endl;
+			
+		std::cout << std::endl;
+
+		for(iterator = lol.end() ; iterator != lol.begin(); iterator -- )
+		 	std::cout << "iterator on " << (*iterator).second << std::endl;
+
+		print_map(lol.begin(), lol.end());
+	}
+}
+

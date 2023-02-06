@@ -84,12 +84,12 @@ template<
 
         iterator begin()
         {
-           return (_tree.infixe(0));
+          return iterator(this->_tree.smallest(this->_tree.get_root()));
         }
 
         iterator end()
         {
-            return (_tree.biggest()->next);
+            return iterator(_tree.biggest(_tree.get_root()));
         }
 
         void test(const key_type &lol)
