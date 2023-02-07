@@ -270,19 +270,16 @@ class Tree
 			}
 			else if ((ptr->donnees.first) == value)
 			{
-				// la value recherchée est stockée dans la racine
 				return ptr;
 			}
 			else if (value < (ptr->donnees.first))
 			{
 				parent = ptr;
-				// la value recherchée est dans le sous-arbre gauche
 				return recherche(value, ptr->gauche, parent);
 			}
 			else
 			{
 				parent = ptr;
-				// sinon, la value recherchée est dans le sous-arbre droit
 				return recherche(value, ptr->droit, parent);
 			}
 		}
@@ -352,7 +349,7 @@ class Tree
 			return(infixe(racine, target));
 		}
 
-		Noeud<T>* smallest(Noeud<T>* root)
+		Noeud<T>* smallest(Noeud<T>* root) const
 		{
 			if (!root)
 				return(this->invisible_node);
@@ -362,7 +359,7 @@ class Tree
 			return target;
 		}
 
-		Noeud<T>* biggest(Noeud<T>* root)
+		Noeud<T>* biggest(Noeud<T>* root) const
 		{
 			if (!root)
 				return(this->invisible_node);
@@ -372,7 +369,7 @@ class Tree
 			return target; 
 		}
 
-		Noeud<T>* biggest_inv(Noeud<T>* root)
+		Noeud<T>* biggest_inv(Noeud<T>* root) const
 		{
 			if (!root)
 				return(this->invisible_node);
@@ -384,7 +381,7 @@ class Tree
 			return target; 
 		}
 
-		Noeud<T>* smallest_inv(Noeud<T>* root)
+		Noeud<T>* smallest_inv(Noeud<T>* root) const
 		{
 			if (!root)
 				return(this->invisible_node);
@@ -401,6 +398,40 @@ class Tree
         {
             return (this->racine);
         }
+
+		void free_all(node_pointer root)
+		{
+			if (root == NULL)
+				return;
+
+			this->free_all(root->gauche);
+			this->free_all(root->droit);
+
+			if (this->racine == root)
+			{
+				this->_node_alloc.destroy(this->racine);
+				this->_size--;
+
+				this->racine->gauche = NULL;
+				this->racine->droit = NULL;
+				this->racine = NULL;
+			}
+			else
+			{
+				this->_node_alloc.destroy(root);
+				this->_size--;
+
+				root->gauche = NULL;
+				root->droit = NULL;
+				root = NULL;
+			}
+
+			if (this->_size == 0)
+			{
+				this->racine = NULL;
+				//this->_invisible_node = NULL;
+			}
+		}
 
 		size_t get_size()
 		{

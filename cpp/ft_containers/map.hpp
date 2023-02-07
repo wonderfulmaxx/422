@@ -54,6 +54,18 @@ template<
         }
         ~map() {}
 
+        map &operator=(const map &x)
+        {
+            this->clear();
+            this->insert(x.begin(), x.end());
+            return (*this);
+        }
+
+        void clear ()
+        {
+            this->_tree.free_all(this->_tree.get_root());
+        }
+
         mapped_type &at(const key_type &k)
         {
             node_pointer node_ptr = this->_tree.recherche(k);
@@ -87,7 +99,15 @@ template<
           return iterator(this->_tree.smallest(this->_tree.get_root()));
         }
 
+        const_iterator              begin() const                       { return iterator(this->_tree.smallest(this->_tree.get_root()));}
+        const_iterator              end() const                         { return iterator(_tree.biggest_inv(_tree.get_root()));} 
+
         reverse_iterator rbegin()
+        {
+          return reverse_iterator(_tree.biggest(_tree.get_root()));
+        }
+
+        const_reverse_iterator rbegin() const
         {
           return reverse_iterator(_tree.biggest(_tree.get_root()));
         }
@@ -98,6 +118,11 @@ template<
         }
 
         reverse_iterator rend() 
+        {
+            return reverse_iterator(this->_tree.smallest_inv(this->_tree.get_root()));
+        }
+
+        const_reverse_iterator rend()  const
         {
             return reverse_iterator(this->_tree.smallest_inv(this->_tree.get_root()));
         }
@@ -119,10 +144,27 @@ template<
 
            this->_tree.supprimer(pos->first);
 
-			return (buff_next);
+           pos = buff_next;
+
+			return (pos);
         }
 
-        iterator erase( iterator first, iterator last );
+        iterator erase( iterator first, iterator last )
+        {
+            iterator buff_next = first;
+
+            while (buff_next != last)
+            {
+                 this->_tree.supprimer(buff_next->first);
+                 buff_next ++;
+            }
+
+            supprimer(buff_next->first);
+
+            buff_next ++;
+
+            return(buff_next);
+        }
 
 
         size_type erase( const Key& key )
