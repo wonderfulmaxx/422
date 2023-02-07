@@ -28,11 +28,11 @@ template<
             typedef typename    Alloc::pointer                                          pointer;
             typedef typename    Alloc::const_pointer                                    const_pointer;
             typedef             size_t                                                  size_type;
-            typedef             ft::Noeud<value_type_2>*                                   node_pointer;
-            typedef             ft::iterator<Key, T>                      iterator;
-            typedef             ft::iterator<Key, T>                      const_iterator;
-            // typedef             ft::riterator<Key, T>                     reverse_iterator;
-            // typedef             ft::riterator<Key, T>                     const_reverse_iterator;
+            typedef             ft::Noeud<value_type_2>*                                node_pointer;
+            typedef             ft::iterator<Key, T>                                    iterator;
+            typedef             ft::iterator<Key, T>                                    const_iterator;
+            typedef             ft::riterator<Key, T>                                   reverse_iterator;
+            typedef             ft::riterator<Key, T>                                   const_reverse_iterator;
             typedef             ptrdiff_t                                               difference_type;
 
 
@@ -87,9 +87,19 @@ template<
           return iterator(this->_tree.smallest(this->_tree.get_root()));
         }
 
+        reverse_iterator rbegin()
+        {
+          return reverse_iterator(_tree.biggest(_tree.get_root()));
+        }
+
         iterator end()
         {
-            return iterator(_tree.biggest(_tree.get_root()));
+            return iterator(_tree.biggest_inv(_tree.get_root()));
+        }
+
+        reverse_iterator rend() 
+        {
+            return reverse_iterator(this->_tree.smallest_inv(this->_tree.get_root()));
         }
 
         void test(const key_type &lol)

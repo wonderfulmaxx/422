@@ -371,6 +371,31 @@ class Tree
 			return target; 
 		}
 
+		Noeud<T>* biggest_inv(Noeud<T>* root)
+		{
+			if (!root)
+				return(this->invisible_node);
+			Noeud <T>* target = racine;
+			while (target -> droit)
+				target = target -> droit;
+			if (target -> next)
+				target = target->next;
+			return target; 
+		}
+
+		Noeud<T>* smallest_inv(Noeud<T>* root)
+		{
+			if (!root)
+				return(this->invisible_node);
+			Noeud <T>* target = racine;
+			while (target -> gauche)
+				target = target -> gauche;
+			if (target -> previous)
+				target = target -> previous;
+			return target;
+		}
+
+
 		Noeud<T>* get_root() const
         {
             return (this->racine);
