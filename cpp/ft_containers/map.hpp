@@ -102,11 +102,6 @@ template<
             return reverse_iterator(this->_tree.smallest_inv(this->_tree.get_root()));
         }
 
-        void test(const key_type &lol)
-        {
-            this->_tree.supprimer(lol);
-        }
-
         void affichage_racine()
         {
             _tree.affichage_racine();
@@ -117,7 +112,27 @@ template<
             return(_tree.get_size());
         }
         
+        iterator erase( iterator pos )
+        {
+            iterator buff_next = pos; 
+			buff_next ++;
 
+           this->_tree.supprimer(pos->first);
+
+			return (buff_next);
+        }
+
+        iterator erase( iterator first, iterator last );
+
+
+        size_type erase( const Key& key )
+        {
+            bool rep;
+            rep = this->_tree.supprimer(key);
+            if (rep)
+                return (true);
+            return (false);
+        }
 
 };
 }

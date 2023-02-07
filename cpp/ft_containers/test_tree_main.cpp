@@ -42,23 +42,27 @@ int main()
 
 		std::cout << "size =" << lol.size() << std::endl;
 
-		ft::map<int, std::string>::reverse_iterator iterator;
+		
 
-		iterator = lol.rbegin();
+		ft::map<int, std::string>::iterator iterator;
 
+		
 
+		iterator = lol.begin();
 
-		for(; iterator != lol.rend(); iterator ++ )
-			std::cout << "iterator on " << (*iterator).second << std::endl;
+		std::cout << "erase return = " << lol.erase(iterator)->second << std::endl;
+
+		// for(; iterator != lol.end(); iterator ++ )
+		// 	std::cout << "iterator on " << (*iterator).second << std::endl;
 		
 		
 
-		std::cout <<  std::endl << "lol.rend = " << lol.rend()->second << " , lol.rbegin = " << lol.rbegin()->second <<std::endl << std::endl << "debut vers fin en dessous la"  << std::endl;
+		// std::cout <<  std::endl << "lol.rend = " << lol.end()->second << " , lol.rbegin = " << lol.rbegin()->second <<std::endl << std::endl << "debut vers fin en dessous la"  << std::endl;
 
-		for(/*iterator = lol.rend()*/ ; iterator != lol.rbegin(); iterator -- )
-		 	std::cout << "iterator on " << (*iterator).second << std::endl;
+		// for(/*iterator = lol.rend()*/ ; iterator != lol.begin(); iterator -- )
+		//  	std::cout << "iterator on " << (*iterator).second << std::endl;
 
-		std::cout << "finis car iterator(rend) = " << iterator->second << " et target(rbegin) = " << lol.rbegin()->second << std::endl;
+		// std::cout << "finis car iterator(rend) = " << iterator->second << " et target(rbegin) = " << lol.rbegin()->second << std::endl;
 
 		//print_map(lol.begin(), lol.end());		
 

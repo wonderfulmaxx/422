@@ -307,6 +307,7 @@ class Tree
 			detruire(racine);
 			racine = NULL;
 		}
+		
 		template <typename I>
 		bool supprimer(const I &value)
 		{
