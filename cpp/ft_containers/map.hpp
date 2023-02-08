@@ -137,43 +137,53 @@ template<
             return(_tree.get_size());
         }
         
-        iterator erase( iterator pos )
+        void erase( iterator pos )
         {
-            iterator buff_next = pos; 
-			buff_next ++;
-
            this->_tree.supprimer(pos->first);
-
-           pos = buff_next;
-
-			return (pos);
         }
 
-        iterator erase( iterator first, iterator last )
+        void erase( iterator first, iterator last )
         {
-            iterator buff_next = first;
+             while (first != last){
+				    this->erase(first++);
+                }
 
-            while (buff_next != last)
-            {
-                 this->_tree.supprimer(buff_next->first);
-                 buff_next ++;
-            }
+        //     iterator buff_next = first;
+        //     buff_next ++;
 
-            supprimer(buff_next->first);
+        //     while (buff_next != last)
+        //     {
+        //         std::cout << "suppression de " << first->second;
+        //         this->_tree.supprimer(first->first);
+        //         std::cout << " fait";
+        //         first = buff_next;
+        //         buff_next ++;
+        //         std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
+        //     }
+        //     std::cout << "prout" << std::endl;
+        //     std::cout << "buff_next = " << buff_next->second << std::endl;
+        //    // if (!buff_next->is_invisible)
+        //   //  {
+        //         buff_next ++;
+        //         std::cout << "suppression de " << first->second;
+        //         this->_tree.supprimer(first->first);
+        // //    }
+        //      std::cout << " fait" << std::endl;
 
-            buff_next ++;
 
-            return(buff_next);
+           // return(buff_next);
         }
 
 
         size_type erase( const Key& key )
         {
-            bool rep;
-            rep = this->_tree.supprimer(key);
-            if (rep)
-                return (true);
-            return (false);
+             iterator f = this->recherche(key);
+
+                if (f == NULL || f == this->_tree.biggest_inv())
+                    return (0);
+
+                this->_tree.supprimer(key);
+                return (1);
         }
 
 };

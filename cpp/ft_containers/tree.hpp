@@ -25,6 +25,7 @@ struct Noeud
 	Noeud <T>* previous;
 	Noeud <T>* next;
 	Noeud <T>* root;
+	//Noeud <T>* rip;
 };
 
 // Définition de la classe Liste
@@ -183,6 +184,7 @@ class Tree
 						{
 							
 							parent->previous = ptr->previous;
+							//parent->rip = ptr;
 							
 						}
 						parent->gauche = NULL;

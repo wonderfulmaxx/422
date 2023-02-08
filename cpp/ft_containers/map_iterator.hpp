@@ -91,7 +91,8 @@ namespace ft
 
 		private:
 			node_pointer recherche(node_pointer target, node_pointer inspector,node_pointer superior)
-			{
+			{	
+				//std::cout << "inspector = "<< inspector->donnees.second << " , target = " << target->donnees.second << std::endl;
 				if ((inspector->is_invisible && (!target->is_invisible)) || inspector->donnees.first > target->donnees.first)
 				{
 					superior = inspector; 
@@ -100,6 +101,10 @@ namespace ft
 					else
 						inspector = inspector->gauche;
 					return (recherche(target, inspector, superior));
+				}
+				else if (inspector->is_invisible && target -> is_invisible)
+				{
+					return (inspector);
 				}
 				else if (inspector->donnees.first < target->donnees.first)
 				{
@@ -141,6 +146,10 @@ namespace ft
 						inspector = inspector->droit;
 						
 					return (_recherche(target, inspector, inferior));
+				}
+				else if (target->is_invisible && inspector->is_invisible)
+				{
+					return (inspector);
 				}
 				else if ( inspector->donnees.first > target->donnees.first)
 				{	
