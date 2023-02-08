@@ -317,6 +317,20 @@ class Tree
 		}
 		
 		template <typename I>
+		T &operator_hook(const I key)
+		{
+			node_pointer result = this->recherche(key);
+			//std::cout << "result = " << result; 
+			if (!result)
+			{
+				this->inserer(T(key));
+				result = this->recherche(key);
+				return (result->donnees);
+			}
+			return result->donnees;
+		}
+
+		template <typename I>
 		bool supprimer(const I &value)
 		{
 
