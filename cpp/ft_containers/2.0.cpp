@@ -5,6 +5,8 @@
 
 #include <iterator>
 
+//Note la recopie ne marche plus lol
+
 
 
 int main()
@@ -60,15 +62,20 @@ int main()
 	lol.insert(ft::make_pair<int, std::string>(55, "Biggest(55)"));
 	lol.insert(ft::make_pair<int, std::string>(8, "(8)"));
 
-	ft::map<int, std::string>::iterator m_start = lol.begin();
+	//ft::map<int, std::string>::iterator m_start = lol.begin();
 
-	std::cout << lol[4] << std::endl;
-	std::cout << lol[4] << std::endl;
+	//std::cout << lol[4] << std::endl;
+	//std::cout << lol[4] << std::endl;
 
-	std :: cout << "lol\n";
+	//lol.at(-3);
 
-	std::map<int, std::string> loli;
-	std::cout << lol[4] << std::endl;
-	std::cout << lol[4] << std::endl;
+	 ft::map<int, std::string> m(lol);
+
+
+	// std :: cout << "lol\n";
+
+	// std::map<int, std::string> loli;
+	// std::cout << loli[4] << std::endl;
+	// std::cout << loli[4] << std::endl;
 
 }
