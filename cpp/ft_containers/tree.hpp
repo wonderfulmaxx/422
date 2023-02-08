@@ -25,7 +25,7 @@ struct Noeud
 	Noeud <T>* previous;
 	Noeud <T>* next;
 	Noeud <T>* root;
-	//Noeud <T>* rip;
+	Noeud <T>* rip;
 };
 
 // Définition de la classe Liste
@@ -173,7 +173,7 @@ class Tree
 			//std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
 			if (ptr->gauche == 0 && ptr->droit == 0)
 			{
-			//	std::cout << "mager du caca" << std::endl;
+				//std::cout << "mager du caca" << std::endl;
 				if (ptr != racine)
 				{
 					
@@ -187,6 +187,7 @@ class Tree
 							//parent->rip = ptr;
 							
 						}
+						parent->rip = parent->gauche ;
 						parent->gauche = NULL;
 					}
 					else
@@ -195,22 +196,30 @@ class Tree
 						{
 							parent->next = ptr->next;
 						}
+						parent->rip = parent->droit;
 						parent->droit = NULL;
 					}
 				}
 				else
 				{
+				//	std::cout << "A" << std::endl;
 					racine = NULL; 
+				//	std::cout << "A" << std::endl;
 
 					//here ptetre besoin de destroy next et previous
-					_node_alloc.destroy(ptr->previous);
-					_node_alloc.deallocate(ptr->previous,1);
-					_node_alloc.destroy(ptr->next);
-					_node_alloc.deallocate(ptr->next,1);
+					//_node_alloc.destroy(ptr->previous);
+				//		std::cout << "B" << std::endl;
+					//_node_alloc.deallocate(ptr->previous,1);
+				//	std::cout << "B" << std::endl;
+					//_node_alloc.destroy(ptr->next);
+					//_node_alloc.deallocate(ptr->next,1);
+				//	std::cout << "C" << std::endl;
 				}
-
+				//std::cout << "D" << std::endl;
 				_node_alloc.destroy(ptr);
+				//std::cout << "E" << std::endl;
 				_node_alloc.deallocate(ptr,1);
+				//std::cout << "F" << std::endl;
 			}
 			else if (ptr->gauche && ptr->droit)
 			{

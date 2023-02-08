@@ -1,7 +1,9 @@
 #ifndef MAP_ITERATOR_HPP
 #define MAP_ITERATOR_HPP
 
+#include <iterator>
 #include "tree.hpp"
+
 
 namespace ft
 {
@@ -92,6 +94,11 @@ namespace ft
 		private:
 			node_pointer recherche(node_pointer target, node_pointer inspector,node_pointer superior)
 			{	
+				if (inspector->rip == target)
+				{
+					std::cout << "waza?\n";
+					return (inspector);
+				}
 				//std::cout << "inspector = "<< inspector->donnees.second << " , target = " << target->donnees.second << std::endl;
 				if ((inspector->is_invisible && (!target->is_invisible)) || inspector->donnees.first > target->donnees.first)
 				{
@@ -102,10 +109,10 @@ namespace ft
 						inspector = inspector->gauche;
 					return (recherche(target, inspector, superior));
 				}
-				else if (inspector->is_invisible && target -> is_invisible)
-				{
-					return (inspector);
-				}
+				// else if (inspector->is_invisible && target -> is_invisible)
+				// {
+				// 	return (inspector);
+				// }
 				else if (inspector->donnees.first < target->donnees.first)
 				{
 					inspector = inspector->droit;
@@ -135,7 +142,7 @@ namespace ft
 
 			node_pointer _recherche(node_pointer target, node_pointer inspector, node_pointer inferior)
 			{
-					
+				//std::cout << "ici\n";	
 				if ((target->is_invisible && (!inspector->is_invisible)) || inspector->donnees.first < target->donnees.first)
 				{
 					inferior = inspector;
@@ -147,12 +154,14 @@ namespace ft
 						
 					return (_recherche(target, inspector, inferior));
 				}
-				else if (target->is_invisible && inspector->is_invisible)
-				{
-					return (inspector);
-				}
+				// else if (target->is_invisible && inspector->is_invisible)
+				// {
+				// 	std::cout << "B\n";	
+				// 	return (inspector);
+				// }
 				else if ( inspector->donnees.first > target->donnees.first)
 				{	
+				//	std::cout << "C\n";	
 					inspector = inspector->gauche;
 					return (_recherche(target, inspector, inferior));
 				}
@@ -270,9 +279,9 @@ namespace ft
 
 		riterator operator++(int)
 		{
-			riterator tmp(*this);
-			++(*this);
-			return (tmp);
+			riterator old = *this;
+            operator++();
+            return old;
 		}
 
 		private:

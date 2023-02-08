@@ -144,31 +144,43 @@ template<
 
         void erase( iterator first, iterator last )
         {
-             while (first != last){
-				    this->erase(first++);
-                }
+            //  while (first != last){
+			// 	    this->erase(first++);
+            //     }
 
-        //     iterator buff_next = first;
-        //     buff_next ++;
+            iterator buff_next = first;
+            buff_next ++;
 
-        //     while (buff_next != last)
-        //     {
-        //         std::cout << "suppression de " << first->second;
-        //         this->_tree.supprimer(first->first);
-        //         std::cout << " fait";
-        //         first = buff_next;
-        //         buff_next ++;
-        //         std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
-        //     }
-        //     std::cout << "prout" << std::endl;
-        //     std::cout << "buff_next = " << buff_next->second << std::endl;
-        //    // if (!buff_next->is_invisible)
-        //   //  {
-        //         buff_next ++;
-        //         std::cout << "suppression de " << first->second;
-        //         this->_tree.supprimer(first->first);
-        // //    }
-        //      std::cout << " fait" << std::endl;
+            while (buff_next != last)
+            {
+               // std::cout << "suppression de " << first->second;
+               //if (first != this->_tree.smallest_inv(this->_tree.get_root())) 
+                this->_tree.supprimer(first->first);
+                //std::cout << " fait";
+                first = buff_next;
+                buff_next ++;
+                //std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
+            }
+          //  std::cout << "prout" << std::endl;
+           // std::cout << "buff_next = " << buff_next->second << std::endl;
+           // if (!buff_next->is_invisible)
+          //  {
+              //  buff_next ++;
+                //std::cout << "suppression de " << first->second;
+               // std::cout << "lolilol" << std::endl;
+                //if (last == this->_tree.biggest_inv(this->_tree.get_root()))
+                //    std::cout << "is invisible\n";
+
+            //    std::cout << "first = " << first->second << std::endl;
+             //    std::cout << "A LIRE A PERTIR D'ICI\n" ;
+                this->_tree.supprimer(first->first);
+              //  std::cout << "last = " << last->second << std::endl;
+
+                if (last != this->_tree.smallest_inv(this->_tree.get_root()))
+                    this->_tree.supprimer(last->first);
+            //   std::cout << "lolilol" << std::endl;
+        //    }
+           //  std::cout << " fait" << std::endl;
 
 
            // return(buff_next);
