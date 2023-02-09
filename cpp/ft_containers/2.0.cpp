@@ -6,6 +6,7 @@
 #include <iterator>
 
 //Note la recopie ne marche plus lol
+//je pense quil faut que begin et end soit egaux si larbre est vide, or la il me semble quils sont sur invisible node inf et sup
 
 
 
@@ -69,7 +70,16 @@ int main()
 
 	//lol.at(-3);
 
-	 ft::map<int, std::string> m(lol);
+	std::cout << "-" << lol.test()->second << "-" << std::endl;
+
+	lol.erase (lol.begin(),lol.end());
+
+	ft::map<int, std::string>::iterator first = lol.begin();
+	ft::map<int, std::string>::iterator last = lol.end();
+
+	std::cout << first->second << std::endl;
+
+	// ft::map<int, std::string> m(lol);
 
 
 	// std :: cout << "lol\n";

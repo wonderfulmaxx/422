@@ -41,7 +41,8 @@ class Tree
 		size_t       _size;
 		node_alloc      _node_alloc;
         Noeud <T>* racine;
-		 node_pointer    invisible_node;
+		node_pointer    invisible_node_inf;
+		node_pointer    invisible_node_sup;
 		//key_compare     _comp;
 
         Noeud <T>* CreerNoeud (const T& valeur)
@@ -85,6 +86,7 @@ class Tree
 					smallest(this->racine)->previous = NULL;
 					ptr = CreerNoeud(value); 
 					ptr->previous = CreerNoeud();
+					invisible_node_inf = ptr->previous;
 				}
 				else if (biggest(this->racine) && value.first > biggest(this->racine)->donnees.first)
 				{
@@ -93,12 +95,15 @@ class Tree
 					biggest(this->racine)->next = NULL;
 					ptr = CreerNoeud(value);
 					ptr->next = CreerNoeud();
+					invisible_node_inf = ptr->previous;
 				}
 				else if (!biggest(this->racine) && !smallest(this->racine))
 				{
 					ptr = CreerNoeud(value);
 					ptr->previous = CreerNoeud();
 					ptr->next = CreerNoeud();
+					invisible_node_inf = ptr->previous;
+					invisible_node_inf = ptr->previous;
 				}
 				else
 				{
@@ -296,7 +301,7 @@ class Tree
 		}
 
 	public:
-        Tree ():  _size(0),racine(NULL), invisible_node(NULL) {}
+        Tree ():  _size(0),racine(NULL), invisible_node_inf(NULL),invisible_node_sup(NULL) {}
 
 		//explicit map( const Compare& comp, const Allocator& alloc = Allocator() ) {}
 
@@ -377,7 +382,20 @@ class Tree
 		Noeud<T>* smallest(Noeud<T>* root) const
 		{
 			if (!root)
-				return(this->invisible_node);
+				return(this->invisible_node_inf);
+			Noeud <T>* target = racine;
+			while (target -> gauche)
+				target = target -> gauche;
+			return target;
+		}
+
+		Noeud<T>* smallest() const
+		{
+			if (!this->racine)
+			{
+				//std::cout << "pas de racine, ini = " << invisible_node_inf << std::endl;
+				return(this->invisible_node_inf);
+			}
 			Noeud <T>* target = racine;
 			while (target -> gauche)
 				target = target -> gauche;
@@ -387,7 +405,7 @@ class Tree
 		Noeud<T>* biggest(Noeud<T>* root) const
 		{
 			if (!root)
-				return(this->invisible_node);
+				return(this->invisible_node_sup);
 			Noeud <T>* target = racine;
 			while (target -> droit)
 				target = target -> droit;
@@ -397,7 +415,7 @@ class Tree
 		Noeud<T>* biggest_inv(Noeud<T>* root) const
 		{
 			if (!root)
-				return(this->invisible_node);
+				return(this->invisible_node_sup);
 			Noeud <T>* target = racine;
 			while (target -> droit)
 				target = target -> droit;
@@ -409,7 +427,7 @@ class Tree
 		Noeud<T>* smallest_inv(Noeud<T>* root) const
 		{
 			if (!root)
-				return(this->invisible_node);
+				return(this->invisible_node_inf);
 			Noeud <T>* target = racine;
 			while (target -> gauche)
 				target = target -> gauche;
@@ -448,17 +466,17 @@ class Tree
 
 				root->gauche = NULL;
 				root->droit = NULL;
-				root = NULL;
+				//root = NULL;
 			}
 
 			if (this->_size == 0)
 			{
-				this->racine = NULL;
+				//this->racine = NULL;
 				//this->_invisible_node = NULL;
 			}
 		}
 
-		size_t get_size()
+		size_t get_size() const
 		{
 			return (_size);
 		}
@@ -466,6 +484,12 @@ class Tree
 		void affichage_racine()
 		{
 			std::cout << "racine = " << (*racine).donnees.second << std::endl;
+		}
+
+		Noeud <T>* get_inf()
+		{
+			std::cout << "inf =" << this->invisible_node_inf <<std::endl;
+			return(this->invisible_node_inf);
 		}
 
 		// int search_pos(Noeud <T>* k)

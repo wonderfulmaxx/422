@@ -45,6 +45,11 @@ template<
 
         map() {}
 
+        map(const map &other) : _allocator(other._allocator), _comp(other._comp)
+        {
+            this->insert(other.begin(), other.end());
+        }
+
         explicit map(const key_compare& comp, const allocator_type& alloc = allocator_type()) : _allocator(alloc), _comp(comp) {}
         
         template<class InputIt>
@@ -53,6 +58,82 @@ template<
             this->insert(first, last);
         }
         ~map() {}
+
+        class value_compare : public std::binary_function<value_type_2, value_type_2, bool>
+        {
+        public:
+            value_compare(){};
+            ~value_compare(){};
+
+            bool operator()(const value_type_2 &lhs, const value_type_2 &rhs) const { return (comp(lhs.first, rhs.first)); }
+
+        protected:
+            Compare comp;
+        };
+
+        key_compare key_comp() const
+        {
+            return this->_comp;
+        }
+
+        iterator upper_bound (const key_type& k)
+            {
+                iterator it = this->begin();
+
+                while (it != this->end()){
+                    if (this->_comp(k, it->first))
+                        return it;
+                    it++;
+                }
+                return this->end();
+            }
+
+            const_iterator upper_bound (const key_type& k) const
+            {
+                const_iterator it = this->begin();
+
+                while (it != this->end()){
+                    if (this->_comp(k, it->first))
+                        return it;
+                    it++;
+                }
+                return this->end();
+            }
+
+            iterator lower_bound (const key_type& k)
+            {
+                iterator it = this->begin();
+
+                while (it != this->end()){
+                    if (!this->_comp(it->first, k))
+                        return it;
+                    it++;
+                }
+                return this->end();
+            }
+
+            const_iterator lower_bound (const key_type& k) const
+            {
+                const_iterator it = this->begin();
+
+                while (it != this->end()){
+                    if (!this->_comp(it->first, k))
+                        return it;
+                    it++;
+                }
+                return this->end();
+            }
+
+
+        allocator_type get_allocator() const
+        {
+            return this->_allocator;
+        }
+
+        value_compare value_comp() const
+        {
+            return value_compare();
+        }
 
         map &operator=(const map &x)
         {
@@ -63,6 +144,7 @@ template<
 
         void clear ()
         {
+            std::cout << "meu\n" << std::endl;
             this->_tree.free_all(this->_tree.get_root());
         }
 
@@ -106,10 +188,47 @@ template<
                 }
             }
 
-            iterator begin()
+            size_type count (const key_type& k) const
             {
-                return iterator(this->_tree.smallest(this->_tree.get_root()));
+                if (this->_tree.recherche(k))
+                    return 1;
+                return 0;
             }
+
+            bool                        empty() const                       { return this->size() == 0; }
+             iterator                    find (const key_type& k)            { return iterator(this->_tree.recherche(k)); }
+            const_iterator              find (const key_type& k) const      { return const_iterator(this->_tree.recherche(k)); }
+
+            pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+            {
+                return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
+            }
+
+            pair<iterator,iterator>             equal_range (const key_type& k)
+            {
+                return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
+            }
+
+            void swap(map &other)
+            {
+                ft::map<Key, T> other_copy;
+                for (const_iterator it = other.begin(); it != other.end(); it++)
+                    other_copy.insert(*it);
+
+                other.clear();
+                for (const_iterator it = this->begin(); it != this->end(); it++)
+                    other.insert(*it);
+
+                this->clear();
+                for (const_iterator it = other_copy.begin(); it != other_copy.end(); it++)
+                    this->insert(*it);
+            }
+
+            // iterator begin()
+            // {
+            //     std::cout << "here\n";
+            //     return iterator(this->_tree.smallest());
+            // }
 
             const_iterator begin() const { return iterator(this->_tree.smallest(this->_tree.get_root())); }
             const_iterator end() const { return iterator(_tree.biggest_inv(_tree.get_root())); }
@@ -144,7 +263,7 @@ template<
                 _tree.affichage_racine();
             }
 
-            size_t size()
+            size_t size() const
             {
                 return (_tree.get_size());
             }
@@ -201,9 +320,9 @@ template<
 
         size_type erase( const Key& key )
         {
-             iterator f = this->recherche(key);
+             iterator f = this->find(key);
 
-                if (f == NULL || f == this->_tree.biggest_inv())
+                if (f == NULL || f == this->_tree.biggest_inv(this->_tree.get_root()))
                     return (0);
 
                 this->_tree.supprimer(key);
