@@ -49,8 +49,11 @@ namespace ft
 			}
 			else
 			{
+				//std::cout << "++ recoit " << _node<< std::endl;
+				std::cout << _node->amigo_inv << std::endl;
 				node_pointer ptr = _node->root;
 				_node = recherche(_node, ptr);
+				//std::cout << "++ retourne " << this->_node << std::endl;
 			}
 			return (*this);
 		}
@@ -94,14 +97,15 @@ namespace ft
 		private:
 			node_pointer recherche(node_pointer target, node_pointer inspector,node_pointer superior)
 			{	
-				if (inspector->rip == target)
-				{
-					std::cout << "waza?\n";
-					return (inspector);
-				}
+			//	if (inspector->rip == target)
+			//	{
+				//	std::cout << "waza?\n";
+				//	return (inspector);
+			//	}
 				//std::cout << "inspector = "<< inspector->donnees.second << " , target = " << target->donnees.second << std::endl;
 				if ((inspector->is_invisible && (!target->is_invisible)) || inspector->donnees.first > target->donnees.first)
 				{
+					std::cout << "B?\n";
 					superior = inspector; 
 					if (inspector->previous)
 						inspector = inspector->previous;
@@ -115,6 +119,7 @@ namespace ft
 				// }
 				else if (inspector->donnees.first < target->donnees.first)
 				{
+					std::cout << "C?\n";
 					inspector = inspector->droit;
 					return (recherche(target, inspector, superior));
 				}
@@ -124,8 +129,16 @@ namespace ft
 
 			node_pointer recherche(node_pointer target, node_pointer inspector)
 			{
+					//std::cout << "target =" << target << "target->root = " << target->root <<std::endl;
+				if (!target->root && target->is_invisible)
+				{
+
+					//std::cout << "jesuis " << target << ", jaugmente a sup, je renvoi mon ami: " << target->amigo_inv << std::endl;
+					return (target-> amigo_inv);
+				}
 				if ((inspector->is_invisible) ||inspector->donnees.first > target->donnees.first)
 				{
+				//	std::cout << "lol pouet\n";
 					node_pointer superior = inspector;
 					if (inspector->previous)
 						inspector = inspector->previous;
@@ -135,6 +148,7 @@ namespace ft
 				}
 				else 
 				{
+				//	std::cout << "loli\n";
 					inspector = inspector->droit;
 					return (recherche(target, inspector, NULL));
 				}

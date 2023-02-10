@@ -26,6 +26,7 @@ struct Noeud
 	Noeud <T>* next;
 	Noeud <T>* root;
 	Noeud <T>* rip;
+	Noeud <T>* amigo_inv;
 };
 
 // Définition de la classe Liste
@@ -81,32 +82,47 @@ class Tree
 			{
 				if (smallest(this->racine) && value.first < smallest(this->racine)->donnees.first)
 				{
+					//std::cout << "A\n";
 					_node_alloc.destroy(smallest(this->racine)->previous);
 					_node_alloc.deallocate(smallest(this->racine)->previous,1);
 					smallest(this->racine)->previous = NULL;
 					ptr = CreerNoeud(value); 
 					ptr->previous = CreerNoeud();
 					invisible_node_inf = ptr->previous;
+					invisible_node_inf->amigo_inv = invisible_node_sup;
+					//invisible_node_inf->previous = invisible_node_sup;
+					//std::cout << "lors de sa creation, ini= " << invisible_node_inf << std::endl;
 				}
 				else if (biggest(this->racine) && value.first > biggest(this->racine)->donnees.first)
 				{
+					//std::cout << "B\n";
 					_node_alloc.destroy(biggest(this->racine)->next);
 					_node_alloc.deallocate(biggest(this->racine)->next,1);
 					biggest(this->racine)->next = NULL;
 					ptr = CreerNoeud(value);
 					ptr->next = CreerNoeud();
-					invisible_node_inf = ptr->previous;
+					invisible_node_sup = ptr->next;
+					invisible_node_sup->amigo_inv = invisible_node_inf;
+					//invisible_node_sup->next = invisible_node_inf;
+					//std::cout << "lors de sa creation, ins= " << invisible_node_sup << std::endl;
 				}
 				else if (!biggest(this->racine) && !smallest(this->racine))
 				{
+					//std::cout << "C\n";
 					ptr = CreerNoeud(value);
 					ptr->previous = CreerNoeud();
 					ptr->next = CreerNoeud();
 					invisible_node_inf = ptr->previous;
-					invisible_node_inf = ptr->previous;
+					invisible_node_sup = ptr->next;
+					invisible_node_inf->amigo_inv=invisible_node_sup;
+					//std :: cout << "dans inserer, amigo =" << invisible_node_inf->amigo_inv << std::endl;
+					invisible_node_sup->amigo_inv=invisible_node_inf;
+					//invisible_node_inf->previous = invisible_node_sup;
+					//invisible_node_sup->next = invisible_node_inf;
 				}
 				else
 				{
+				//	std::cout << "D\n";
 					ptr = CreerNoeud(value);
 				}
 				return (true);
@@ -208,7 +224,9 @@ class Tree
 				else
 				{
 				//	std::cout << "A" << std::endl;
+					racine_maj (racine,NULL);
 					racine = NULL; 
+					
 				//	std::cout << "A" << std::endl;
 
 					//here ptetre besoin de destroy next et previous
@@ -339,9 +357,13 @@ class Tree
 		bool supprimer(const I &value)
 		{
 
+			//std::cout << "welcome in supprimer, nous supprimerons " << value << std::endl;
+
 			Noeud <T>* parent = NULL;
 			//std::cout << "avant =" << buff->droit << std::endl;
 			node_pointer buff = recherche(value,racine,parent);
+
+			//std::cout << "apres recherhce, nous savons que next de " << buff->donnees.second << " (aka " << buff << ") = " << buff->next <<std::endl;
 			///std::cout << "bro look: "<< buff->donnees.first << "droit =" << buff->droit << std::endl;
 			if (buff == NULL)
 			{
@@ -382,18 +404,9 @@ class Tree
 		Noeud<T>* smallest(Noeud<T>* root) const
 		{
 			if (!root)
-				return(this->invisible_node_inf);
-			Noeud <T>* target = racine;
-			while (target -> gauche)
-				target = target -> gauche;
-			return target;
-		}
-
-		Noeud<T>* smallest() const
-		{
-			if (!this->racine)
 			{
-				//std::cout << "pas de racine, ini = " << invisible_node_inf << std::endl;
+				//std::cout << "no root, ini = " << this->invisible_node_inf;
+				//std::cout << " mon ami ins = " << this->invisible_node_sup << std::endl;
 				return(this->invisible_node_inf);
 			}
 			Noeud <T>* target = racine;
@@ -402,10 +415,27 @@ class Tree
 			return target;
 		}
 
+		// Noeud<T>* smallest() const
+		// {
+		// 	if (!this->racine)
+		// 	{
+		// 		//std::cout << "pas de racine, ini = " << invisible_node_inf << std::endl;
+		// 		return(this->invisible_node_inf);
+		// 	}
+		// 	Noeud <T>* target = racine;
+		// 	while (target -> gauche)
+		// 		target = target -> gauche;
+		// 	return target;
+		// }
+
 		Noeud<T>* biggest(Noeud<T>* root) const
 		{
 			if (!root)
+			{
+				//std::cout << "no root, ins = " << this->invisible_node_sup;
+				//std::cout << ", mon ami ini = " << this->invisible_node_inf << std::endl;
 				return(this->invisible_node_sup);
+			}
 			Noeud <T>* target = racine;
 			while (target -> droit)
 				target = target -> droit;
@@ -415,7 +445,11 @@ class Tree
 		Noeud<T>* biggest_inv(Noeud<T>* root) const
 		{
 			if (!root)
+			{
+				//std::cout << "no root, ins = " << this->invisible_node_sup ;
+				//std::cout << ", mon ami ini = " << this->invisible_node_inf << std::endl;
 				return(this->invisible_node_sup);
+			}
 			Noeud <T>* target = racine;
 			while (target -> droit)
 				target = target -> droit;
@@ -483,13 +517,13 @@ class Tree
 
 		void affichage_racine()
 		{
-			std::cout << "racine = " << (*racine).donnees.second << std::endl;
+			//std::cout << "racine = " << (*racine).donnees.second << std::endl;
 		}
 
-		Noeud <T>* get_inf()
+		void afficher(Noeud<T>* lol)
 		{
-			std::cout << "inf =" << this->invisible_node_inf <<std::endl;
-			return(this->invisible_node_inf);
+			//std::cout << "inf->sup =" << this->invisible_node_sup <<std::endl;
+			//return(this->invisible_node_inf);
 		}
 
 		// int search_pos(Noeud <T>* k)

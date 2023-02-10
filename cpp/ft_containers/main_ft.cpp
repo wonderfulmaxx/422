@@ -458,6 +458,7 @@ int main(void)
 	 */
 	std::cout << "\e[104mSWAP\e[0m" << std::endl;
 	{
+		
 		ft::vector<int> c(10, 5);
 		ft::vector<int> d(3, 42);
 
@@ -541,6 +542,7 @@ int main(void)
 		ft::map<int, std::string> d(c.begin(), c.end());
 
 		print_map(d);
+		
 	}
 
 	/**
@@ -618,6 +620,7 @@ int main(void)
 	 */
 	std::cout << "\e[103mMAP ITERATOR\e[0m" << std::endl;
 	{
+
 		ft::map<int, std::string> c;
 
 		c.insert(ft::make_pair<int, std::string>(5, "Hello"));
@@ -772,7 +775,7 @@ int main(void)
 
 		c.erase(c.begin());
 
-		std::cout << "pouet" << std::endl;
+		std::cout << "pouet" << std::endl; //here
 
 		print_map(c);
 

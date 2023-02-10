@@ -144,7 +144,7 @@ template<
 
         void clear ()
         {
-            std::cout << "meu\n" << std::endl;
+          //  std::cout << "meu\n" << std::endl;
             this->_tree.free_all(this->_tree.get_root());
         }
 
@@ -224,14 +224,19 @@ template<
                     this->insert(*it);
             }
 
-            // iterator begin()
-            // {
-            //     std::cout << "here\n";
-            //     return iterator(this->_tree.smallest());
-            // }
+            iterator begin()
+            {
+                iterator buff = iterator(this->_tree.smallest(this->_tree.get_root()));
+                return buff;
+            }
 
             const_iterator begin() const { return iterator(this->_tree.smallest(this->_tree.get_root())); }
-            const_iterator end() const { return iterator(_tree.biggest_inv(_tree.get_root())); }
+            const_iterator end() const 
+            {
+                if (!this->size())
+                    return (begin());
+                 return iterator(_tree.biggest_inv(_tree.get_root())); 
+            }
 
             reverse_iterator rbegin()
             {
@@ -245,6 +250,8 @@ template<
 
             iterator end()
             {
+                if (!this->size())
+                    return (begin());
                 return iterator(_tree.biggest_inv(_tree.get_root()));
             }
 
@@ -287,7 +294,7 @@ template<
                     // std::cout << "suppression de " << first->second;
                     // if (first != this->_tree.smallest_inv(this->_tree.get_root()))
                     this->_tree.supprimer(first->first);
-                    // std::cout << " fait";
+                  //   std::cout << " fait";
                     first = buff_next;
                     buff_next++;
                     // std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
@@ -303,18 +310,24 @@ template<
                 //    std::cout << "is invisible\n";
 
                 //    std::cout << "first = " << first->second << std::endl;
-                //    std::cout << "A LIRE A PERTIR D'ICI\n" ;
+                 //   std::cout << "A LIRE A PERTIR D'ICI\n" ;
                 this->_tree.supprimer(first->first);
               //  std::cout << "last = " << last->second << std::endl;
 
-                if (last != this->_tree.smallest_inv(this->_tree.get_root()))
+                if (last != this->_tree.smallest_inv(this->_tree.get_root())  && last != this->_tree.biggest_inv(this->_tree.get_root()))
                     this->_tree.supprimer(last->first);
-            //   std::cout << "lolilol" << std::endl;
-        //    }
-           //  std::cout << " fait" << std::endl;
+        }
+
+        // void test (T a, T b)
+        // {
+        //     this->_tree.afficher_info(a);
+        //     this->_tree.afficher_info(b);
+        // }
 
 
-           // return(buff_next);
+        void test()
+        {
+            this->_tree.afficher(this->_tree.smallest(this->_tree.get_root())) ;
         }
 
 
