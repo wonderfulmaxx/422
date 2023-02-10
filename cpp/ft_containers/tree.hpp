@@ -190,17 +190,18 @@ class Tree
 
         void supprimer (Noeud <T>* ptr, Noeud <T>* parent)
 		{
-			//std::cout << "booba"<< std::endl;
-			//std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
+			std::cout << "booba"<< std::endl;
+
+			std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
 			if (ptr->gauche == 0 && ptr->droit == 0)
 			{
-				//std::cout << "mager du caca" << std::endl;
+				std::cout << "mager du caca" << std::endl;
 				if (ptr != racine)
 				{
-					
+					//std::cout << "mager du caca" << std::endl;
 					if (parent->gauche == ptr)
 					{
-						
+						std::cout << "parent = " << parent->donnees.second  << "ptr = " << ptr->donnees.second<< std::endl;
 						if (smallest(this->racine) && ptr == smallest(this->racine))
 						{
 							
@@ -215,6 +216,7 @@ class Tree
 					{
 						if (biggest(this->racine) && ptr == biggest(this->racine))
 						{
+							std::cout << "supp: biggest ("<< ptr->donnees.second << ") ->next =" << ptr->next->donnees.second << std::endl;
 							parent->next = ptr->next;
 						}
 						parent->rip = parent->droit;
@@ -247,7 +249,7 @@ class Tree
 			else if (ptr->gauche && ptr->droit)
 			{
 				Noeud<T> *pere = ptr;
-				// ici vous pouvez utiliser le prédécesseur aussi
+				 //std::cout << "ici vous pouvez utiliser le prédécesseur aussi\n";
 				Noeud<T> *succ = successeur(ptr->droit);
 				T val = succ->donnees;
 				supprimer(succ, pere);
@@ -258,17 +260,22 @@ class Tree
 				Noeud<T> *enfant = (ptr->gauche) ? ptr->gauche : ptr->droit;
 				if (ptr != racine)
 				{
+					std::cout << "on descend \n";
 					if (ptr == parent->gauche)
 						parent->gauche = enfant;
 					else
+					{
+						if (ptr == biggest(racine))
+							enfant ->next = ptr ->next; //here gere dans lautre sens stp
 						parent->droit = enfant;
+					}
 				}
 				else
 				{
 					if (racine->previous)
 						enfant->previous = racine->previous;
 					if (racine->next)
-						enfant ->previous = racine ->previous;
+						enfant ->next = racine ->next;
 					racine = enfant;
 					racine_maj(racine,racine);
 				}
@@ -454,7 +461,13 @@ class Tree
 			while (target -> droit)
 				target = target -> droit;
 			if (target -> next)
+			{
+				std::cout << "good\n";
 				target = target->next;
+			}
+			
+			std::cout << "biggest_inv = " << target->donnees.second << std::endl;
+
 			return target; 
 		}
 

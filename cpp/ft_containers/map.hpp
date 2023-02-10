@@ -286,18 +286,23 @@ template<
                 // 	    this->erase(first++);
                 //     }
 
+              std::cout << "A LIRE A PERTIR D'ICI\n" ;
+
                 iterator buff_next = first;
                 buff_next++;
+            std::cout << "A LIRE A PERTIR D'ICI\n" ;
+              
 
                 while (buff_next != last)
                 {
                     // std::cout << "suppression de " << first->second;
                     // if (first != this->_tree.smallest_inv(this->_tree.get_root()))
                     this->_tree.supprimer(first->first);
-                  //   std::cout << " fait";
+                     std::cout << " fait";
                     first = buff_next;
+                     std::cout << " prout";
                     buff_next++;
-                    // std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
+                     std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
                 }
                 //  std::cout << "prout" << std::endl;
                 // std::cout << "buff_next = " << buff_next->second << std::endl;
@@ -305,7 +310,7 @@ template<
                 //  {
                 //  buff_next ++;
                 // std::cout << "suppression de " << first->second;
-                // std::cout << "lolilol" << std::endl;
+                std::cout << "lolilol" << std::endl;
                 // if (last == this->_tree.biggest_inv(this->_tree.get_root()))
                 //    std::cout << "is invisible\n";
 
