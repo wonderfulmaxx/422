@@ -50,7 +50,7 @@ namespace ft
 			else
 			{
 				//std::cout << "++ recoit " << _node<< std::endl;
-				std::cout << _node->amigo_inv << std::endl;
+				//std::cout << _node->amigo_inv << std::endl;
 				node_pointer ptr = _node->root;
 				_node = recherche(_node, ptr);
 				//std::cout << "++ retourne " << this->_node << std::endl;
@@ -105,7 +105,7 @@ namespace ft
 				//std::cout << "inspector = "<< inspector->donnees.second << " , target = " << target->donnees.second << std::endl;
 				if ((inspector->is_invisible && (!target->is_invisible)) || inspector->donnees.first > target->donnees.first)
 				{
-					std::cout << "B?\n";
+				//	std::cout << "B?\n";
 					superior = inspector; 
 					if (inspector->previous)
 						inspector = inspector->previous;
@@ -119,20 +119,20 @@ namespace ft
 				// }
 				else if (inspector->donnees.first < target->donnees.first)
 				{
-					std::cout << "C?\n";
+					//std::cout << "C?\n";
 					inspector = inspector->droit;
 					return (recherche(target, inspector, superior));
 				}
-				std::cout << "return = " << superior->donnees.second<<std::endl; 
+				//std::cout << "return = " << superior->donnees.second<<std::endl; 
 				return (superior);
 			}
 
 
 			node_pointer recherche(node_pointer target, node_pointer inspector)
 			{
-				std :: cout << "maman je passe a la tv!\n";
-				std::cout << "target =" << target->donnees.second << "target->root = " << target->root->donnees.second << 
-				"inspector = " <<inspector -> donnees.second<<std::endl;
+			//	std :: cout << "maman je passe a la tv!\n";
+			//	std::cout << "target =" << target->donnees.second << "target->root = " << target->root->donnees.second << 
+			//	"inspector = " <<inspector -> donnees.second<<std::endl;
 				if (!target->root && target->is_invisible)
 				{
 
@@ -141,7 +141,7 @@ namespace ft
 				}
 				if ((inspector->is_invisible) ||inspector->donnees.first > target->donnees.first)
 				{
-					std::cout << "lol pouet\n";
+				//	std::cout << "lol pouet\n";
 					node_pointer superior = inspector;
 					//if (inspector->previous)
 					//	inspector = inspector->previous;
@@ -149,12 +149,12 @@ namespace ft
 						inspector = inspector->gauche;
 					//if (inspector == target)
 					//	std :: cout << "ok bro\n";
-					std::cout << "lol pouet\n";
+				//	std::cout << "lol pouet\n";
 					return (recherche(target, inspector, superior));
 				}
 				else 
 				{
-					std::cout << "loli\n";
+				//	std::cout << "loli\n";
 					inspector = inspector->droit;
 					return (recherche(target, inspector, NULL));
 				}

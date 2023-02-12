@@ -1,0 +1,402 @@
+[104mVECTOR CONSTRUCTORS[0m
+Content: 
+
+Size: 0
+
+Content: 
+42 42 42 42 42 42 42 42 42 42 
+Size: 10
+
+Content: 
+42 42 42 42 42 42 42 42 42 42 
+Size: 10
+
+Content: 
+42 42 42 42 42 42 42 42 42 42 
+Size: 10
+
+[104mVECTOR OPERATOR=[0m
+Content: 
+5 42 77 18 24 
+Size: 5
+
+Content: 
+5 42 77 18 24 
+Size: 5
+
+[104mVECTOR ASSIGN[0m
+Content: 
+42 42 42 42 42 42 42 42 42 42 
+Size: 10
+
+Content: 
+24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 
+Size: 18
+
+Content: 
+24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 24 
+Size: 18
+
+[104mVECTOR AT[0m
+42
+42
+42
+
+[104mVECTOR OPERATOR[][0m
+42
+Content: 
+42 17 42 42 42 
+Size: 5
+
+[104mVECTOR FRONT/BACK[0m
+Content: 
+10 187 22 14 15 
+Size: 5
+
+FRONT: 10
+BACK: 15
+
+[104mDATA[0m
+Content: 
+10 187 22 14 15 
+Size: 5
+
+10
+
+[104mITERATOR[0m
+Content: 
+10 187 22 14 15 
+Size: 5
+
+BEGIN ITERATOR: 10
+END ITERATOR: 15
+
+BEGIN ITERATOR ++ : 187
+END ITERATOR -- : 14
+[104mREVERSE ITERATOR[0m
+Content: 
+10 187 22 14 15 
+Size: 5
+
+BEGIN RITERATOR: 24
+END RITERATOR: 187
+BEGIN RITERATOR ++: 15
+END RITERATOR: 22
+[104mEMPTY[0m
+0
+1
+[104mSIZE[0m
+5
+0
+[104mRESERVE[0m
+0
+0
+5
+[104mCAPACITY[0m
+10
+0
+[104mCLEAR[0m
+Content: 
+5 5 5 5 5 5 5 5 5 5 
+Size: 10
+
+Content: 
+
+Size: 0
+
+Content: 
+
+Size: 0
+
+Content: 
+
+Size: 0
+
+Content: 
+
+Size: 0
+
+Content: 
+
+Size: 0
+
+[104mINSERT[0m
+Content: 
+77 42 
+Size: 2
+
+Content: 
+42 42 42 42 42 777 42 42 42 42 42 
+Size: 11
+
+[104mERASE[0m
+Content: 
+5 5 5 5 5 5 5 5 5 
+Size: 9
+
+Content: 
+5 5 5 5 5 5 5 5 
+Size: 8
+
+Content: 
+
+Size: 0
+
+[104mPUSH_BACK/POP_BACK[0m
+Content: 
+777 
+Size: 1
+
+Content: 
+777 42 
+Size: 2
+
+Content: 
+777 42 17 
+Size: 3
+
+Content: 
+777 42 
+Size: 2
+
+Content: 
+777 
+Size: 1
+
+[104mRESIZE[0m
+Content: 
+5 5 5 5 5 
+Size: 5
+
+Content: 
+5 5 5 5 5 777 777 777 777 777 
+Size: 10
+
+[104mSWAP[0m
+Content: 
+5 5 5 5 5 5 5 5 5 5 
+Size: 10
+
+Content: 
+42 42 42 
+Size: 3
+
+Content: 
+42 42 42 
+Size: 3
+
+Content: 
+5 5 5 5 5 5 5 5 5 5 
+Size: 10
+
+[104mSWAP[0m
+0
+0
+0
+1
+1
+1
+0
+1
+0
+1
+0
+1
+1
+0
+0
+
+[103mMAP CONSTRUCTORS[0m
+Content: 
+
+Size: 0
+
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+[103mMAP OPERATOR=[0m
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+[103mMAP AT[0m
+Hello
+
+[103mMAP OPERATOR[][0m
+Hello
+quatre deux
+Halo
+
+[103mMAP ITERATOR[0m
+MAP BEGIN: -8 : Halo
+MAP END: 42 : quatre deux
+MAP BEGIN++: 5 : Hello
+MAP END--: 22 : Hola
+
+[103mMAP REVERSE ITERATOR[0m
+MAP RBEGIN: 42 : quatre deux
+MAP REND: -8 : Halo
+MAP RBEGIN++: 22 : Hola
+MAP REND--: 5 : Hello
+
+[103mMAP EMPTY[0m
+1
+0
+
+[103mMAP SIZE[0m
+0
+5
+
+[103mMAP CLEAR[0m
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+Content: 
+
+Size: 0
+
+[103mMAP INSERT[0m
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+[103mMAP ERASE[0m
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+
+Size: 4
+
+Content: 
+5 : Hello
+8 : Salut
+22 : Hola
+
+Size: 3
+
+Content: 
+
+Size: 0
+
+[103mMAP SWAP[0m
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+Content: 
+28 : Meu2
+777 : Meu
+
+Size: 2
+
+Content: 
+28 : Meu2
+777 : Meu
+
+Size: 2
+
+Content: 
+-8 : Halo
+5 : Hello
+8 : Salut
+22 : Hola
+42 : quatre deux
+
+Size: 5
+
+[103mMAP COUNT[0m
+0
+1
+
+[103mMAP FIND[0m
+42
+8
+
+[103mMAP EQUAL RANGE[0m
+42
+quatre deux
+
+[103mMAP LOWER/UPPER BOUND[0m
+LOWER BOUND: 42
+LOWER BOUND: 5
+UPPER BOUND: 42
+UPPER BOUND: 8
+
+[105mSTACK CONSTRUCTORS[0m
+45
+45
+
+[105mSTACK OPERATOR=[0m
+777
+777
+
+[105mSTACK EMPTY[0m
+1
+0
+
+[105mSTACK SIZE[0m
+0
+4
+
+[105mSTACK POP[0m
+42
+24
+21
+777
+

@@ -190,18 +190,18 @@ class Tree
 
         void supprimer (Noeud <T>* ptr, Noeud <T>* parent)
 		{
-			std::cout << "booba"<< std::endl;
+			//std::cout << "booba"<< std::endl;
 
-			std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
+			//std::cout << "dans supprimer, " << ptr->donnees.first << " -> gauche = " << ptr->gauche << ", droit = " << ptr->droit << std::endl;
 			if (ptr->gauche == 0 && ptr->droit == 0)
 			{
-				std::cout << "mager du caca" << std::endl;
+				//std::cout << "mager du caca" << std::endl;
 				if (ptr != racine)
 				{
 					//std::cout << "mager du caca" << std::endl;
 					if (parent->gauche == ptr)
 					{
-						std::cout << "parent = " << parent->donnees.second  << "ptr = " << ptr->donnees.second<< std::endl;
+					//	std::cout << "parent = " << parent->donnees.second  << "ptr = " << ptr->donnees.second<< std::endl;
 						if (smallest(this->racine) && ptr == smallest(this->racine))
 						{
 							
@@ -216,7 +216,7 @@ class Tree
 					{
 						if (biggest(this->racine) && ptr == biggest(this->racine))
 						{
-							std::cout << "supp: biggest ("<< ptr->donnees.second << ") ->next =" << ptr->next->donnees.second << std::endl;
+						//	std::cout << "supp: biggest ("<< ptr->donnees.second << ") ->next =" << ptr->next->donnees.second << std::endl;
 							parent->next = ptr->next;
 						}
 						parent->rip = parent->droit;
@@ -260,7 +260,7 @@ class Tree
 				Noeud<T> *enfant = (ptr->gauche) ? ptr->gauche : ptr->droit;
 				if (ptr != racine)
 				{
-					std::cout << "on descend \n";
+				//	std::cout << "on descend \n";
 					if (ptr == parent->gauche)
 						parent->gauche = enfant;
 					else
@@ -462,11 +462,11 @@ class Tree
 				target = target -> droit;
 			if (target -> next)
 			{
-				std::cout << "good\n";
+		//		std::cout << "good\n";
 				target = target->next;
 			}
 			
-			std::cout << "biggest_inv = " << target->donnees.second << std::endl;
+		//	std::cout << "biggest_inv = " << target->donnees.second << std::endl;
 
 			return target; 
 		}
@@ -497,6 +497,17 @@ class Tree
 			this->free_all(root->gauche);
 			this->free_all(root->droit);
 
+			// if (root->previous)
+			// {
+			// 	this->_node_alloc.destroy(root->previous);
+			// 	root->previous = NULL;
+			// }
+			// if (root -> next)
+			// {
+			// 	this->_node_alloc.destroy(root->next);
+			// 	root->next = NULL;
+			// }
+
 			if (this->racine == root)
 			{
 				this->_node_alloc.destroy(this->racine);
@@ -518,8 +529,9 @@ class Tree
 
 			if (this->_size == 0)
 			{
-				//this->racine = NULL;
-				//this->_invisible_node = NULL;
+				this->racine = NULL;
+				this->invisible_node_inf = NULL;
+				this->invisible_node_sup = NULL;
 			}
 		}
 
@@ -528,16 +540,6 @@ class Tree
 			return (_size);
 		}
 
-		void affichage_racine()
-		{
-			//std::cout << "racine = " << (*racine).donnees.second << std::endl;
-		}
-
-		void afficher(Noeud<T>* lol)
-		{
-			//std::cout << "inf->sup =" << this->invisible_node_sup <<std::endl;
-			//return(this->invisible_node_inf);
-		}
 
 		// int search_pos(Noeud <T>* k)
         // {

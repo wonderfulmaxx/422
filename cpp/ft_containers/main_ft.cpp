@@ -729,7 +729,6 @@ int main(void)
 
 		c.clear();
 
-		std::cout << "caca\n";
 
 		print_map(c);
 	}
@@ -775,19 +774,19 @@ int main(void)
 
 		c.erase(c.begin());
 
-		std::cout << "pouet" << std::endl; //here
+		//std::cout << "pouet" << std::endl; //here
 
 		print_map(c);
 
-		std::cout << "pouet2" << std::endl;
+		//std::cout << "pouet2" << std::endl;
 
 		c.erase(c.begin(), c.end());
 
-		std::cout << "pouet3" << std::endl;
+		//std::cout << "pouet3" << std::endl;
 
 		print_map(c);
 
-		std::cout << "pouet4" << std::endl;
+	//	std::cout << "pouet4" << std::endl;
 	}
 
 	/**
@@ -813,7 +812,11 @@ int main(void)
 
 		print_map(d);
 
+	//std::cout << "here\n";
+
 		c.swap(d);
+
+	//std::cout << "hIre\n";
 
 		print_map(c);
 		print_map(d);

@@ -215,9 +215,17 @@ template<
                 for (const_iterator it = other.begin(); it != other.end(); it++)
                     other_copy.insert(*it);
 
+               // std::cout << "1\n";
+
                 other.clear();
                 for (const_iterator it = this->begin(); it != this->end(); it++)
-                    other.insert(*it);
+                {
+                //    std::cout <<"it =" << it->second <<std::endl;
+                    other._tree.inserer(*it);
+                 //    std::cout <<"caca\n";
+                }
+
+                // std::cout << "2\n";
 
                 this->clear();
                 for (const_iterator it = other_copy.begin(); it != other_copy.end(); it++)
@@ -286,11 +294,11 @@ template<
                 // 	    this->erase(first++);
                 //     }
 
-              std::cout << "A LIRE A PERTIR D'ICI\n" ;
+            //  std::cout << "A LIRE A PERTIR D'ICI\n" ;
 
                 iterator buff_next = first;
                 buff_next++;
-            std::cout << "A LIRE A PERTIR D'ICI\n" ;
+          //  std::cout << "A LIRE A PERTIR D'ICI\n" ;
               
 
                 while (buff_next != last)
@@ -298,11 +306,11 @@ template<
                     // std::cout << "suppression de " << first->second;
                     // if (first != this->_tree.smallest_inv(this->_tree.get_root()))
                     this->_tree.supprimer(first->first);
-                     std::cout << " fait";
+              //       std::cout << " fait";
                     first = buff_next;
-                     std::cout << " prout";
+                //     std::cout << " prout";
                     buff_next++;
-                     std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
+                //     std::cout << "   Now buff_next = "<< buff_next->second << std::endl;
                 }
                 //  std::cout << "prout" << std::endl;
                 // std::cout << "buff_next = " << buff_next->second << std::endl;
@@ -310,7 +318,7 @@ template<
                 //  {
                 //  buff_next ++;
                 // std::cout << "suppression de " << first->second;
-                std::cout << "lolilol" << std::endl;
+             //   std::cout << "lolilol" << std::endl;
                 // if (last == this->_tree.biggest_inv(this->_tree.get_root()))
                 //    std::cout << "is invisible\n";
 
@@ -347,6 +355,14 @@ template<
                 return (1);
         }
         };
+
+
+    template <class Key, class T, class Compare, class Alloc>
+	void swap(ft::map<Key, T, Compare, Alloc> &lhs, ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		lhs.swap(rhs);
+	}
+
 }
 
 #endif
