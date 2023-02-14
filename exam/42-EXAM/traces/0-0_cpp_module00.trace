@@ -1,0 +1,5 @@
+clang: error: no such file or directory: 'cpp_module00/Warlock.cpp'
+<-------------- OUR OUTPUT ------------>
+Compilation Error stop.
+
+Little reminder: Here you must have a Warlock.cpp & Warlock.hpp files.
