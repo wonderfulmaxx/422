@@ -1,24 +1,29 @@
-#pragma once
+#ifndef WARLOCK_HPP
+#define WARLOCK_HPP
 
 #include <iostream>
 
 class Warlock
 {
-    private:
-        std::string name;
-        std::string title;
+	private:
+		std::string name;
+		std::string title;
 
-        Warlock();
-        Warlock(Warlock const &other);
-        Warlock &operator=(Warlock const &other);
-    public:
-        Warlock(std::string const &name, std::string const &title);
-        ~Warlock();
+		Warlock();
+		Warlock(Warlock const &other);
+		Warlock& operator=(Warlock const &other);
 
-        std::string const &getName() const;
-        std::string const &getTitle() const;
+	public:
+		std::string const &getName() const;
+		std::string const &getTitle() const;
 
-        void setTitle(std::string const &title);
+		Warlock(std::string const &name, std::string const &title);
+		~Warlock();
 
-        void introduce() const;
+		void setTitle(std::string const &new_title);
+
+		void introduce() const;
+
 };
+
+#endif 
